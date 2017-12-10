@@ -1,0 +1,806 @@
+\documentclass[a4paper,11pt,titlepage]{book}
+\pdfpagewidth
+\paperwidth
+\pdfpageheight
+\paperheight
+\usepackage[italian]{babel} 
+\usepackage{epsfig}
+\usepackage{fancyhdr} 
+\usepackage{amsmath,amssymb}
+\usepackage{amscd} 
+
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc} 
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{graphicx,color,listings}
+\usepackage{hologo}
+\frenchspacing 
+\usepackage{geometry}
+\usepackage{rotating}
+\usepackage{caption}
+\captionsetup{labelformat=empty, textfont=sl}
+\geometry{a4paper,tmargin=3cm,bmargin=3cm, lmargin=3cm,rmargin=2cm} \usepackage{multirow}
+\usepackage{picture}
+\setlength\parindent{0pt}
+\title{Analisi 3}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\chapter{Successioni e serie di funzioni}
+
+\section{Successioni di funzioni}
+
+\subsection{Convergenza puntuale}
+
+\textbf{Definizione 1.1.1:} Sia $X$ un insieme qualunque e sia $\{f_{n}\}$ una successione di funzioni $f_{n}:X\rightarrow\mathbb{R}$, diciamo che $\{f_{n}\}$ converge puntualmente (o semplicemente) in $X$ alla funzione $f:X\rightarrow\mathbb{R}$ se $\forall{x_{0}}\in{X}$ si ha che:\begin{center} \nointerlineskip \[\lim_{n \to \infty}{f_{n}(x_{0})}=f(x_{0})\]\end{center}Analogamente possiamo dire che:
+\begin{center}
+ $\forall{x_{0}}\in{X}$ $\forall{\epsilon{>0}}$ $\exists{N}=N(x_{0},\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $|f_{n}(x_{0})-f(x_{0})|<\epsilon$ \\
+ \end{center} 
+ 
+
+\textbf{Osservazione 1.1.2:} \begin{itemize}
+\item L'eventuale struttura di X non ha ruolo
+\item Essendo $x_0$ fissato $\{f_{n}(x_0)\}$ e $f(x_0)$ sono numeri, la relazione $\lim\limits_{n\to\infty}f_n(x_0)=f(x_0)$ è quindi quella di successioni in $\mathbb{R}$
+\item $\mathbb{R}$ è uno spazio metrico quindi rispetta la proprietà di Hausdorff, questo vuol dire che il limite se esiste è unico. La funzione $f$ è univocamente determinata  $$f(x_{0}):=\lim_{n \to \infty}{f_{n}}(x_{0})$$
+\item Nella definizione si può sostituire $\mathbb{R}$ con $\mathbb{R}^n$ o un qualsiasi altro spazio metrico
+\end{itemize}
+
+La convergenza puntuale non preserva proprietà importanti quali:  limitatezza, continuità, derivabilità e integrabilità \\
+
+\textbf{Esempio 1.1.3:}$f_{n}(x)\to f(x)$ con $f_n$ limitata $ \forall n$ non implica che $f$ sia limitata.\\
+
+$f_{n}(x)=\min(|x|,n)$, ogni $f_{n}$ è limitata ma la successione converge puntualmente a $f(x)=|x|$ che non è limitata\\
+
+\textbf{Esempio 1.1.4:}$f_{n}(x)\to f(x)$ con $f_n$ continua $ \forall n$ non implica che $f$ sia continua.\\
+
+ $f_{n}(x):[0,1]\rightarrow\mathbb{R}$ $f_{n}(x)=x^n$, le $f_{n}$ sono continue ma la successione converge puntualmente a $$f(x)=
+\begin{cases}
+ 1 &  x=1 \\ 
+0 & x\in [0,1)
+\end{cases}$$
+
+$f$ non è continua \\
+
+\textbf{Esempio 1.1.5:}$f_{n}(x)\to f(x)$ con $f_n$ integrabile $ \forall n$ non implica che $f$ sia integrabile.\\ 
+
+$f_{n}(x):[0,1]\rightarrow\mathbb{R}$ con $$f_{n}(x)=
+\begin{cases}
+ 1 &  x=\frac{a}{2^n}, a\in \mathbb{N}  \\ 
+0 & altrimenti
+\end{cases}$$
+le $f_n$ sono Riemann integrabili ma la successione converge puntualmente a 
+$$f(x)=
+\begin{cases}
+ 1 &  x=\frac{a}{2^b}, a,b\in \mathbb{N}  \\ 
+0 & altrimenti
+\end{cases}$$
+siccome i due insiemi di discontinuità sono densi l'uno nell'altro la funzione non è integrabile
+
+\textbf{Esempio 1.1.6:}$f_{n}(x)\to f(x)$ con $f_n$ derivabile $ \forall n$ non implica che $f$ sia derivabile.\\
+
+$f_{n}(x):\Omega\subseteq\mathbb{R}\rightarrow\mathbb{R}$ con $\Omega$ aperto $f_{n}(x)=\sqrt{(x^2+\frac{1}{n})}$, tutte le $f_n$ sono derivabili ma la successione converge puntualmente a $f(x)=|x|$ che non è derivabile \\
+
+\subsection{Convergenza uniforme}
+
+\textbf{Definizione 1.1.7:} Sia $X$ un insieme qualunque e sia $\{f_{n}\}$ una successione di funzioni $f_{n}:X\rightarrow\mathbb{R}$, diciamo che $\{f_{n}\}$ converge uniformemente in $X$ alla funzione $f:X\rightarrow\mathbb{R}$ se:
+
+\begin{center}
+$\forall{\epsilon{>0}}$ $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $|f_{n}(x_{0})-f(x_{0})|<\epsilon$  $\forall{x_{0}}\in{X}$ \\
+\end{center} 
+
+A differenza della definizione di convergenza puntuale la convergenza uniforme richiede che lo stesso $\epsilon$ valga per ogni $x_0$ \\
+
+\textbf{Definizione 1.1.8:} Data $g:X\rightarrow\mathbb{R}$ definiamo $||g||_{\infty,X}:=sup|g(x)|$ $x\in{X}$, il perchè lo indichiamo con il simbolo di norma lo vedremo in seguito\\ 
+
+Possiamo riscrivere la definizione 1.2 attraverso questo nuovo concetto
+
+\begin{center}
+$\forall{\epsilon{>0}}$ $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $||f_{n}-f||_{\infty,X}<\epsilon$\\
+\end{center}
+
+Ovvero che: $n\leq N \Rightarrow \sup|f_n(x)-f(x)|<\epsilon$\\
+
+\textbf{Proposizione 1.1.9:} Data $\{f_{n}\}:X\rightarrow\mathbb{R}$ e $f:X\rightarrow\mathbb{R}$, se $\{f_{n}\}$ converge uniformemente a $f$ in $X$ allora converge puntualmente alla stessa $f$ $\forall x\in X$. La convergenza uniforme è una condizione più forte della convergenza semplice.\\
+
+\textbf{Dimostrazione:} Fissato $x_0\in X$ e si ha che $|f_{n}(x_{0})-f(x_{0})|\leq \sup |f_{n}-f|=||f_{n}-f||_{\infty,X}$ quindi se non ci fosse convergenza puntuale non potrebbe esistere convergenza uniforme. $\Box$
+
+\subsection{Proprietà della convergenza uniforme}
+
+\textbf{Teorema 1.1.10:} Data $\{f_{n}\}:X\rightarrow\mathbb{R}$ e $f:X\rightarrow\mathbb{R}$, se $\{f_{n}\}$ converge uniformemente a $f$ in $X$ allora se ogni $f_{n}$ è limitata $f$ è limitata\\
+
+\textbf{Dimostrazione:} Scelgo $\epsilon =1$ nella definizione di convergenza uniforme  quindi $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $|f_{n}(x_{0})-f(x_{0})|<1$\\
+
+Scriviamo $|f(x)|=|f(x)-f_{n}(x)+f_{n}(x)|\leq |f(x)-f_{n}(x)|+|f_{n}(x)|\leq 1+||f_{n}||_{\infty,X}$ per la nostra scelta fatta su $\epsilon$\\
+
+Dall'ipotesi di limitatezza si ha che $||f_{n}||_{\infty,X}<\infty$ da cui deduciamo $\sup |f(x)|\leq 1+||f_{n}||_{\infty,X}<\infty$ quindi $f$ limitata. $\Box$ \\
+
+\textbf{Teorema 1.1.11:} Data $\{f_{n}\}:X\rightarrow\mathbb{R}$ e $f:X\rightarrow\mathbb{R}$ (con$X\subseteq \mathbb{R}$) con $\{f_{n}\}\rightarrow f$ uniformemente in $X$ allora se ogni $f_{n}$ è continua in $x_0 \in X$ anche $f$ è continua in $x_0$\\
+
+\textbf{Dimostrazione:} Se $x_0 \in X$ è un punto isolato la funzione è sicuramente continua quindi scelgo $x_0$ d'accumulazione, fisso $\epsilon >0$ e dalla definizione di convergenza uniforme segue che $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $|f_{n}(x_{0})-f(x_{0})|<\epsilon$. Scrivo che:
+
+\begin{center}
+$|f(x)-f(x_0)|=|f(x)-f_{n}(x)+f_{n}(x)-f_{n}(x_{0})+f_{n}(x_{0})-f(x_0)|\leq
+|f(x)-f_{n}(x)|+|f_{n}(x)-f_{n}(x_{0})|+|f_{n}(x_{0})-f(x_0)|$
+\end{center}
+ il primo e il terzo addendo sono ciascuno $<\epsilon$ per l'ipotesi di convergenza uniforme perciò $|f(x)-f(x_0)|\leq 2\epsilon+|f_{n}(x)-f_{n}(x_{0})|$.
+Dall'ipotesi che le $\{f_{n}\}$ sono continue so che $\exists{\delta}=\delta(\epsilon)$: se $|x-x_0|\leq{\delta}$ $\Rightarrow$ $|f_{n}(x_{0})-f(x_{0})|<\epsilon$ quindi $|f(x)-f(x_0)|\leq 3\epsilon$. $\Box$ \\
+
+\textbf{Definizione 1.1.12:} Definiamo $B(X,\mathbb{R}):=\{f:X\rightarrow\mathbb{R},\sup |f(x)|<\infty\}$ come l'insieme delle funzioni limitate da $X$ in $\mathbb{R}$ \\
+
+\textbf{Osservazione 1.1.13:} $B(X,\mathbb{R})$ è uno spazio vettoriale infatti $\sup |(f+g)(x)|=\sup |f(x)+g(x)|\leq ||f||_{\infty,X}+||g||_{\infty,X}<\infty$ quindi la somma di due funzioni limitate è limitata e se moltiplico per uno scalare $|(\lambda f(x)|=|\lambda |\cdot |f(x)|\leq \sup |f(x)|=|\lambda | \cdot ||f||_{\infty,X}$ ottengo sempre una funzione limitata\\
+
+\textbf{Osservazione 1.1.14:} $||f||_{\infty,X}$ è una norma su $B(X,\mathbb{R})$
+\begin{itemize}
+\item $||f||_{\infty,X}\geq 0$ e $||f||_{\infty,X}=0\Leftrightarrow f\equiv 0$
+\item Rispetta la disuguaglianza triangolare (si veda sopra)
+\item $||\lambda f||_{\infty,X}=|\lambda |\cdot ||f||_{\infty,X}$ \\
+\end{itemize}
+
+\textbf{Proposizione 1.1.15:} $B(X,\mathbb{R})$ dotato della norma $||f||_{\infty,X}$ è uno spazio normato completo (è uno spazio di Banach) \\
+
+\textbf{Dimostrazione:} Vogliamo dimostrare che ogni sequenza di Cauchy è convergente. Sia $\{f_{n}\}$ una successione di Cauchy, per definizione $\forall{\epsilon}>0$ si ha che: $\exists{N}=N(\epsilon)$: se $n,m\geq{N}$ $\Rightarrow$ $||f_{n}-f_{m}||_{\infty,X}<\epsilon$\\
+
+Fisso $x_0$ nello spazio, $\epsilon >0$ e $ N $ come sopra quindi per $m,n \geq N$ $|f_{n}(x_0)-f_{m}(x_0)|\leq \sup|f_{n}(x)-f_{n}(x)|=||f_{n}-f_{m}||_{\infty,X}<\epsilon$. Quindi la successione $\{f_{n}(x_0)\}$ è di Cauchy in $\mathbb{R}$ che è completo $\Rightarrow\{f_{n}(x_0)\}$  converge $\forall{x_{0}}\in{X}$ scelto arbitrariamente  $\Rightarrow \lim_{n \to \infty}f_{n}(x_0)$ esiste $\forall{x_{0}}\in{X}$. Sia $f(x):=\lim\limits_{n \to \infty}{f_{n}}(x)$ allora $\{f_{n}\}\rightarrow f$ puntualmente\\
+
+Dalla proprietà di Cauchy segue che $\forall{\epsilon}>0$ $\exists{N}=N(\epsilon)$: se $n,m\geq{N}$ $\Rightarrow$ $|f_{n}(x)-f_{m}(x)|<\epsilon$  $\forall{x}$ per cui se fisso $x_0$ ho $|f_{n}(x_0)-f_{m}(x_0)|<\epsilon$, prendo il limite per $m$ che tende a $+\infty$ e ho $|f_{n}(x_0)-f(x_0)|<\epsilon$ e siccome $x_0$ è arbitrario e $N$ non dipende da esso la convergenza è uniforme $\forall{\epsilon{>0}}$ $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $||f_{n}-f||_{\infty,X}<\epsilon$. $\Box$\\
+
+\textbf{Definizione 1.1.16:} Sia $\Omega \subseteq \mathbb{R}$ aperto $C(\Omega,\mathbb{R}):=\{f:\Omega\rightarrow\mathbb{R}, f$ continua$\}$, prendiamo l'intersezione $C(\Omega,\mathbb{R})\cap B(\Omega,\mathbb{R})=:CB(\Omega,\mathbb{R})$ ovvero l'insieme delle funzioni continue e limitate in $\Omega$\\
+
+\textbf{Proposizione 1.1.17:} $CB(\Omega,\mathbb{R})$ dotato della norma $||f||_{\infty,X}$ è uno spazio di Banach\\
+
+\textbf{Dimostrazione:} Per la proposizione precedente, poichè siamo in un sottoinsieme di uno spazio completo, è sufficiente provare la chiusura dell'insieme. Sia $\{f_{n}\}\subseteq CB(\Omega,\mathbb{R})$ che converge puntualmente a $f\in B(\Omega,\mathbb{R})$, siccome la convergenza è uniforme $f$ sta anche in $C(\Omega,\mathbb{R})$ $\Rightarrow f \in CB(\Omega,\mathbb{R})$.$\Box$
+
+\textbf{Teorema 1.1.18:} Siano $\{f_{n}\},f:[a,b]\subset\mathbb{R}\rightarrow\mathbb{R}$ con $\{f_{n}\}\rightarrow f$ uniformemente e  $\{f_{n}\}\in\mathcal{R}([a,b])$ allora:
+\begin{itemize}
+\item $f\in \mathcal{R}([a,b])$
+\item $|\int_{a}^{b}f_{n}(x)dx-\int_{a}^{b}f_(x)dx|\leq (b-a)\cdot\||f_{n}-f||_{\infty,X}$ quindi $\lim\limits_{n \to \infty}\int_{a}^{b}f_{n}(x)dx=\int_{a}^{b}f_(x)dx$ ovvero $\lim\limits_{n \to \infty}\int_{a}^{b}f_{n}(x)dx=\int_{a}^{b}\lim\limits_{n \to \infty}{f_{n}(x)}dx$ (limite e integrale con queste ipotesi si possono scambiare) \\
+\end{itemize}
+
+\textbf{Dimostrazione:} Per l'ipotesi di convergenza uniforme fisso $\epsilon >0$ per cui $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $||f_{n}-f||_{\infty,[a,b]}<\epsilon$. Siccome $\{f_{n}\}\in\mathcal{R}([a,b])$ $\exists P$ partizione per la quale:
+
+\begin{center}
+ $\sum_{j=1}^n (\widetilde{M}_{j,N}-\widetilde{m}_{j,N})\cdot\ (x_{j}-x_{j-1})\leq\epsilon$
+\end{center}
+
+ dove $\widetilde{M}_{j,N}:=\sup_{[x_{j-1},x_{j}]}f_{n}(x)$ e $\widetilde{m}_{j,N}:=\inf_{[x_{j-1},x_{j}]}f_{n}(x)$. \\
+ 
+ Poniamo $f(x)=f_{n}(x)+f(x)-f_{n}(x)$ e $f(x)\leq f_{n}(x)+|f(x)-f_{n}(x)|\leq f_{n}(x)+||f_{n}-f||_{\infty,[a,b]}\leq f_{n}(x)+\epsilon$ quindi se $x\in [x_{j-1},x_{j}] $ ho $f(x) \leq \sup f_{n}(x)+\epsilon=\widetilde{M}_{j,N}+\epsilon$ perciò $M_{j,N}:=\sup f(x)\leq\widetilde{M}_{j,N}+\epsilon$. Passiamo ora a $f(x)\geq f_{n}(x)-|f(x)-f_{n}(x)|\geq f_{n}(x)-||f_{n}-f|| \geq f_{n}(x)-\epsilon$ quindi se $x\in [x_{j-1},x_{j}] $ ho $f(x) \geq \inf f_{n}(x)-\epsilon=\widetilde{m}_{j,N}+\epsilon$ perciò $m_{j,N}:=\inf f(x)\geq\widetilde{m}_{j,N}+\epsilon$. \\
+
+Ora sappiamo che 
+ $\sum_{j=1}^n (\widetilde{M}_{j,N}-\widetilde{m}_{j,N}) \cdot (x_{j}-x_{j-1})\leq \sum_{j=1}^n (M_{j,N}-m_{j,N}+2\epsilon)\cdot (x_{j}-x_{j-1})=\sum_{j=1}^n (M_{j,N}-m_{j,N})\cdot (x_{j}-x_{j-1})$ $+2\epsilon\sum_{j=1}^n(x_{j}-x_{j-1})\leq \epsilon +2\epsilon(b-a)$.
+
+$|\int_{a}^{b}f_{n}(x)dx-\int_{a}^{b}f_(x)dx|=|\int_{a}^{b}f_{n}(x)-f(x)dx|\leq\int_{a}^{b}||f_{n}-f||_{\infty,[a,b]}dx=||f_{n}-f||_{\infty,[a,b]}(b-a)$ .$\Box$\\
+
+\textbf{Osservazione 1.1.19:} Integrale e limite in generale non possono essere scambiati
+
+$$f_{n}(x)=\begin{cases} n &  x\in (\frac{1}{n},\frac{2}{n}) \\ 0 & altrimenti \end{cases}$$ quindi $\{f_{n}\}\rightarrow f\equiv 0$. Si ha che $\int_{0}^{1}f_{n}(x)dx=1 \forall{n}$ perciò $ \lim_{n \to \infty}\int_{0}^{1}f_{n}(x)dx=1$ ma $\int_{0}^{1}f(x)dx=\int_{a}^{b}\lim_{n \to \infty}{f_{n}(x)}dx=0$ \\
+
+\textbf{Osservazione 1.1.20:} Il teorema non vale per gli integrali impropri
+
+$$f_{n}(x)=\begin{cases} \frac{1}{n} &  x\in (-n,n) \\ 0 & |x|\geq n \end{cases}$$ Allora $\{f_{n}\}\rightarrow f$ uniformemente in $\mathbb{R}$ poichè $\sup |f_{n}(x)-f(x)|=\frac{1}{n} \rightarrow 0$. Valutiamo gli integrali $\int_{ \mathbb{R} }^{}f_{n}=2$ ma $\int_{\mathbb{R}}^{}f=0$\\
+
+\textbf{Osservazione 1.21:} La convergenza uniforme non preserva la derivabilità. Si consideri l'esempio 1.4 e si osservi che  $\{f_{n}\}\rightarrow f$ uniformemente.\\
+
+\textbf{Teorema 1.1.22:} Sia $\{f_{n}\}:(a,b)\subseteq \mathbb{R} \rightarrow\mathbb{R}$ e supponiamo che $f_{n}(x_0)$ converga a un numero $l$ con $x_0\in (a,b)$, ipotizziamo anche che ogni $f_{n}$ è derivabile in $(a,b)$  e che $\exists g:(a,b)\rightarrow\mathbb{R}$ tale che $\{f'_{n}\}\rightarrow g$ uniformemente allora:\begin{itemize}
+\item $\exists f:(a,b)\rightarrow\mathbb{R}$ tale che $\{f_{n}\}\rightarrow f$ $\forall{x}\in (a,b)$
+\item la convergenza è uniforme sui compatti contenuti in $(a,b)$
+\item $f$ è derivabile e $f'(x)=g(x)$ $\forall{x}\in (a,b)$ ovvero $\frac{d}{dx}(\lim\limits_{n \to \infty}f_{n})(x)=(\lim\limits_{n \to \infty}(\frac{d}{dx}f_{n}))(x)$\\
+\end{itemize}
+
+\textbf{Dimostrazione:} Per semplificarci il lavoro supponiamo inoltre che $f'_{n}$ siano continue $\forall{n}$ (il teorema è comunque valido senza questa ipotesi aggiuntiva).\\
+
+Vale che $f_{n}(x)=f_{n}(x_0)+\int_{x_0}^{x}f'_{n}(u)du$, $g$ è il limite uniforme delle $\{f'_{n}\}$ continue quindi anche $g$ è continua. Sia 
+
+\begin{center}
+$f(x):=l+\int_{x_0}^{x}g(u)du$
+\end{center}
+
+$f$ è ben definita per quanto detto su $g$ e derivabile in $(a,b)$ con derivata $g$ continua $\Rightarrow f\in\mathcal{C}^1((a,b))$.\\
+
+Prendiamo $f_{n}(x)-f(x)=f_{n}(x_0)-l+\int_{x_0}^{x}(f'_{n}(u)-g(u))du$. Per la disuguaglianza triangolare:
+
+\begin{center}
+$f_{n}(x)-f(x)\leq |f_{n}(x_0)-l|+|\int_{x_0}^{x}|(f'_{n}(u)-g(u))|du|$
+\end{center}
+
+Sia $K=[\alpha,\beta]$ compatto in $(a,b)$ allora tornando alla disuguaglianza si ha:
+\begin{center}
+$f_{n}(x)-f(x)\leq |f_{n}(x_0)-l|+|\int_{x_0}^{x}||f'_{n}-g(u)||_{\infty,K}du|=|f_{n}(x_0)-l|+||f'_{n}-g(u)||_{\infty,(a,b)}|x-x_0|\leq|f_{n}(x_0)-l|+||f'_{n}-g(u)||_{\infty,(a,b)}|\beta - \alpha|$\\
+\end{center}
+
+Abbiamo quindi stimato $||f_{n}-f||_{\infty,K}\leq|f_{n}(x_0)-l|+||f'_{n}-g(u)||_{\infty,(a,b)}|\beta - \alpha|$ ma entrambi gli addendi per ipotesi tendono a zero quindi $||f_{n}-f||_{\infty,K}\rightarrow 0$ ovvero la convergenza è uniforme su $K$ compatto; inoltre siccome $K$ è arbitrario si ha convergenza puntuale su tutto $(a,b)$.$\Box$\\
+
+\textbf{Esercizio 1.1.23:} Sia $C^1B((a,b)):=\{f:(a,b)\rightarrow\mathbb{R},$  $f\in\mathcal{C}^1$ e limitata$\}$ verificare che è uno spazio vettoriale e data $|||f|||_1:=||f||_{\infty,(a,b)}+||f'||_{\infty,(a,b)}$ dimostrare che è ben definita ed è una norma, $C^1B$ dotato della norma $|||$ $|||_1$ è uno spazio di Banach.\\
+
+\textbf{Esercizio 1.1.24:} Sia $x_0$ fissato allora anche $|||f|||_2:=|f(x_0)|+||f'||_{\infty,(a,b)}$ è una norma ed inoltre $\frac{1}{b-a+1}|||f|||_1\leq |||f|||_2 \leq |||f|||_1$. Segue che le due norme sono equivalenti e $C^1B$ è uno spazio di Banach anche con la norma $|||$ $|||_2$
+
+\section{Serie di funzioni}
+
+\subsection{Convergenza di una serie di funzioni}
+
+Siano $\{f_{k}\}:X\rightarrow\mathbb{R}$ costruisco $\sum_{k=0}^\infty f_{k}$ come limite della successione delle somme parziali  $S_n=\sum_{k=0}^{n}f_k$; $\sum_{k=0}^\infty f_{k}$ rappresenta il limite delle $S_n$ qualora esso dovesse esistere in qualche senso.\\
+
+\textbf{Osservazione 1.2.0:} Con questa notazione si possono vedere le successioni come caso particolare delle successioni in realtà si può scrivere ogni serie come una successione e viceversa. Si potrebbero studiare prima le serie e poi le successioni viste come caso particolare di serie.\\
+
+\textbf{Osservazione 1.2.1:} C'è un abuso di notazione: il simbolo $\sum_{k=0}^\infty f_{k}$ all'inizio indica la successione delle somme parziali, una volta stabilità la sua convergenza passa ad indicare il limite della successione
+
+
+Dalla definizione di $\sum$ come limite della sequenza delle somme parziali segue che ogni risultato per la convergenza delle successioni si trasmette alla serie.
+Quindi $\sum\_{k=0}^\infty f_{k}$ converge uniformemente in $X$ se  la successione $S_n=\sum_{k=0}^{n}f_k$ converge uniformemente $\Rightarrow$ $\{S_n\}$ è di Cauchy ovvero $\forall{\epsilon}>0 \exists N=N(\epsilon): m,n\geq N \Rightarrow ||\sum_{k=n}^{m} f_{k}||_{\infty,X)}=||S_m-S_n||_{\infty,X}<\epsilon$\\
+
+Supponiamo che $\sum_{k=0}^{\infty} f_{k}$ sia di Cauchy in norma $\sup$, sia X $\Rightarrow$ la sequenza $S_n$ è di Cauchy con norma $\sup$ su X $\Rightarrow S_n$ è limitata (perchè di Cauchy) $S_n\in B(X,\mathbb{R})$ e siccome $B$ è completo $\exists$ limite uniforme delle $S_n$ ovvero che: $$f:=\sum\limits_{k=0}^{\infty}f_k=\lim\limits_{k\to\infty}f_k$$
+
+\textbf{Definizione 1.2.2:} Data $\{f_{k}\}:X\rightarrow\mathbb{R}$ la $\sum_{k=0}^\infty f_{k}$ converge uniformemente in X se e solo se è rispettata la condizione di Cauchy ovvero: $$\forall\epsilon >0 \exists N=N(\epsilon): m\geq n\geq N \Rightarrow ||\sum\limits_{k=n}^{m} f_{k}||_{\infty,X}<\epsilon$$
+
+\textbf{Corollario 1.2.3:} Data $\{f_{k}\}:X\rightarrow\mathbb{R}$ se $\sum_{k=0}^\infty f_{k}$ converge uniformemente allora $||f_k||_{\infty,X)}\to 0$\\
+
+\textbf{Osservazione 1.2.4:} Il criterio è solo necessario.\\
+
+\textbf{Dimostrazione:} Basta prendere $m=n$ nella definizione. \\
+
+\textbf{Corollario (Criterio di Weierstrass) 1.2.5:} Se $\sum_{k=0}^{\infty}||f_k||_{\infty,X}$ converge allora $\sum_{k=0}^{\infty}f_k$ converge uniformemente. \\
+
+\textbf{Dimostrazione:} Fisso $\epsilon >0$, siccome $\sum_{k=0}^{\infty}||f_k||_{\infty,X}$ converge $\exists N=N(\epsilon): m\geq n\geq N \Rightarrow \sum_{k=n}^{m} ||f_{k}||_{\infty,X}\leq\epsilon$ ma allora $$||\sum_{k=n}^{m}f_{k}||_{\infty,X}\leq\sum_{k=n}^{m} ||f_{k}||_{\infty,X}<\leq\epsilon$$ quindi $\sum_{k=0}^\infty f_{k}$ soddisfa la condizione equivalente alla convergenza uniforme. $\Box$\\
+
+\textbf{Osservazione 1.2.6:} Il valore di $\sum_{k=0}^{\infty}||f_k||_{\infty,X}$ non ha alcun ruolo, per applicare Weiestrass basta stabilire la sua esistenza come numero in $\mathbb{R}$. Quindi si può non calcolare il valore di $||f_k||_{\infty,X}$, basta avere delle  stime.\\
+
+\textbf{Esercizio 1.2.7:} Stabilire se $\sum_{k=1}^{\infty}\frac{\sin{kx}}{k^2+e^kx}$ converge uniformemente.
+Sia $f_k=\frac{\sin{kx}}{k^2+e^kx}$ allora $$|f_k(x)|\leq\frac{1}{k^2+e^{kx}}\leq\frac{1}{k^2}\Rightarrow ||f_k||_{\infty,\mathbb{R}}\leq\frac{1}{k^2}\Rightarrow\sum_{k=1}^{\infty}||f_k||_{\infty,\mathbb{R}}\leq\sum_{k=1}^{\infty}\frac{1}{k^2}\leq\infty$$ quindi converge per Weierstrass.\\
+
+\textbf{Definizione 1.2.8:} Se $\sum_{k=0}^{\infty}||f_k||_{\infty,X}\leq\infty$ allora la serie converge totalmente.\\
+
+\textbf{Osservazione 1.2.9:} $||f_k||_{\infty,X}=||$ $f_k$ $||_{\infty,X}$ quindi la convergenza totale implica quella assoluta.\\
+
+\textbf{Osservazione 1.2.10:} La convergenza totale implica quella assoluta e uniforme ma non vale il viceversa.\\
+
+\textbf{Esempio 1.2.11:} $f_k(x):=\frac{1}{x}\chi_{[k,k+1)}(x)$ allora la serie $\sum_{k=0}^{\infty} f_k(x)$ converge uniformemente e assolutamente a $\frac{1}{x}\chi_{[1,\infty)}(x)$ tuttavia $||f_k||_{\infty,X}=\frac{1}{x}$ e $\sum_{k=0}^{\infty}\frac{1}{x}$ non converge.\\
+
+\textbf{Esercizio 1.2.12:} Provare che $\sum_{k=0}^{\infty}\frac{(-1)^k}{k+x}$ converge uniformemente in $[0,+\infty)$ ma non totalmente. \\
+
+\textbf{Proposizione 1.2.13:}  $\{f_{k}\}:\Omega\subseteq\mathbb{R}\to\mathbb{R}$ ($\Omega$ aperto) con le $f_k$ continue in $x_0$ e supponiamo che $\sum_{k=0}^\infty f_{k}$ converga uniformemente allora $F(x)=\sum_{k=0}^\infty f_{k}$ è continua in $x_0$\\
+
+\textbf{Proposizione 1.2.14:}  $\{f_{k}\}:[a,b]\subseteq\mathbb{R}\to\mathbb{R}$ $f_k\in\mathcal{R}([a,b])$, supponiamo che $\sum_{k=0}^\infty f_{k}$ converga uniformemente in [a,b] allora $F(x)=\sum_{k=0}^\infty f_{k}\in\mathcal{R}([a,b])$ e inoltre: $\int_a^b\sum_{k=0}^\infty f_{k}dx=\int_a^bF(x)dx=\int_a^b\lim\limits_{n\to\infty}S(x)dx=\lim\limits_{n\to\infty}\int_a^b S(x)dx=\lim\limits_{n\to\infty}\sum_{k=0}^\infty\int_a^b f_k(x)dx=\sum_{k=0}^\infty\int_a^b f_k(x)dx$ \\
+
+\textbf{Proposizione 1.2.15:} $\{f_{k}\}:(a,b)\subseteq\mathbb{R}\to\mathbb{R}$ con ogni $f_k$  è derivabile in $(a,b)$ ed esiste $x_0\in (a,b)$ tale che $\sum_{k=0}^\infty f_{k}(x_0)$ converge, supponiamo che $\sum_{k=0}^\infty f'_{k}$ converge uniformemente in $(a,b)$ allora la $F(x)=\sum_{k=0}^\infty f_{k}$ converge semplicemente in $(a,b)$, la convergenza è uniforme su ogni compatto contenuto in $(a,b)$ e la $F(x)$ è derivabile con $F'(x)=\sum_{k=0}^\infty f'_{k}$ ovvero $(\frac{d}{dx}\sum f_k)(x)=\sum(\frac{d}{dx})(x)$
+
+\subsection{Serie di potenze}
+
+\textbf{Definizione 1.2.16:} Chiamiamo serie di potenze un arnese siffatto: $$\sum_{k=0}^{\infty}a_k(x-x_0)^k$$ con $\{a_k\}$ serie numerica e $x_0\in\mathbb{R}$, $x_0$ è detto centro. \\
+
+\textbf{Osservazione 1.2.17:} Se pongo $x-x_0=w$ ottengo una serie di potenze di centro 0, questo procedimento si chiama riduzione in forma standard. D'ora in avanti cercheremo di studiare serie centrate in 0. \\
+
+Data una serie di potenze cerchiamo di studiare il dominio di convergenza $D:=\{x\in\mathbb{R}:\sum_{k=0}^{\infty}a_k x^k$ converge $\}$. \\
+
+\textbf{Osservazione 1.2.18:} Il dominio non è mai vuoto infatti $0\in D$.\\
+
+\textbf{Lemma 1.2.19:} Se la serie converge in $w$ allora converge puntualmente in $(-|w|,|w|)$ e la convergenza è totale nei compatti K contenuti in $(-|w|,|w|)$.\\
+
+\textbf{Dimostrazione:} Se $w=0$ è banale, supponiamo $x\ne 0$ allora $sum_{k=0}^{\infty}a_k w^k$ è una serie numerica convergente percio $\{a_k w^k\}$ tende a 0 $\Rightarrow$ limitata ovvero $\exists c:|a_k w^k|<c$ perciò $$|a_k x^k|=|a_k x^k\cdot\left (\frac{x}{w} \right )^k|\leq c \cdot \left(\frac{|x|}{|w|} \right)^k$$ Siccome siamo in un compatto $K$ allora $\exists\alpha$ con $0<\alpha <|w|:K\subseteq[-\alpha , \alpha]$ allora $|a_k x^k|\leq c \cdot \left(\frac{\alpha}{|w|} \right)^k$ $\Rightarrow ||a_k x^k||\leq c \cdot \left(\frac{\alpha}{|w|} \right)^k$ e tende a 0 quindi $\sum ||a_k x^k|| \leq \sum c \cdot \left(\frac{\alpha}{|w|} \right)^k<\infty$ ovvero la convergenza è totale.$\Box$ \\
+
+\textbf{Definizione 1.2.20:} Chiamiamo raggio di convergenza $\rho := \sup D$. Si ha che $(-\rho,\rho)\subseteq D \subseteq [-\rho,\rho]$, se $\rho=\infty$ intendiamo che $D=\mathbb{R}$.\\
+
+\textbf{Criterio di Cauchy - Hadamard 1.2.21:} Posto $l:=\limsup\limits_{k\to\infty}\sqrt[k]{|a_k|}$ allora si ha che $\rho=\frac{1}{l}$ (se $l=\infty$ allora $\rho=0$ e viceversa).\\
+
+\textbf{Criterio di d'Alembert 1.2.22:} Se $a_k \ne 0 \forall k$ allora se esiste $l:=\lim\limits_{k\to\infty} \left|\frac{a_{k+1}}{a_k}\right|$ in $\overline{\mathbb{R}}$ si ha che $\rho=\frac{1}{l}$\\
+
+\textbf{Dimostrazioni:} Sono conseguenze immediate del citerio della radice e del confronte per le serie numeriche\\
+
+\textbf{Osservazione 1.2.23:} Il criterio di Chauchy - Hadamard è sempre applicabile in quanto il $\limsup$ esiste sempre. Al contrario il criterio di d'Alembert potrebbe "fallire" e quindi è preferibile applicare il criterio precedente\\
+
+\textbf{Esempi 1.2.24:} \begin{itemize}
+\item $\sum{k=1}^{\infty}\frac{x^k}{k^2}$ allora $\left|\frac{a_{k+1}}{a_k}\right|=\frac{k^2}{1+k^2}\to 1$ quindi $l=\rho=1$ e converge sia in $x=1$ e $x=-1$ $\Rightarrow D=[-1,1]$
+\item $\sum{k=0}^{\infty} k^2x^k$ e dal criterio del rapporto $l=\rho=1$ ma converge solo in $(-1,1)$
+\item $\sum{k=1}^{\infty}\frac{x^k}{k}$ converge in $[-1,1)$
+\item $\sum{k=0}^{\infty}\frac{x^k}{k!}$  e $\left | \frac{a_{k+1}}{a_k}\right|=\frac{1}{k+1}\to 0\Rightarrow\rho = \infty$ (con $k!$ a numeratore avremmo ottenuto $\rho=0$)\\
+\end{itemize}
+
+\textbf{Teorema di Abel 1.2.25:} Se la serie $\sum_{k=0}^{\infty}a_k x^k$ converge in $w$ allora converge uniformemente in $[0,w]$ o $[w,0]$ (a seconda che $w$ sia positivo o negativo).\\
+
+\textbf{Corollario 1.2.26:} La convergenza della serie è uniforme in D.\\
+
+\textbf{Teorema 1.2.27:} Sia $\sum_{k=0}^\infty a_kx^k$ con $\rho >0$. Allora $f:(-\rho,\rho)\to\mathbb{R}$ con $f(x)=\sum_{k=0}^\infty a_kx^k\in\mathcal{C}^\infty((\-\rho,\rho))$\begin{itemize}
+\item $f^{(l)}=\sum_{k=0}^\infty a_k\cdot\underbrace{k \cdot (k-1) \cdots (k-l+1)}_{\mbox{l}}\cdot x^{k-l}=\sum_{k=0}^\infty a_{k+l}\cdot\underbrace{ (k+l) \cdots (k-1)}_{\mbox{l fattori}}\cdot x^{k}$
+\item Il raggio di convergenza di $f^{(l)}$ è sempre $\rho$
+\item $f^{(l)}(0)=a_l\cdot l!$ ovvero $a_l=\frac{f^{(l)}(0)}{l!}$\\
+\end{itemize}
+
+\textbf{Dimostrazione:} Osservo che $f$ è una serie di polinomi $a_kx^k$ che quindi sono certamente funzioni $\mathbb{C}^1$. Infatti la serie delle derivate: $$\sum_{k=0}^\infty a_k k x^{k-1}=a_1+2a_2x+3a_3x^2+\cdots =\sum_{k=0}^\infty a_{k+1} (k+1) x^{k}$$ è ancora una serie di potenze. Sia $\rho'$ il suo raggio di convergenza allora $\rho'=\frac{1}{l'}$ dove $l'=\limsup\limits_{k\to\infty}[(k+1)|a_{k+1}]^{\frac{1}{k}}$. Osservo che $$[(k+1)|a_{k+1}]^{\frac{1}{k}}=e^{\frac{1}{k}\log{k+1}+\frac{1}{k}\log{a_{k+1}}}$$ (questo vale anche se $a_{k+1}=0$ intendendo $e^{-\infty}=0$). Inoltre la funzione esponenziale è monotona crescente quindi $\limsup\limits_{k\to\infty} e^{b_k}=e^{\limsup\limits_{k\to\infty} b_k}\Rightarrow$ $$l'=\limsup\limits_{k\to\infty}e^{b_k}=e^{[\limsup\limits_{k\to\infty}[\frac{1}{k}\log(k+1)+\frac{1}{k}\log|a_{k+1}|]]}$$ ma $\frac{1}{k}\log(k+1)\to 0$ quindi: $$l'=e^{[\limsup\limits_{k\to\infty}[0+\frac{1}{k}\log|a_{k+1}|]]}=e^{[\limsup\limits_{k\to\infty}[\frac{k+1}{k}\cdot\frac{1}{k+1}\log|a_{k+1}|]]}$$ ma ma $\frac{k+1}{k}\to 1$ quindi: $$l'=e^{[\limsup\limits_{k\to\infty}[\frac{1}{k+1}\log|a_{k+1}|]]}=\limsup\limits_{k\to\infty}|a_{k+1}|^{\frac{1}{k+1}}=l$$ Da cui $\rho'=\rho$. Ne segue che la serie delle derivate converge in $(-\rho,\rho)$, totalmente nei compatti. Ma allora su ciascun aperto $(a,b)$ con $-\rho<a<0<b<\rho$ valgono le ipotesi del teorema di derivazione (con $0$ come $x_0$), da cui segue che $f$ è $\mathcal{C}^1$ con $f'=\sum_{k=0}^\infty a_kkx^{k-1}$ in $(-\rho,\rho)$.  Iterando il processo (cosa possibile perchè la derivata è una serie di potenze) si ha la tesi. $\Box$\\
+
+\textbf{Osservazione 1.2.28:} La convergenza è totale nei compatti contenuti in $(-\rho,\rho)$ perciò: $$\int_0^x(\sum_{k=0}^\infty a_ku^k)du=\sum_{k=0}^\infty a_k\int_0^xu^kdu=\sum_{k=0}^\infty \frac{a_kx^{k+1}}{k+1}$$ Quindi la funzione primitiva di una serie di potenze è ancora una serie di potenze. Questa identità vale $\forall x \in D$\\
+
+\textbf{Osservazione 1.2.29:} Da Abel segue che se $\sum_{k=0}^\infty a_k\rho^k$ converge allora l'uguaglianza $\int_0^x(\sum_{k=0}^\infty a_ku^k)du=\sum_{k=0}^\infty \frac{a_kx^{k+1}}{k+1}$ vale anche per $x=\rho$.\\ 
+
+\textbf{Osservazione 1.2.30:} Date due serie di potenze: $\sum_1=\sum_{k=0}^\infty a_k x^k$ e  $\sum_2=\sum_{k=0}^\infty b_k x^k$ di raggio rispettivamente $\rho_1$ e $\rho_2$ definiamo la serie somma e la serie prodotto come: \begin{itemize}
+\item $\sum_1+\sum_2=\sum_{k=0}^\infty (a_k+b_k)x^k$
+\item $\sum_1\cdot\sum_2=\sum_{k=0}^\infty(\sum\limits_{u,v\geq 0}(a_u b_v)x^k$
+\end{itemize} Allora si hanno le seguenti proprietà (verificare per esercizio)\begin{enumerate}
+\item $\rho_{(\sum_1+\sum_2)}$ e $\rho_{(\sum_1\cdot\sum_2)}$ sono entrambi $\leq\min\{\rho_1,\rho_2\}$
+\item $(\sum_1+\sum_2)=\sum_1(x)+\sum_2(x)$ se $|x|<\min\{\rho_1,\rho_2\}$ (analogo per il prodotto)
+\item Se $\rho_1\neq\rho_2$ allora $\rho_{(\sum_1+\sum_2)}=\min\{\rho_1,\rho_2\}$ (non vale per il prodotto)\\
+\end{enumerate}
+
+\textbf{Osservazione 1.2.31:} L'insieme $\{\sum_{k=0}^\infty a_k x^k, \rho\leq 1\}$ gode di buone proprietà analitiche (le $\sum$ sono di classe $\mathcal{C}^\infty$ e si conserva per derivazione e integrazione $i.e$ è un anello differenziale) e algebriche (è un anello commutativo con unità di cui l'insieme dei polinomi è un suo sottoanello) \\
+
+Se una funzione $f$ è esprimibile come serie di potenze allora è di classe  $\mathcal{C}^\infty$. Non vale il viceversa, neanche localmente.\\
+
+\textbf{Esempio 1.2.32:} Se $f$ è una serie di potenze $f(x)=\sum_{k=0}^\infty a_k x^k$ allora $f^{(l)}(0)=a_l l!\Rightarrow$ se è una serie di potenze è $\sum_{k=0}^\infty \frac{f^{(l)}(u)}{l!}x^l$ (unicità della rappresentazione). Sia ora: $$f(x)=
+\begin{cases}
+ e^{-\frac{1}{x^2}} &  x\ne 0 \\ 
+0 & x=0
+\end{cases}$$  f è $\mathcal{C}^\infty$ e $f^{(l)}(0)=0$ $\forall l$ ma allora $f$ è rappresentabile dalla serie nulla che rappresenta la funzione $g\equiv 0$ che non è $f$\\
+
+\textbf{Proposizione 1.2.33:} Sia $A\subseteq\mathbb{R}$ aperto indichiamo con $\Omega(A)$ l'insieme $\{f:A\to\mathbb{R}, f\in\mathcal{C}^\infty$ e tali per cui in ogni punto $x_0\in A$ la serie di potenze $\sum_{k=0}^\infty \frac{f^{(l)}(x_0)}{l!}(x-x_0)^k$ converge ad f in un intorno di $x_0\}$. Le funzioni di $\Omega(A)$ sono dette analitiche e l'esempio mostra che $\Omega(A)\subset\mathcal{C}^\infty$ (strettamente)
+
+\textbf{Proposizione 1.2.34:} Data $\sum_{k=0}^\infty a_k x^k$ con $\rho>0$ allora $f:(-\rho,\rho)\to\mathbb{R}$ $f(x)=\sum_{k=0}^\infty a_k x^k$ $|x|<\rho$ è analitica in $(-\rho,\rho)$\\
+
+Se una funzione $f$ è rappresentabile come serie di potenze di centro $x_0$ in un intorno del punto allora la serie che rappresenta il punto è il suo sviluppo di Taylor centrato in $x_0$\\
+
+\textbf{Proposizione 1.2.35:} Sia $f:(-r,r)\subseteq\mathbb{R}\to\mathbb{R}$ di classe $\mathcal{C}^\infty$ in $(-r,r)$, supponiamo che $||f^{(k)}||_{\infty,(-r,r)}\ll\frac{k!}{r^k}$ per $k\to\infty$ allora $f$ è rappresentata dalla sua serie di Taylor.\\
+
+\textbf{Dimostrazione:} Fissato $x\in (-r,r)$ valutiamo la differenza $f(x)-\sum_{k=0}^{N-1} \frac{f^{(k)}(0)}{k!}(x)^k$ e verifichiamo che tende a 0. Il secondo termine della differenza il polinomio di Taylor arrestato all'ordine N-1, da Lagrange sappiamo che $\exists\xi\in(0,x)$ tale che la differenza considerata sopra è uguale a $\frac{f^{(N)}(\xi)}{N!}x^N$. Siccome $|\xi|<r$ si ha che: $$|f(x)-\sum_{k=0}^{N-1} \frac{f^{(k)}(0)}{k!}(x)^k|=|\frac{f^{(N)}(\xi)}{N!}x^N|\leq|f^{(N)}(\xi)|\frac{|x|^N}{N!}\leq||f^{(N)}||\cdot\frac{|x|^N}{N!}\ll\frac{N!}{r^N}\cdot\frac{|x|^N}{N!}=\left(\frac{|x|}{r}\right)^N\to 0$$ poichè $|x|<r$ . $\Box$\\
+
+\textbf{Teorema 1.2.36:} $e^x=\sum_{k=0}^\infty \frac{x^k}{k!}$\\
+
+\textbf{Dimostrazione:} Fisso $r>0$, si ha che $f^{(k)}(x)=e^x$ $\forall k in \mathbb{N}$ allora $|f^{(k)}(x)|=|e^x|\leq e^r \Rightarrow ||f^{(k)}||_{\infty,(-r,r)}=e^r\ll\frac{k!}{r^k}$ ed è vero poichè il rapporto $\frac{e^r r^k}{k!}$ tende a 0 ($e^r$ è limitato in un compatto K)  \fbox{\phantom{3}}\\
+
+\textbf{Teorema 1.2.37:} $\sin(x)=\sum_{k=0}^\infty \frac{(-1)^k}{(2k+1)!}x^{2k+1}$ e $\cos(x)=\sum_{k=0}^\infty \frac{(-1)^k}{(2k)!}x^{2k}$\\
+
+\textbf{Esercizio 1.2.38:} Verificare tramite serie di potenze:\begin{enumerate}
+\item $e^x\cdot e^y=e^{x+y}$
+\item $\sin(x+y)=\sin(x)\cos(y)-\cos(x)\sin(y)$
+\item $\exp^{ix}=\cos(x)+i\sin(x)$
+\end{enumerate}
+
+\chapter{Funzioni implicite}
+
+\section{Premessa}
+
+L'obiettivo è quello di descrivere il luogo degli zeri di opportune funzioni $f(\underline{x})=0$ per opportune classi di funzioni $f$.\\
+
+\textbf{Osservazione 2.1:} \begin{enumerate}
+\item Ogni grafico è il luogo degli zeri di qualcosa infatti sia $y=g(x)$ la funzione $f(x,y)=y-g(x)$ ha per luogo degli zeri il grafico di $g$.
+\item L'unione (anche molteplice) di zeri è luogo di zeri: $Z_f=\{(x,y):f(x,y)=0\}$ e $Z_g=\{(x,y):g(x,y)=0\}$ allora $Z_f \cup Z_g = Z_{f\cdot g}$ e  $Z_f \cap Z_g = Z_{f^2+g^2}$.
+\item In generale i luoghi di zeri non sono grafici di funzioni ad esempio $x^2+y^2-1=0$.
+\end{enumerate}
+
+L'obiettivo dei prossimi teoremi è dimostrare che se $f$ è abbastanza "buona" allora $Z_f$ è localmente il grafico di una funzione.\\
+
+\textbf{Proposizione 2.2:} Data $f:[a,b]\times[c,d]\to\mathbb{R}$ supponiamo:\begin{enumerate}
+\item $\forall x \in [a,b]$, $f(x,\bullet):[c,d]\to\mathbb{R}$ è continua e $f(x,c)\cdot f(x,d)<0$
+\item $\forall x \in [a,b]$, $f(x,\bullet)$ è strettamente monotona
+\end{enumerate}
+Allora il grafico degli zeri di $f$ in $[a,b]$x$[c,d]$ coincide con il grafico di una funzione $\phi: [a,b]\to[c,d]$.\\
+
+\textbf{Dimostrazione:} Fisso $x_0\in[a,b]$, da 1 (teorema degli zeri) esiste almeno un punto in cui la funzione $f$ si annulla, da 2 segue che è unico. Poichè vale $\forall x$ si ha la tesi. $\Box$ \\
+
+\section{Teorema di Dini}
+
+Una volta stabilita l'esistenza della funzione $\phi$ ci chiediamo come è possibile studiarne la regolarità. \\
+
+\textbf{Teorema di Dini (monodimensionale) 2.3:} Sia $f:\Omega\subseteq\mathbb{R}^2\to\mathbb{R}$, con $\Omega$ aperto e $f\in\mathcal{C}^1(\Omega)$:
+\begin{enumerate}
+\item Sia $(x_0,y_0)\in\Omega$ tale che $f(x_0,y_0)=0$
+\item $\partial y f(x_0,y_0)\ne 0$
+\end{enumerate}
+
+Allora $\exists$ un intorno aperto $(a,b)\times(c,d)$ con $(x_0,y_0)\in(a,b)\times (c,d)$ e $[a,b]\times[c,d]\subseteq\Omega$ ed esiste una funzione $\phi:(a,b)\times(c,d)$ tale che il luogo degli zeri di $f$ in $(a,b)\times(c,d)$ coincide con il grafico di $\phi$. Inoltre $\phi\in\mathcal{C}((a,b))$ e: $$\frac{d\phi}{dx}(x)= - \frac{\partial xf}{\partial yf} (x,\phi(x)),\quad \forall x \in (a,b)$$
+
+\textbf{Dimostrazione:} Assumiamo $f(x_0,y_0)>0$ (altrimenti si cambia $f$ con $-f$), siccome $\partial y f$ è continua  $\exists [a',b']\times[c,d]\subseteq\Omega$ contenente il punto $(x_0,y_0)$ in cui $\partial y f>0$. Considero $f(x_0,\bullet):[c,d]\to\mathbb{R}$ essa vale 0 in $y_0$ ed è strettamente crescente quindi $f(x_0,c)<0$ e $f(x_0,d)>0$. Ma $f$ è continua perciò $\exists\mathcal{U}((x_0,c))$ dove $f<0$ e $\exists\mathcal{U}((x_0,d))$ dove $f>0$. Allora $\exists [a,b]$ con $a'\leq a \leq x_0 \leq b \leq b'$ in cui $f(x,c)<0$ e $f(x,d)>0$ $f(x,c)<0$. Ristretta ad $[a,b]\times[c,d]$ la funzione $f$ soddisfa le ipotesi della proposizione 2.2 perciò $\exists\phi:(a,b)\to(c,d)$ tale che il luogo degli zeri di $f$ coincide con il grafico di $\phi$.\\
+
+Dimostriamo ora la regolarità della funzione $\phi$. Sia $x\in(a,b)$ fissato e $h$ tale che $x+h\in(a,b)$. $f$ si annulla in $(x,\phi(x))$ e $(x+h,\phi(x+h))$ (per come è stata costruita $\phi$, inoltre è $mathcal{C}^1(\Omega)$ allora: $$0=f(x+h,\phi(x+h))-f(x,\phi(x))=< \nabla f(\alpha,\beta),(h,\phi(x+h)-\phi(x)>$$ Dove $(\alpha,\beta)$ sta nel segmento congiungente $(x,\phi(x))$ e $(x+h,\phi(x+h))$ perciò: $$(\phi(x+h)-\phi(x))\cdot\partial y f(\alpha,\beta)+h\partial x f(\alpha,\beta)=0$$ ovvero $\phi(x+h)-\phi(x)=-\frac{\partial x f}{\partial y f}(\alpha,\beta)\cdot h (*)$ (ciò è possibile perchè $\partial y f(\alpha,\beta)\ne 0$) ma $(\alpha,\beta)\in[a',b']\times[c,d]$ e $\frac{\partial x f}{\partial y f}$ è continua (quoziente di funzioni continue) quindi ha massimo $M:=||\frac{\partial x f}{\partial y f}||_{\infty,[a',b']\times[c,d]}$, da $(*)$ segue che: $$\phi(x+h)-\phi(x)\leq M\cdot |h|$$
+quindi $\phi$ è lipschitziana in $x$ $\Rightarrow$ continua. Questo mostra che se $h\to 0$ allora $(\alpha,\beta)\to(x,\phi(x))$ perciò $\lim\limits_{h\to 0}\frac{\partial x f}{\partial y f}(\alpha,\beta)$ esiste e vale $\frac{\partial x f}{\partial y f}(x,\phi(x))$ e così: $$\frac{\phi(x+h)-\phi(x)}{h}=-\frac{\partial x f}{\partial y f}(\alpha,\beta)\to -\frac{\partial x f}{\partial y f}(x,\phi(x))$$ Allora $\phi$ è derivabile in $x$ con $\phi '=-\frac{\partial x f}{\partial y f}(x,\phi(x))$ e $\phi '$ è continua perchè composizione di continue. $\Box$\\
+
+\textbf{Corollario 2.4:} Se poi $f\in\mathcal{C}^k(\Omega)$ allora $\phi$ è di classe $\mathcal{C}^k$ dove esiste ($k\geq 1$).\\
+
+\textbf{Dimostrazione:} Uso $\phi '$ in modo iterato. $\Box$ \\
+
+\textbf{Osservazione 2.5:} Se $\partial x f(x_0,y_0)\ne 0$ si può procedere come prima ma col ruolo di $x$ e $y$ invertiti ovvero $\exists\psi:(c,d)\to(a,b)$ tale che il grafico di $\psi$ coincide localmente col luogo degli zeri di $f$ cioè: $f(\psi(y),y)=0\quad\forall y\in (c,d)$. Se $\nabla f(x_0,y_0)\ne 0$ il luogo degli zeri è localmente il grafico di qualcosa, ciò porta a definire critici quei punti in cui il gradiente si annulla e non è possibile applicare Dini.\\
+
+\textbf{Esempi 2.6:}\begin{itemize}
+\item $f(x,y)=x^2-y^2$ $f(0,0)=0$ ma $\nabla f(0,0)=(0,0)$ e il luogo degli zeri di f sono le rette $y=x$ e $y=-x$ che in un intorno di $(0,,0)$ non è il grafico di una funzione.
+\item $f(x,y)=x^2+y^2$ $f(0,0)=0$ ma $\nabla f(0,0)=(0,0)$ e il luogo degli zeri è il solo punto $(0,0)$ che non è un grafico.
+\item $f(x,y)=y^2-x^2(x+1)$ $f(0,0)=0$ (parabola campaniformis cum ovali) ma $\nabla f(0,0)=(0,0)$ e il luogo degli zeri non è il grafico di nessuna funzione in $(0,0)$
+\end{itemize}
+
+\section{Contrazioni e Teorema del punto fisso}
+
+Ora ci prendiamo una pausa per enunciare un importante risultato negli spazi metrici completi:\\
+
+\textbf{Definizione 2.7:} Sia $(X,d)$ uno spazio metrico completo e $T$ una mappa $T:X\to X$, diciamo che $T$ è una contrazione se $\exists\lambda<1$ tale che $d(Tx,Ty)<\lambda\cdot d(x,y)$ $\forall x,y$ (T è lipschitziana con costante di lipschitz $<1$).\\
+
+\textbf{Teorema di Banach - Cacciopoli 2.8:} Sia $(X,d)$ uno spazio metrico completo e $T$ una contrazione allora l'equazione $Tx=x$ ha una e una sola soluzione.\\
+
+\textbf{Dimostrazione:} Sia $x_0\in X$ fissato a caso e sia $\{x_n\}$ la successione: $x_{n+1}=Tx_n$ (quindi $x_n=\underbrace{ T\circ\ldots\circ T}_{n}x_0$). Dalla disuguaglianza triangolare segue che $d(x,y)\leq d(x,Tx)+d(Tx,Ty)+d(Ty,y)\leq d(x,Tx)+\lambda d(x,y)+d(Ty,y)$, da cui si ricava: $$d(x,y)\leq \frac{1}{1-\lambda}(d(x,Tx)+d(y,Ty))\quad(*)$$ Osservo che $d(x_{n+1},x_n)=d(Tx_n,Tx_{n-1})\leq \lambda d(x_n,x_{n-1})\leq \ldots \leq \lambda^n d(x_1,x_0)\quad(**)$. Applico $(*)$ e $(**)$ ai punti $x_n$ e $x_m$ ed ottengo $$d(x_n,x_m)\leq \frac{1}{1-\lambda}(d(Tx_n,x_n)+d(Tx_m,x_m))\leq \frac{\lambda^n + \lambda^m}{1-\lambda}d(x_1,x_0)$$ Fisso $\epsilon >0$, sia $N: \lambda^N<\epsilon$ allora se $n,m\geq N$ segue $d(x_n,x_m)\leq\epsilon\cdot\frac{2d(x_1,x_0)}{1-\lambda}$ perciò $\{x_n\}$ è una successione di Cauchy quindi converge perchè siamo in uno spazio metrico completo, sia $x_\infty := \lim\limits_{n\to\infty} x_n, \quad Tx_\infty=T(\lim\limits_{n\to\infty} x_n) =$ (per la continuità) $\lim\limits_{n\to\infty} Tx_n=x_\infty$.\\
+Verifico ora l'unicità, siano $x$ e $y$ due punti fissi allora $d(x,y)\leq\frac{1}{1-\lambda}(d(Tx,x)+d(Ty,y))=0$ (in quanto $x=Tx$ e $y=Ty$) $\Rightarrow d(x,y)=0\Rightarrow x=y.\quad \Box$\\
+
+\textbf{Osservazione 2.9:} La dimostrazione contiene un metodo costruttivo per trovare $x_\infty$. Inoltre passando al limite si ha $d(x_n,x_\infty)=\lim\limits_{m\to\infty}d(x_n,x_m)\leq\frac{ \lambda ^n}{1-\lambda}d(x_1,x_0)$ che dà la distanza di $x_n$ dal limite in funzione dei dati.\\
+
+\textbf{Corollario 2.10:} Il teorema puó essere generalizzato: sia $(X,d)$ uno spazio metrico completo e $T:X\to X$. Supponiamo che $\exists K$ tale che $T^{(k)}=T\circ\ldots\circ T$ ($k$ volte) sia una contrazione allora $T$ ha un unico punto fisso.\\
+
+\textbf{Dimostrazione:} Sia $x_\infty$ punto fisso per $T^{(k)}$ (che esiste per via del teorema) allora $T^{(k)}(Tx_\infty)=T^{(k+1)}x_\infty=T(T^{(k)} x_\infty)=Tx_\infty$ perció $Tx_\infty$ è fisso per $T^{(k)}$ ma $T^{(k)}$ ha $x_\infty$ come punto unico fisso $\Rightarrow Tx_\infty=x_\infty$ ovvero $x_\infty$ è punto fisso per $T$.\\
+
+Devo dimostrare che è unico ma ogni punto fissato da $T$ è fissato da $T{(k)}$ quindi $T$ ha un solo punto fisso (altrimenti $T{(k)}$ non ne avrebbe uno solo).\\
+
+\textbf{Osservazione 2.11:} Se $T$ è contrazione allora anche $T^{2}$ (mappa iterata) è contrazione e $d(T^2(x),T^2(y))=d(T(Tx),T(Ty))\leq\lambda d(Tx,Ty)\leq \lambda^2 d(x,y)$ e $\lambda^2<\lambda$ (vale anche per le altre potenze). Se peró ogni $T$ con interata contrattiva fosse contrattiva il corollario precedente sarebbe inutile ma non é questo il caso: \\
+
+$T:\mathbb{R}\to\mathbb{R}$ con $T(x)=\cos (x)$ non é una contrazione ma $T^2(x)\cos(\cos(x))$ lo é. \\
+
+\textbf{Esempio 2.12:} (Metodo di Newton) Il metodo di Newton serve per calcolare gli zeri di una funzione $f$. Idea: sia $x_0$ un punto scelto a caso e si trova la tangente al grafico nel punto $f(x_0)$. L'intersezione della tangente con l'asse delle ascisse darà un nuovo punto $x_1$, si prende poi la tangente nel punto $f(x_1)$ e si itera il procedimento. La relazione di ricorrenza è: $$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}$$ 
+
+\textbf{Esercizio 2.13:} Voglio trovare una soluzione di $f(x)=0$ con $f(x)=x^3+2x-1$ utilizzando il metodo di Newton. $T(x)=x-\frac{f(x)}{f'(x)}=x-\frac{x^3+2x-1}{3x^2+2}=\frac{2x^3+1}{3x^2+2}$, se considero $\mathbb{R}$ intero é difficile dimostrare che $T$ é una contrazione perció osservo che $T:[0,+\infty)\to[0,+\infty)$ e che in questo sottointervallo $T'(x)=\frac{6x^4+12x^2-6x}{(3x^2+2)^2}\leq\frac{6x^4+12x^2}{(3x^2+2)^2}=\frac{3}{4}-\frac{3x^4-12x^2-6x}{(3x^2+2)^2}\leq\frac{3}{4}$ e $T'(x)\geq\frac{-6x}{(3x^2+2)^2}\geq\frac{-3}{4}$ quindi $|T'(x)|\leq\frac{3}{4}$. \\
+
+Da Lagrange so che $|T(x)-T(y)|=|T'(\xi)|\cdot|x-y|\leq\frac{3}{4}|x-y|$ perció $T$ é una contrazione e quindi $\exists !$ punto fisso di $T$, ovvero soluzione di $Tx=x$ ovvero di $f(x)$. Non solo ma se $x_0$ é scelto a caso e $x_n=Tx_{n-1}$ allora: $|x_n-x_\infty|\leq\frac{\left(\frac{3}{4}\right)^n}{1-\frac{3}{4}}|x_1-x_0|=4\cdot\left(\frac{3}{4}\right)^n|\frac{2x_0^3+1}{3x_0^2+2}-x_0|$. Scelgo $x_0=0$ e ho:\begin{itemize}
+	\item $x_0=0$
+	\item $x_1=Tx_0=0,454545\ldots$
+	\item $x_2=Tx_1=0,453398\ldots$
+	\item $x_3=Tx_2=0,453397\ldots$
+	\item $x_4=Tx_3=0,453397\ldots$\\
+\end{itemize}
+
+La successione sembra convergere più velocemente di quanto stimato. Ció non é colpa di $\frac{3}{4}$ che é una buona stima di $\sup|T'(x)|=0,7499$; osservo che $T^2(x)=T(Tx)=\frac{8x^9+51x^8+\ldots}{18x^8+39x^6+\ldots}$ ha una derivata che in modulo é $\leq\frac{1}{10}$. Ne segue che se $S:=^2$ e $x_n=S^nx_0=T^{2n}x_0$ allora per $x_0=0$ vale: $$|x_n-x_\infty|\leq\frac{1}{10^n}\cdot\frac{10}{9}\cdot\frac{4}{5}=\frac{8}{9}\cdot\frac{1}{10^n}$$ Il fattore $\frac{1}{10}$ é decisamente migliore del $\left(\frac{3}{4}\right)^2$ che si era ottenuto prima per la stessa sequenza.\\
+
+\textbf{Esercizio 2.14:} Cercare le soluzioni di $f(x)=x^5+4x-4$ $f(x)=0$.\\
+
+\textbf{Esercizio 2.15:} Trovare le soluzione di $f(x)=x^a+bx-c$ $f(x)=0$ con $a<0$, $0\leq c\leq b$ e $a^2\leq b$
+
+
+
+\section{Teorema di Invertibilità locale}
+
+Prima di enunciare e dimostrare il teorema è bene ricorda un lemma utile ai fini della dimostrazione. \\
+
+\textbf{Lemma 2.16:} Sia $F:X\to M(m\times n,\mathbb{R})$ chiamo $|||F|||_{2,\infty,X}:=\left(\sum^m_{i=1}\sum^n_{j=1}||F_{ij}||^2_{\infty,X}\right)^{\frac{1}{2}}$, se considero $f:\Omega\subseteq\mathbb{R}^m\to\mathbb{R}^n$, $\Omega$ aperto convesso, di classe $\mathcal{C}^1(\Omega)$ allora $||f(x)-f(w)||_{2,\mathbb{R}^n}\leq|||Jf|||_{2,\infty,X}\cdot||x-w||_{2,\mathbb{R}^m}$.\\
+
+\textbf{Dimostrazione:}   $f$, in quanto funzione vettoriale, è un elenco $f=(f_1,f_2,\ldots,f_n)$, considero $f_j:\Omega\subseteq\mathbb{R}^n\to\mathbb{R}$ quindi è una funzione a valori scalari e per il teorema di Lagrange $f_j(x)-f_j(w)=<\nabla f_j(\alpha),(x-w)>$ dove $\alpha$ sta nel segmento che congiunge $x$ e $w$. Per Chauchy-Schwarz: $$|f_j(x)-f_j(y)|^2\leq||\nabla f_j(\alpha)||_2^2\cdot||(x-w)||_2^2$$ e quindi: $$|f_j(x)-f_j(y)|^2\leq\left(\sum_{i=1}^m \left|\left|\frac{\partial f_j}{\partial x_i}\right|\right|^2_{2,\infty}\right)\cdot ||x-w||_2$$ Questo risultato vale per ogni $j=1\ldots n$ quindi sommo tra loro le varie disuguaglianze ed arrivo alla tesi. $\Box$\\
+
+\textbf{Teorema di invertibilitá locale 2.17:} Sia $\underline{f}:\Omega\subseteq\mathbb{R}^n\to\mathbb{R}^n$, $\Omega$ aperto, supponiamo $\underline{f}\in\mathcal{C}^1(\Omega)$ e sia $\underline{x_0}\in\Omega$ con $J\underline{f}(\underline{x_0})$ invertibile. Allora esiste un intorno $\mathcal{U}(\underline{x_0})$ e un intorno $\mathcal{V}(\underline{f}(\underline{x_0}))$ aperti tali che $f|_{\mathcal{U}(\underline{x_0})}:\mathcal{U}(\underline{x_0})\to\mathcal{V}(\underline{f}(\underline{x_0}))$ é biunivoca  con $f^{-1}\in\mathcal{C}^1(\mathcal{V}(\underline{f}(\underline{x_0})))$. Inoltre: $$ (J\underline{f}^{-1})(f(x))=[(J\underline{f})(x)]^{-1}\quad\forall x \in \mathcal{U}(\underline{x_0})$$
+
+(Per non appesantire la notazione verranno omesse le barrette per indicare i vettori).\\
+
+\textbf{Dimostrazione: }La dimostrazione è un'applicazione del teorema di punto fisso. Prendo la funzione $g(x):=((Jf)(x_0))^{-1}\cdot(f(x_0+x)-f(x))$ (è ben definita in $\Omega-x_0$,traslato di $\Omega$, perchè $((Jf)(x_0))^{-1}$ esiste per ipotesi). Osservo che $g(0)=0$ e $(Jg)(0)=((Jg)(x_0))^{-1}\cdot(Jg)(x_0)=I$. D'altra parte $f(x)=(Jf)(x_0)\cdot g(x-x_0)+f(x_0)$ e questa relazione evidenzia che f è invertibile in $\mathcal{U}(x_0)$ se e solo se $g$ è invertibile in $\mathcal{U}(x_0)-x_0$. Nel procedere con la dimostrazione potremmo quindi assumere come ipotesi aggiuntive $x_0=0$, $f(x_0)=0$ e $(Jf)(x_0)=I$.\\
+
+Sia $H(x):=x-f(x)\in\mathcal{C}^1(\Omega)$ con $H(0)=0$ e $(JH)(0)=I-I=0$. Visto che le funzioni in $JH$ sono continue esiste $\epsilon >0$ sufficientemente piccolo affinchè $|||JH|||_{2,\infty,\overline{B}_\epsilon}\leq\frac{1}{2}$ (scelto arbitrariamente) dove $\overline{B}_\epsilon=\{x:||x||\leq\epsilon\}$ (bolla chiusa). Inoltre visto che $\det Jf$ è continua e che $\det Jf(0)=det I=1$ possiamo scegliere $\epsilon$ in modo che alla relazione precedente si abbia anche $\det Jf(x)\ne 0$. \\
+
+Dato che $|||JH|||_{2,\infty,\overline{B}_\epsilon}\leq\frac{1}{2}$ dal lemma si ha che: $$||H(x)-H(w)||\leq\frac{1}{2}\cdot||x-w||\quad \forall x,w\in\overline{B}_\epsilon \quad (*)$$ e così: $$||f(x)-f(w)||=||x-w-(H(x)-H(w))||\geq$$ $$||x-w||-||H(x)-H(w)||\geq||x-w||-\frac{1}{2}||x-w||=\frac{1}{2}||x-w||\quad (**)$$ da qui segue che $f$ è iniettiva in  $\overline{B}_\epsilon$ perchè se fosse $f(x)=f(w)$ da $(**)$ seguirebbe $||x-w||\leq 2\cdot 0\Rightarrow x=y$.\\
+
+Sia $y\in \overline{B}_\frac{\epsilon}{2}$, ovvero $||y||\leq\frac{\epsilon}{2}$, definisco $H_y(x):=y+H(x)$ e osservo che $$||H_y(x)||=||y+H(x)||\leq||y||+||H(x)||=||y||+||H(x)-H(0)||$$ siccome $||y||\leq\frac{\epsilon}{2}$, $H(0)=0$ e $x\in\overline{B}_\epsilon$ ho: $$||H_y(x)||\leq\frac{\epsilon}{2}=\frac{1}{2}||x-0||\leq \frac{\epsilon}{2}+\frac{\epsilon}{2}(**)=\epsilon$$ Da qui ricaviamo che $H_y:\overline{B}_\epsilon\to\overline{B}_\epsilon$. Inolte $H_y(x)-H_y(w)=H(x)-y-H(w)+y=H(x)-H(w)$ allora $||H_y(x)-H_y(w)||=||H(x)-H(w)||\leq\frac{1}{2}||x-w||$ quindi $H_y(x)$ é una contrazione ma $\mathbb{R}^n$ con la metrica euclidea é uno spazio di Banach allora $H_y$ ha un unico punto fisso. Ovvero $\exists!x$ tale che: $$H_y(x)=x\Leftrightarrow y+H(x)=x \Leftrightarrow y+x-f(x)=x\Leftrightarrow y+f(x)$$ quindi ogni $y\in\overline{B}_\frac{\epsilon}{2}$ é immagine di uno e uno solo punto $x\in\overline{B}_\epsilon$ perció $f$ é suriettiva tra $\overline{B}_\frac{\epsilon}{2}$ e $\overline{B}_\epsilon$. Ció non basta perché il teorema parla di insiemi aperti e non chiusi.\\
+
+Siano $x$ e $y$ come sopra $||x||=||y+x-f(x)||=||y+H(x)||\leq||y||+||H(x)||\leq||y||+\frac{1}{2}||x||(**)$ $\Rightarrow\||x||\leq2||y||$. In particolare se $y\in B_\frac{\epsilon}{2}$ (aperto), ovvero $||y||<\frac{\epsilon}{2}$, $||x||<\epsilon$ perció l'aperto va nell'aperto quindi $f$ é suriettiva tra $B_\epsilon$ e $B_\frac{\epsilon}{2}$.\\
+
+Infine, non è detto che $f(B_\epsilon)\subseteq B_{\frac{\epsilon}{2}}$ (purtroppo!) sia allora $U:=B_\epsilon\cap f^{-1}(B_{\frac{\epsilon}{2}})$. $U$ è aperto (intersezione di aperti), $0\in U$ ($f(0)=0$), f è iniettiva su U (perchè lo è su $B_\epsilon$) e suriettiva su $B_{\frac{\epsilon}{2}}$ (perchè sappiamo che $\forall y\in B_{\frac{\epsilon}{2}}$ esiste un $x\in B_\epsilon$ tale che $f(x)=y$). Quindi $f:U\to B_{\frac{\epsilon}{2}}$ è biunivoca.\\
+
+Sia $g:B_{\frac{\epsilon}{2}}\to U$ l'inversa di f tra questi insiemi. Allora $(**)$ dice che in $B_{\frac{\epsilon}{2}}$ (posto $x:=g(y)$ e $w:=g(z)$): $$||g(y)-g(z)||\leq 2||y-z||\quad (*3*)$$ ovvero che $g$ è lipschitziana in $B_{\frac{\epsilon}{2}}$.\\
+
+Mostro che $g$ è differenziabile e che $Jg=(Jf)^{-1}$. Siccome $f$ è differenziabile in $x\in\Omega$: $$f(w)-f(x)=(Jf)(x)\cdot(w-x)+R(w,x)\quad(*4*)$$ con $\frac{||R(w,x)||}{||x-w||}\to 0$ per $x\to w\quad(*5*)$. Da $(*4*)$ segue che $$g(z)-g(y)=(Jf(x))^{-1}\cdot (z-y)-(Jf(x))^{-1}\cdot R(w,x)\quad (*6*)$$ perchè $Jf(x)$ è invertibile quando $x\in B_\epsilon$. Supponiamo $z\to y$ allora $w=g(z)\to g(y)=x$ perchè $(*3*)$ dice che $g$ è continua. Inoltre: $$\frac{||R(w,x)||}{||z-y||}=\frac{||R(w,x)||}{||w-x||}\cdot\frac{||w-x||}{||z-y||}=\frac{||R(w,x)||}{||w-x||}\cdot\frac{||g(z)-g(y)||}{||z-w||}\leq 2\frac{||R(w,x)||}{||w-x||}\quad(*3*)\to 0\quad (*5*)$$ ma questo e $(*6*)$ mostrano che $g$ è differenziabile in $y$ con $(Jg)(y)=((Jf)(x))^{-1}$.\\
+
+Gli elementi di $Jf$ sono continui e il suo determinante è diverso da $0$ quindi gli elementi della matrice $(Jf)^{-1}$ sono continui. Visto che $x=g(y)$ e $g$ è continua ne segue che $(Jg)(y)=(Jf)^{-1}(g(y))$ è continuo. $\Box$.\\
+
+\textbf{Osservazione 2.18:} L'invertibilità locale in tutti i punti non implica l'invertibilità globale.\\
+
+Si consideri $f(x,y)=\binom{x^2-y^2}{2xy}$ con $f:\mathbb{R}^2\textbackslash\{0\}\to\mathbb{R}^2\textbackslash\{0\}$. $f$ non è globalmente invertibile perchè $f(-x,-y)=f(x,y)$ eppure $Jf=\begin{vmatrix} 2x & -2y \\ 2y & 2x \end{vmatrix}$ ha determinante sempre diverso da $0$.\\
+
+\textbf{Corollario 2.19:} Sia $f:\Omega\subseteq\mathbb{R}^n\to\mathbb{R}^n$, $\Omega$ aperto e $f\in\mathcal{C}^1(\Omega)$. Supponiamo $Jf(x)$ invertibile $\forall x\in\Omega$ allora $f$ è una mappa aperta ovvero $A$ aperto in $\Omega$ $\Rightarrow f(A)$ aperto.\\
+
+\textbf{Dimostrazione:} Per il teorema $f$ è localmente invertibile in ogni punto e questo dà la tesi.\\
+
+\section{Teorema di Dini (Multidimensionale)}
+
+Ricordo che se $M:=\begin{vmatrix} I & 0 \\ A & B \end{vmatrix}$ è una matrice quadrata $\det M=\det I\cdot \det B$ ed $M$ è invertibile se e solo se B è invertibile e la sua inersa è $M^{-1}=\begin{vmatrix} I & 0 \\ -B^{-1}A & B^{-1} \end{vmatrix}$.\\
+
+\textbf{Teorema di Dini (multidimensionale) 2.20:} Sia $f:\Omega\subseteq\mathbb{R}^m\times\mathbb{R}^n\to\mathbb{R}^n$, con $\Omega$ aperto e $f\in\mathcal{C}^1(\Omega)$:
+\begin{enumerate}
+\item Sia $(x_0,y_0)\in\Omega$ tale che $f(x_0,y_0)=0$ ($x_0\in\mathbb{R}^m$ e $y_0\in\mathbb{R}^n$
+\item $(J_yf)(x_0,y_0)$ è invertibile (la matrice quadrata di ordine $n\times n$ rispetto alle $y$)
+\end{enumerate}
+
+Allora esistono due intorni aperti $\mathcal{U}(x_0)$ e $\mathbb{V}(y_0)$ con $\overline{\mathcal{U}(x_0)\times\mathbb{V}(y_0)}\subseteq\Omega$ tali che l'insieme degli zeri di $f$ in $\mathcal{U}(x_0)\times\mathbb{V}(y_0)$ coincide con il grafico di una funzione $\phi:\mathcal{U}(x_0)\to\mathbb{V}(y_0)$, $\phi\in\mathcal{C}^1(\mathcal{U}(x_0))$ e $J\phi(x)=-(J_yf)^{-1}\cdot(J_xf)|_{x,\phi(x)}\quad\forall c\in\mathcal{U}(x_0)$.\\
+
+\textbf{Dimostrazione:} Sia $F:\Omega\subseteq\mathbb{R}^m\times\mathbb{R}^n\to\mathbb{R}^m\times\mathbb{R}^n$ definita come $F(x,y):=\binom{x}{f(x,y)}$ ed $F\in\mathcal{C}^1(\Omega)$ con $(JF)(x,y)=\begin{vmatrix} I & 0 \\ J_xf & J_yf \end{vmatrix}$. In particolare $(Jf)(x_0,y_0)=\begin{vmatrix} I & 0 \\ J_xf(x_0,y_0) & J_yf(x_0,y_0 \end{vmatrix}$ è invertibile per ipotesi ed $F(x_0,y_0)=\binom{x_0}{0}$ quindi per il teorema di invertibilità locale $F$ è localmente invertibile in $(x_0,y_0)$ ovvero esistono due intorni aperti (in realtà sono delle bolle aperte) $\mathcal{W}(x_0,y_0)$ e $\mathcal{S}(x_0,0)$ tra i quali $F$ agisce come un diffeomorfismo. Siano\begin{itemize}
+\item $\mathcal{U}:=$ proiezione sulle $x$ di $\mathcal{S}$ (aperto perchè la proiezione è una mappa aperta)
+\item$\mathcal{V}:=$ proiezione sulle $y$ di $\mathcal{W}$ (aperto perchè la proiezione è una mappa aperta)\\
+\end{itemize}
+
+Siano poi $i:\mathbb{R}^m\to\mathbb{R}^m\times\mathbb{R}^n$, $i(x):=\binom{x}{0}$ (immersione) e $p_{r_y}:\mathbb{R}^m\times\mathbb{R}^n\to\mathbb{R}^m$, $p_{r_y}(x,y)=y$ (proiezione). Costruiamo $\phi:\mathcal{U}\to\mathcal{V}$ $\phi(x):=(p_{r_y}\circ F^{-1}\circ i)(x)$ di classe $\mathcal{C}^1$ (perchè $p_{r_y}$ e $y$ lo sono in quanto lineari e $F^{-1}$ lo è per Dini) e:$$J\phi=(Jp_{r_y})\cdot(JF^{-1})\cdot(Ji)=(0,I)\cdot(JF)^{-1}\cdot\binom{I}{0}=
+(0,I)\cdot\begin{vmatrix} I & 0 \\ -(J_yf)^{-1}J_xf & (J_yf)^{-1} \end{vmatrix}=-(J_yf)^{-1}J_xf$$\\
+
+Infine $f(x,\phi(x))=p_{r_y}(F(x,\phi(x))=(p_{r_y}\circ F)(p_{r_x}(F^{-1}(x,0)),(p_{r_y}(F^{-1}(x,0)))=(p_{r_y}\circ F)(F^{-1}(x,0))=(p_{r_y}\circ F\circ F^{-1})(x,0)=p_{r_y}(x,0)=0$
+ ovvero il grafico di $\phi$ è contenuto negli zeri di $f$. Dal fatto che $F$ è biunivoca segue che vale anche il viceversa. $\Box$\\
+ 
+\textbf{Osservazione 2.21:} Nella dimostrazione del teorema si decompone lo spazio di partenza in un $\mathbb{R}^m\times\mathbb{R}^n$, lo jacobiano di $f$ è una matrice rettangolare di ordine $n\times(n+m)$ e non è detto che la sua coda $n\times n$ sia invertibile. Chiamo $y$ tutto ciò che dà la sottomatrice $n\times n$ invertibile. Si può quindi riformulare le ipotesi del teorema chiedendo che $rk(Jf(x_0,y_0))=n$ che è equivalente alla richiesta di invertibilità.\\
+
+\section{Estremi vincolati}
+
+Data $f:\Omega\subseteq\mathbb{R}^n\to\mathbb{R}$ e $\Sigma\subseteq\Omega$ una regione. Sia $p\in\Sigma$ e supponiamo che $f(p)=\max\{f(x)\quad x\in\Sigma\cap\mathcal{U}(x)\}$ in tal caso diciamo che $p$ è un punto di massimo locale per $f$ vincolata a $\Sigma$ (analoga definizione per il minimo).\\
+
+Se $\Sigma\cap\mathcal{U}(x)\}$ fosse un insieme aperto si sa come procedere, in particolare se $f\in\mathcal{C}^1$ cerchiamo gli estremanti tra gli zeri di $\nabla f$. La situazione è però nuova se 
+$\Sigma\cap\mathcal{U}(x)$ non è un aperto di $\Omega$, in tal caso in genere $\nabla f(p)\ne 0$.\\
+
+Se $\Sigma$ è il grafico di una funzione è chiaro come procedere:\\
+
+\textbf{Teorema dei Moltiplicatori di Lagrange 2.22:} Sia $f\Omega\subseteq\mathbb{R}^m\to\mathbb{R}$, con $\Omega$ aperto e $f\in\mathcal{C}^1(\Omega)$, sia $\Sigma$ il luogo degli zeri di $g:\Omega\to\mathbb{R}^n$ ($m>n)$) e $g\in\mathcal{C}^1(\Omega)$, sia $p\in\Sigma$ tale che $f$ ha in $p$ un estremo locale vincolato a $\Sigma$ e che il rango di $(Jg(p))$ sia massimo ($=n$). Allora esistono $\lambda_1\ldots\lambda_n$ tali che: $$\begin{cases} \nabla f(p)=\lambda_1\nabla g_1(p)+\ldots+\lambda_n\nabla g_n(p) & \leftarrow\mbox{m equazioni scalari}\\ g_1(p)=0\\ \vdots  &  \leftarrow\mbox{n equazioni scalari} \\ g_n(p)=0
+\end{cases}$$ Dove $g=(g_1,\ldots,g_n)$, il sistema ha $m+n$ equazioni in $m+n$ incognite $x$ e $\lambda$.\\
+
+\textbf{Dimostrazione:} Per ipotesi $rk(Jg(p))=n$ quindi esiste in $Jg(p)$ una sottomatrice di ordine $n\times n$ invertibile. Senza perdita di generalità possiamo supporre che $\mathbb{R}^m=\mathbb{R}_x^{m-n}\times\mathbb{R}_y^n$ e che $J_yg(p)$ abbia rango massimo e quindi sia invertibile. Da Dini segue che in un intorno di $p$ $\Sigma$ è il grafico di una funzione quindi esistono due intorni aperti $\mathcal{U}(x_p)$ e $\mathcal{V}(y_p)$ e una mappa $\phi:\mathcal{U}(x_p)\to\mathcal{V}(y_p)$ tali che il grafico di $\phi$ coincide con $(\mathcal{U}(x_p)\times\mathcal{V}(y_p))\cap\Sigma$. \\
+
+Ma allora $f|_\Sigma$ coincide con $x\mapsto (x,\phi(x))$. Prendo $h(x):=f(x,\phi(x))$ questa è definita su un aperto $\mathcal{U}(x_p)$, è di classe $\mathcal{C}^1$ ed ha un estremo in $x_p$ quindi: $$0=(\nabla h)(x_p)^T=(Jh)(x_p)=Jf\cdot\binom{I}{J\phi}=(Jf_x|Jf_y)\cdot\binom{I}{-(J_yg)^{-1}(J_xg}=J_xf-J_yf(J_yg)^{-1}J_xg$$ ovvero $$J_xf=J_yf(J_yg)^{-1}J_xg\quad(*)$$ Pongo $J_yf(J_yg)^{-1}$ matrice $1\times n$ $=(\lambda_1,\ldots,\lambda_n)$. Allora $(*)$ diventa: $$\nabla_xf=\lambda_1\nabla_xg_1+\ldots+\lambda_n\nabla_xg_n$$ Moltiplicando a destra $J_yf(J_yg)^{-1}$ per $J_yg$ si ottiene: $$\nabla_yf=\lambda_1\nabla_yg_1+\ldots+\lambda_n\nabla_yg_n$$ Queste du messe insieme danno il sistema della tesi. $\Box$\\
+
+\textbf{Osservazione 2.23:} Se si introduce $\mathcal{L}:\Omega\times\mathbb{R}^n\to\mathbb{R}$, $\mathcal{L}(x,\lambda):=f(x)-\underline{\lambda}g(x)$ allora il sistema può essere riscritto come: $$\begin{cases} \nabla_x\mathcal{L}=0\\ \nabla_y\mathcal{L}=0 \end{cases}$$ ovvero $\nabla_{x,y}\mathcal{L}=0$. Quindi il problema originale (cercare estremi vincolati per $f$) è diventato cercare estremi liberi per $\mathcal{L}$. $\mathcal{L}$ è detta Lagrangiana.\\
+
+\textbf{Osservazione 2.24:} Il teorema fornisce solo un criterio sufficiente, non è detto che i punti trovati risolvendo il sistema siano effettivamente estremanti. Per stabilirlo si potrebbe usare un'analisi al secondo ordine locale sulla restrizione o considerazioni sulla compattezza.\\
+
+\textbf{Osservazione 2.25:} C'è un altro modo di interpretare il teorema dei moltiplicatori basato su nozioni di geometria differenziale:\\
+
+Passo 1) In $\mathbb{R}^m$ sia $p\in\mathbb{R}^m$ e sia $E_p=\{\mbox{frecce uscenti da p}\}$ allora $E_p$ con la somma vettoriale e il prodotto per uno scalare è uno spazio vettoriale di dimensione $m$.\\
+
+Passo 2) Sia $g:\Omega\subseteq\mathbb{R}^m\to\mathbb{R}^n$, $\Omega$ aperto, $m>n$, $g\in\mathcal{C}^1(\Omega)$ e sia $p\in\Omega$ con $g(p)=0$ e $Jg(p)$ di rango $n$ (massimo). Sia $T_p\Sigma:=\{v\in E_p \mbox{che sono derivate in } p \mbox{ di qualche cammino su } \Sigma \mbox{ ovvero tali che } \exists \psi:(-1,1)\to\Sigma\subseteq\mathbb{R}^m  \mbox{ di classe } \mathcal{C}^1 \mbox{ e } \psi(0)=p, \psi '(0)=v\}$, $T_p\Sigma$ è lo spazio tangente a $\Sigma$ in $p$ e per costruzione $T_p\Sigma$ è un sottospazio di $E_p$.\\
+
+Passo 3) Dalle ipotesi fatte su $g$ e dal teorema di Dini segue che $\dim T_p\Sigma\leq m-n$. Infatti per Dini localmente $\Sigma$ è grafico di una funzione che a meno di riordinare le variabili possiamo immaginare dia le $x_{m-n+1},\ldots,x_n$ coodinate in funzione delle $x_1,\ldots,x_{m-n}$. Ma allora la curva $$\psi_1:t\to(x_{1,p}+t,x_{2,p},\ldots,x_{m-n,p},\phi(x_{1,p}+t,x_{2,p},\ldots,x_{m-n,p}))$$ è ben definita in $\mathcal{U}(0)$ dove $p=(x_{1,p},\ldots,x_{m-n,p})$ e $psi_1'(0)=1,0,\ldots,0,\frac{d\phi}{dx_1}())$ che quindi $\in T_p\Sigma$. Lo stesso risultato si può ottenere per $\psi_2,\ldots,\psi_{m-n}$. Questi sono $m-n$ vettori linearmente indipendenti.\\
+
+Passo 4) Sia ora $\psi:(_1,1)$ una curva su $\Sigma$ di classe $\mathcal{C}^1$ e $\psi(0)=p$. Visto che è su $\Sigma$ allora $(g_1\circ\psi)(t)=0\quad\forall t$. In particolare $$0=\frac{d((g_1\circ\psi)(t))}{dt}|_{t=0}=\nabla g_1(p)\cdot\psi'(0)$$ ovvero $\nabla g_1(p)$ è ortogonale a $\psi ' (0)$. Visto che ogni vettore di $T_p\Sigma$ è di questo tipo ne segue che $\nabla g_1(p)\in (T_p\Sigma)^\perp$ ma questo può essere ripetuto per $g_2,\ldots,g_n$. La condizione "$Jg(p)$ ha rango $n$" garantisce che questi sono linearmente indipendenti quindi $\dim(T_p\Sigma)^\perp\geq n$.\\
+
+Passo 5) Visto che $\dim(T_p\Sigma)+\dim(T_p\Sigma)^\perp=dim E_p=n$, da $\dim T_p\Sigma\geq m-n$ e $dim(T_p\Sigma)^\perp\geq n$, segue che $\dim T_p\Sigma= m-n$ e $dim(T_p\Sigma)^\perp = n$. Inoltre $(T_p\Sigma)^\perp$ è generato dai $\nabla g_j(p)\quad j=1,\ldots,n$
+
+\chapter{Equazioni Differenziali}
+
+Possiamo definire un'equazione differenziale come un'equazione le cui soluzioni sono funzioni $\varphi$ di cui si chiede un legame tra $x,\varphi(x),\varphi'(x),\ldots,\varphi^{(k)}(x)$ che deve essere soddisfatto $\forall x$ nel dominio. In modo meno vago è data $f:\Omega\subseteq\mathbb{R}\times\mathbb{R}^{k+1}\to\mathbb{R}$ e si cerca $\varphi:(\alpha,\beta)\to\mathbb{R}$ di classe $\mathcal{C}^k$ tale che: $$f(x,\varphi(x),\varphi'(x),\ldots,\varphi^{(k)})=0\quad\forall x \in (\alpha,\beta)$$ Una tale equazione è detta di ordine $k$.\\
+
+\textbf{Osservazione 3.1:} Se $k=0$ l'equazione è di tipo "implicito" che è già stato tratta nel capitolo 2. Considereremo quindi sempre $k\geq 1$.\\
+
+La teoria delle equazioni differenziali è abbastanza sviluppata nel caso l'equazione sia scrivibile in forma speciale: $$\varphi^{(k)}=f(x,\varphi(x),\varphi'(x),\ldots,\varphi^{(k-1)})$$ In cui la derivata di ordine massimo è esplicitata. Queste equazioni sono dette in forma normale.\\
+
+Le equazioni in forma normale possono essere generalizzate a equazioni vettoriali, ovvero equazioni dove l'incognita cercata $\varphi:(\alpha ,\beta)\to\mathbb{R}^n$ di classe $\mathcal{C}^k((\alpha,\beta))$ è in realtà vettoriale: $$\underline{\varphi}^{(k)}(x)=\underline{f}(x,\underline{\varphi}(x),\underline{\varphi}'(x),\ldots,\underline{\varphi}^{(k-1)}(x)) \quad (*)$$
+$\forall x\in(\alpha,\beta)$ dove $f:\Omega\subseteq\mathbb{R}\times (\mathbb{R}^n)^k\to\mathbb{R}^n$.\\
+
+\textbf{Osservazione 3.2:} In genere un'equazione differenziale ha più di una soluzione. Si considerino:\begin{itemize}
+\item $y'=f(x)$ ($f$ continua) ha $\varphi(x)=y_0+\int_{x_0}^xf(u)du$ come soluzione $\forall(x_0,y_0)$
+\item $y'=y$ ha $\varphi(x)=y_0 e^x$ con $y_0\in\mathbb{R}$\\
+\end{itemize}
+
+La struttura dell'equazione normale $(*)$ suggerisce però che la soluzione sia unica qualora si aggiunga una condizione iniziale della forma: $ (\underline{\varphi}(x_0),\underline{\varphi}'(x_0),\ldots,\underline{\varphi}^{(k-1)}(x_0))=(\underline{\widetilde{y_0}},\underline{\widetilde{y_1}},\underline{\widetilde{y_2}},\ldots,\underline{\widetilde{y_{k-1}}})$ con $x_0$ e $\underline{\widetilde{y}}$ assegnati. Questo perchè la conoscenza delle condizioni iniziali e di $(*)$ danno: ${\varphi}^{(k)}(x_0)={f}(x_0,{\varphi}(x_0),{\varphi}'(x_0),\ldots,{\varphi}^{(k-1)}(x_0))$ che è noto e per derivazione (sempre se è possibile) di $(*)$ si ha: $$\varphi^{(k+1)}(x)=\frac{d}{dx}\varphi^{(k)}(x)=\frac{d}{dx}f(x,\varphi (x),\varphi'(x),\ldots,\varphi^{(k-1)}(x))$$ e chiamando $x,y_0,y_1,\ldots,y_{k-1}$ gli argomenti di $f$ questo è: $$=\left .\frac{d}{dx}\right|_{(x,\varphi(x),\ldots,\varphi^{(k-1)})}+\left .\frac{d}{dy_0}\right|_{(x,\varphi(x),\ldots,\varphi^{(k-1)})}\cdot\varphi'(x)+\ldots+\left .\frac{d}{dy_{k-1}}\right|_{(x,\varphi(x),\ldots,\varphi^{(k-1)})}\cdot\varphi^{(k)}(x)$$ e valutando in $x_0$ tutti i termini a destra risultano noti (si osservi che in $x_0$ $\varphi^{(k)}$ è stato calcolato al passo precedente), quindi $\varphi^{(k+1)}(x_0)$ è noto.\\
+
+Il processo può formalmente proseguire ad ogni ordine (se $f$ è $\mathcal{C}^\infty$) e dà $\varphi^{(j)}(x_0)$ $\forall j$, quindi di $\varphi$ è determinato lo sviluppo di Taylor. Se questo converge e se converge a $\varphi$ ne segue che $\varphi$ è stata trovata univocamente. Tutto questo è formale ($f$ potrebbe non essere $\mathcal{C}^\infty$, la serie di Taylor potrebbe non convergere...) ma mostra che è ragionevole supporre che la coppia: $$\begin{cases}\mbox{  } y^{(k)}=f(x,y,y',\ldots,y^{(k-1)}) & \leftarrow \mbox{equazione normale}  \\ \left. \begin{array}{ll}
+y(x_0)=y_0 \\ y'(x_0)=y_1\\ \vdots \\ y^{(k-1)}(x_0)=y_{k-1} 
+\end{array}\right\} & \leftarrow\mbox{condizioni} \end{cases} \qquad (*)$$
+abbia una sola soluzione. Buona parte della teoria che andremo a sviluppare servirà proprio ad individuare le condizioni sotto cui questo principio è valido.\\
+
+\textbf{Definizione 3.3:}  Sia $f:\Omega\subseteq\mathbb{R}\times (\mathbb{R}^n)^k\to\mathbb{R}^n$, $\Omega$ aperto e $f\in\mathcal{C}(\Omega)$; sia inoltre $(x_0,y_0,y_1,\ldots,y_{k-1})\in\Omega$ allora chiamo $(*)$ problema di Cauchy. Chiamo soluzione di $(*)$ una funzione $\varphi:(\alpha,\beta)\to\mathbb{R}^n$ tale che:\begin{enumerate}
+\item $\varphi\in\mathcal{C}^k((\alpha,\beta))$
+\item $\alpha<x_0<\beta$
+\item $\varphi$ (e le sue derivate) hanno valori tali per cui $(*)$ vale $\forall x\in(\alpha,\beta)$
+\end{enumerate}
+Si usa chiamare "soluzione globale" una soluzione per la quale $(\alpha,\beta)$ sia noto ed esplicitato, e invece "soluzione locale" una soluzione per la quale $(\alpha,\beta)$ sia noto esistere ma non venga determinato esplicitamente.\\
+
+\textbf{Osservazione 3.4:} Il dominio di una soluzione è $(\alpha,\beta)$ in particolare è un intervallo aperto e $\varphi$ è di classe $\mathcal{C}^k$ se l'equazione ha ordine $k$.
+
+\section{Equazioni di forma speciale}
+
+Per certe funzioni $f$ esistono procedure capaci di dare una formula esplicita della soluzione del problema di Cauchy. Vediamone alcune:
+
+\subsection{Equazioni lineari del primo ordine}
+
+
+$$\begin{cases}
+y'+p(x)y=q(x)\\
+y(x_0)=y_0
+\end{cases}$$
+
+dove $p$ e $q$ $\in\mathcal{C}((\alpha,\beta))$, $x_0\in(\alpha,\beta)$ e $y_0\in\mathbb{R}$ qualunque.\\
+
+Sia $H(x)$ una (qualunque) primitiva di $p(x)$ ad esempio: $H(x)=\int_{x_0}^xp(u)du$ (esiste perchè $p(x)$ è continua e $H'=p$ in $(\alpha,\beta)$). Moltiplicando per $e^{H(x)}$, ottengo: $$q(x)e^{H(x)}=y'(x)e^{H(x)}+p(x)e^{H(x)}y=\frac{d}{dx}(y(x)e^{H(x)}$$ ma allora $y(x)e^{H(x)}$ è una primitiva per $q(x)e^{H(x)}$ per cui: $$y(x)e^{H(x)}-y(x_0)e^{H(x_0)}=\int_{x_0}^xq(v)e^{H(v)}dv$$ Siccome $y(x_0)=y_0$ per la condizione iniziale e $e^{H(x_0)}=1$ ho che: $$\boxed{y(x)=e^{-H(x)}\left[y_0+\int_{x_0}^xq(v)e^{H(v)}dv\right]}$$ ed è soluzione su $(\alpha,\beta)$ e la procedura dimostra che è unica su tale intervallo.\\
+
+\textbf{Esempio 3.5:} Si consideri il problema di Cauchy:
+
+
+$$\begin{cases}
+y'=2xy+e^{x^2-x}\\
+y(0)=3
+\end{cases}$$
+
+Abbiamo che $H(x)=\int_{0}^x-2udu=-x^2$ mentre $\int_0^xe^{u^2-u}e^{-u^2}du=\int_0^xe^{-u}du=1-e^x$ perciò la soluzione (unica su $\mathbb{R}$) è: $$y(x)=e^{x^2}(4-e^{-x})$$
+
+\textbf{Esempio 3.6:} Si consideri il problema di Cauchy:
+
+$$\begin{cases}
+y'=-\frac{y}{x}+\cos(x)\\
+y(1)=2
+\end{cases}$$
+
+La procedura ci dà che l'unica soluzione su, $(0,+\infty)$, è $y(x)=\frac{1}{x}(2+x\sin(x)+\cos(x)-\sin 1-\cos1)$.\\
+
+\subsection{Equazioni a variabile separabile}
+
+$$\begin{cases}
+y'=h(x)g(y)\\
+y(x_0)=y_0
+\end{cases}$$
+
+Con $h\in\mathcal{C}((\alpha,\beta))$, $g\in\mathcal{C}((\gamma,\delta))$, $x_0\in(\alpha,\beta)$ e $y_0\in(\gamma,\delta)$. Allora $\exists !$ soluzione locale (di fatto esiste sul più ampio intervallo su cui la procedura seguente è corretta in ogni passo:\\
+
+\textbf{Passo A:} Se $g(y_0)=0$, allora $y(x)=y_0$ (funzione costante) $\forall x\in(\alpha,\beta)$ è soluzione.\\
+
+\textbf{Passo B:} Supponiamo $g(y_0)\ne 0$. Allora $\exists\mathcal{U}(y_0)$ in cui $g$ è diverso da $0$, in tal caso: $$\frac{y'(x)}{g(y(x))}=h(x)$$ e per integrazione: $$\boxed{\int_{y_0}^{y(x)}\frac{du}{g(u)}=\int_{x_0}^x h(v)dv} \qquad (**)$$\\
+
+La $(**)$ è un'equazione implicita per $y(x)$, $F(x,y)=0$ con $$F(x,y)=\int_{y_0}^{y(x)}\frac{du}{g(u)} - \int_{x_0}^x h(v)dv$$
+
+Visto che $\frac{dF}{dy}=\frac{1}{g(y)}\ne 0$ la $(**)$ definisce implicitamente $1!$ funzione e il ragionamento che ci ha portato alla $(**)$ mostra che la soluzione del problema di Cauchy e la soluzione di $F(x,y)=0$ coincidono fino a dove è lecito dividere per $g(y)$.\\
+
+\textbf{Esempio 3.7:} Si consideri il problema di Cauchy:
+
+$$\begin{cases}
+y'=-8x^3\sqrt{y}\\
+y(0)=64
+\end{cases}$$
+
+Siccome $64\ne 0$ la funzione $y(x)=64$ non è soluzione di questo problema di Cauchy. Allora $\frac{y'}{2\sqrt{y}}=-4x^3 \Leftrightarrow \int_{64}^y\frac{du}{2\sqrt{u}}=\int_0^x-4v^3dv$
+perciò $\sqrt{y}-\sqrt{64}=-x^4 \Leftrightarrow y=(\sqrt{64}-x^4)^2$ ed è soluzione globale, di fatto lo è su tutto l'intervallo $(-64^{\frac{1}{8}},64^{\frac{1}{8}}$.\\
+
+\subsection{Equazioni di Bernoulli}
+
+$$\begin{cases}
+y'+p(x)y=q(x)y^\gamma\\
+y(x_0)=y_0
+\end{cases}$$
+
+dove $p$ e $q$ $\in\mathcal{C}((\alpha,\beta))$, $\gamma\in\mathbb{R}$, $x_0\in(\alpha,\beta)$ e $y_0$ tale che $y_0^\gamma$ è ben definita.\\
+
+Se $\gamma=0$o $\gamma=1$ allora l'equazione è lineare e come trattarla è stato visto in precedenza, supponiamo $\gamma\ne 0,1$.\\
+
+Se $\gamma >0$ tra le soluzioni dell'equazione c'è $y(x)\equiv0$ $\forall x$ (che soddisfa il problema di Cauchy nel caso $y_0=0$). Assumo $y_0\ne 0$ allora posso dividere per $y^\gamma$ ed ho: $$\frac{y'}{y^\gamma}+p(x)\frac{1}{y^{\gamma-1}}=q(x)$$
+
+Pongo $z(x)=y^{1-\gamma}$ allora $z'(x)=(1-\gamma)\frac{y'}{y^\gamma}$ quindi $z$ soddisfa: $$\begin{cases} \frac{z'}{1-\gamma}+p(x)z=q(x)\\z(x_0)=y_0^{1-\gamma} \end{cases} \mbox{ ovvero } \begin{cases} z'+(1-\gamma)p(x)z=(1-\gamma)q(x)\\z(x_0)=y_0^{1-\gamma} \end{cases} $$
+
+Quindi l'equazione per $z$ è lineare. Risolto il problem di Cauchy per $z$ si ottiene la $y$ invertendo la soluzione $z(x)=y(x)^{1-\gamma}$. (Attenzione a dove questa soluzione sia invertibile!)\\
+
+\textbf{Osservazione 3.8:} La procedura è invertibile ad ogni punto se $y_0\ne0$ quindi quella così trovata è l'unica soluzione locale.\\
+
+\section{Semplificazioni di equazioni differenziali generiche}
+
+Proseguiamo ora nello studio delle equazioni differenziali generiche:
+
+\subsection{Da equazione di ordine k a equazione del primo ordine}
+
+Verifichiamo che da un certo punto di vista basta studiare le equazioni del primo ordine, purchè vettoriali, perché ogni equazione diordine $k$ può sempre essere scritta come equazione del primo ordine vettoriale. Infatti sia data: $$\begin{cases} \underline{y}^{(k)}=\underline{f}(x,\underline{y},\underline{y}',\ldots,\underline{y}^{(k-1)})\\ \underline{y}^{(j)}(x_0)=\widetilde{\underline{y}_j}\qquad j=0,\ldots,k-1 \end{cases} (*)$$ con $\underline{f}:\Omega\subseteq\mathbb{R}\times(\mathbb{R}^n)^k\to\mathbb{R}^k$, $\Omega$ aperto, $f\in\mathcal{C}(\Omega)$ e $(x_0,\widetilde{y_0},\ldots,\widetilde{y_{k-1}})\in\Omega$. Pongo: $$\underline{z}(x)=\begin{bmatrix} \underline{y}(x)\\ \underline{y}'(x) \\ \vdots \\ \underline{y}^{(k-1)}(x) \end{bmatrix} = = \begin{bmatrix}
+\underline{z_1} \\ \underline{z_2} \\ \vdots \\ \underline{z_k} \end{bmatrix}$$
+
+Provo a derivare le componenti del vettore (è possibile in quanto di classe $\mathcal{C}^k$) e ottengo: $$\underline{z}'(x)=\begin{bmatrix} \underline{y}'(x)\\
+ \underline{y}''(x) \\ 
+ \vdots \\ 
+ \underline{y}^{(k)}(x) 
+ \end{bmatrix} =
+\begin{bmatrix} 
+\underline{y}'(x)\\ 
+\underline{y}''(x) \\ 
+\vdots \\ 
+\underline{f}(x,\underline{y},\underline{y}',\ldots,\underline{y}^{(k-1)}) \end{bmatrix}=  \begin{bmatrix}
+\underline{z_2} \\ 
+\vdots \\ 
+ \underline{z_k} \\ 
+ \underline{f}(x,\underline{y},\underline{y}',\ldots,\underline{y}^{(k-1)}) 
+ \end{bmatrix} :=\underline{F}(x,\underline{z})$$
+ ed è chiaro che $\underline{F}\in\mathcal{C}(\Omega)$. Inoltre: $$\underline{z}(x_0)=\begin{bmatrix}
+ \widetilde{y_0}\\
+ \vdots \\
+ \widetilde{y_{k-1}}
+ \end{bmatrix}$$
+ 
+ Quindi se $\underline{y}$ soddisfa $(*)$ allora $\underline{z}$ soddisfa: $$\begin{cases}
+ \underline{z}'=\underline{F}(x,\underline{z})\\
+ \underline{z}(x_0)=\begin{bmatrix}
+ \widetilde{y_0}\\
+ \vdots \\
+ \widetilde{y_{k-1}}
+ \end{bmatrix}
+ \end{cases} (**)$$
+ 
+ che è del primo ordine vettoriale con $\underline{F}\in\mathcal{C}(\Omega)$ \\
+ 
+ Viceversa se $\underline{z}$ soddisfa $(**)$ (quindi $\underline{z}\in\mathcal{C}^1(\mathcal{U}(x_0))$) allora la funzione $y(x):=z_1(x)$ è chiaramente $\mathcal{C}^1$ ma $(**)$ dice $y'(x)=z_2$ che è $\mathcal{C}^1$ allora $y(x)$ è in realtà $\mathcal{C}^2$. Iterando il procedimento si afferma che $y(x)$ è di classe $\mathcal{C}^k$ e $y^{(k)}=z'_k=f(x,z_1,z_2,\ldots,z_k)$ ovvero $\underline{y}$ soddisfa $(x)$ comprese le condizioni iniziali quindi $(*)$ equivale a $(**)$\\
+ 
+ D'ora in poi ci limiteremo a problemi di Cauchy del primo ordine vettoriale.
+ 
+ \subsection{Passaggio a integrale}
+
+Sia dato il problema di Cauchy: 
+
+$$\begin{cases}
+\underline{y}'=f(x,\underline{y})\\
+\underline{y}(x_0)=\underline{y}_0
+\end{cases} (*3*) $$
+
+con $f:\Omega\subseteq\mathbb{R}\times\mathbb{R}^n\to\mathbb{R}^n$, $\Omega$ aperto, $f\in\mathcal{C}(\Omega)$ e $(x_0,\underline{y}_0)\in\Omega$.\\
+
+Supponiamo che $y$ sia una soluzione del problema di Cauchy (quindi è di classe $\mathcal{C}^1$ su un intervallo $(\alpha,\beta)$). Integrando l'equazione tra $x_0$ e $x$ si ha allora:
+
+$$y(x)=y_0+\int_{x_0}^x f(u,y(u))du\mbox{ in } (\alpha,\beta)$$ 
+
+Introduco allora un "operatore", data una funzione "buona" $\varphi$ definiamo:
+
+$$T:\varphi\to (T\varphi) \qquad (T\varphi)(x):=y_0+\int_{x_0}^x f(u,\varphi(u))du$$
+
+Perciò se  $y$ è soluzione di $(*3*)$ su $(\alpha,\beta)$ ($y\in\mathcal{C}^1$) allora $Ty$ è ben definito e $Ty=y$ ovvero $y$ è punto fisso per $T$.\\
+
+Viceversa, supponiamo che $\varphi$ sia $\mathcal{C}((\alpha,\beta))$ e sia punto fisso per $T$. Allora: 
+
+$$\varphi(x)=y_0+\int_{x_0}^x f(u,\varphi(u))du\quad\forall x\in(\alpha,\beta)\quad (*4*)$$
+
+ma $u\to f(u,\varphi(u))$ è continua (composizione di funzioni continue), quindi $x\to\int_{x_0}^x f(u,\varphi(u)) du$ è $\mathcal{C}^1$ (è integrale di una continua), ma allora $\varphi\in\mathcal{C}^1((\alpha,\beta))$ per la $(*4*)$. Valutando in $x_0$ la $(*4*)$ si ha $\varphi(x_0)=y_0$ e derivando la $(*4*)$ si ha $\varphi'(x)=f(x,\varphi(x))$. Quindi $\varphi$ soddisfa la $(*3*)$ ovvero se $y$ è $\mathcal{C}((\alpha,\beta))$ e $Ty=y$ in $(\alpha,\beta)$ allora $y$ è soluzione di $(*3*)$ su $(\alpha,\beta)$ e $y\in\mathcal{C}^1((\alpha,\beta))$\\
+
+Quindi il problema di Cauchy equivale ad un problema di punto fisso (detto problema integrale di Volterra) che però per essere formulato ha bisogno solo di assumere che $y\in\mathcal{C}((\alpha,\beta))$ (e non $\mathcal{C}^1$). Questo semplifica notevolmente la teoria.
+
+\section{Teoremi di esistenza e unicità}
+
+
+Basandosi se questa equivalenza si può dimostrare il seguente teorema:\\
+
+\textbf{Teorema di Peano 3.9:} Sia $f:\Omega\subseteq\mathbb{R}\times\mathbb{R}\to\mathbb{R}$, $\Omega$ aperto e $f\in\mathcal{C}(\Omega)$. Sia $(x_0,y_0)\in\Omega$ allora il problema di Cauchy: 
+
+$$\begin{cases}
+y'=f(x,y)\\
+y(x_0)=y_0
+\end{cases}$$
+
+ha una soluzione locale (non dimostriamo questo risultato).\\
+
+Osserviamo che il teorema afferma l'esistenza della soluzione ma non la sua unicità. In effetti sotto ipotesi così deboli (la sola continuità) non si ha unicità. Ad esempio:\\
+
+\textbf{Esempio 3.10:} Sia dato il problema di Cauchy:
+
+$$\begin{cases}
+y'=3y^{\frac{2}{3}}\\
+y(0)=0
+\end{cases}$$
+
+ha sia $y(x)\equiv 0$ che $y(x)=x^3$ come soluzioni.\\
+
+La sola continuità di $f$ garantisce l'esistenza locale della soluzione del problema di Cauchy ma non la sua unicità. Introduciamo ora una proprietà aggiuntiva che si rivelerà adatta per l'unicità:\\
+
+\textbf{Definizione 3.11:} Data $f:\Omega\subseteq\mathbb{R}\times\mathbb{R}^n \to\mathbb{R}^n$, $\Omega$ aperto e dato $(x_0,y_0)\in\Omega$; $f$ è detta localmente lipschitziana nelle $y$ uniformemente nelle $x$ nel punto $(x_0,y_0)$ quando $\exists d,\delta,L$ tali che: 
+
+$$\left . \begin{array}{ll}
+x\in[x_0-d,x_0+d]\\
+y_1,y_2\in\overline{B_\delta(y_0)}
+\end{array} \right\} \Rightarrow ||f(x,y_1)-f(x,y_2)||_2\leq L||y_1-y_2||_2$$\\
+
+\textbf{Osservazione 3.12:} È una condizione di regolarità ma solo nelle $y$, non in tutte le variabili di $f$. Ad esempio $f(x,y):=[x]+y$ ($[x]$ parte intera di $x$) ha quella proprietà ma non è continua.\\
+
+\textbf{Osservazione 3.13:} Se $f\in\mathcal{C}^1(\Omega)$ allora sicuramente ha quella proprietà in tutti i punti di $\Omega$ (perché le derivate parziali di $f$ sono continue quindi limitate sui compatti).\\
+
+\textbf{Teorema esistenza e unicità locale 3.14:} Data $f:\Omega\subseteq\mathbb{R}\times\mathbb{R}^n \to\mathbb{R}^n$, $\Omega$ aperto, $f\in\mathcal{C}(\Omega)$ e sia $(x_0,y_0)\in\Omega$. Supponiamo che $f$ sia localmente lipschitziana nelle $y$ uniformemente nelle $x$ in $(x_0,y_0)$ allora il problema di Cauchy: 
+
+$$\begin{cases}
+y'=f(x,y)\\
+y(x_0)=y_0
+\end{cases}$$
+
+ha una e una sola soluzione locale.\\
+
+\textbf{Dimostrazione:} Siano $d,\delta,L$ come nella defizione 3.11. Sia $M:=\max||f(x,y)||_2\quad(x,y)\in[x_0-d,x_0+d]\times\overline{B_\delta(y_0)}$, osservo che $[x_0-d,x_0+d]\times\overline{B_\delta(y_0)}$ è compatto e $f$ è continua quindi esiste $M$. Sia $d'=\min(d,\frac{\delta}{M},\frac{1}{2L})$ e sia $\mathcal{X}:=\mathcal{C}([x_0-d',x_0+d'],\overline{B_\delta(y_0)})$ ovvero l'insieme delle funzioni continue da $[x_0-d',x_0+d']$ a $\overline{B_\delta(y_0)}$. $\mathcal{X}$ è uno spazio metrico completo rispetto alla metrica $d(\varphi,\psi):=||\varphi-\psi||_\infty$ (perchè il limite uniforme di funzioni continue è continuo e $\overline{B_\delta(y_0)}$ è chiuso).\\
+
+Sia $T$ l'operatore integrale di Volterra: $$(T\varphi)(x):=y_0+\int_{x_0}^xf(u,\varphi(u))du$$
+
+1) $T$ è una mappa $\mathcal{X}\to\mathcal{X}$ infatti è chiaro che se $\varphi\in\mathcal{X}$ allora $T\varphi$ è continua su $[x_0-d',x_0+d']$ (qui si usa la continuità di $f$) e inoltre:
+
+$$||(T\varphi)(x)-y_0||_2=\left|\left|\int_{x_0}^x f(u,\varphi(u))du\right|\right|_2\leq\left|\int_{x_0}^x ||f(u,\varphi(u))||_2 du\right|\leq M(x-x_0)\leq Md'\leq\delta$$
+
+2) $T$ è una contrazione. Infatti se $\varphi,\psi\in\mathcal{X}$ si ha: 
+
+$$||(T\varphi)(x)-(T\psi)(x)||_2=\left|\left|\int_{x_0}^x (f(u,\varphi(u)-f(u,\psi(u))du\right|\right|_2\leq\left|\int_{x_0}^x ||f(u,\varphi(u)-f(u,\psi(u)||_2 du\right|$$
+
+ma $f$ è localmente lipschitziana nelle $y$ uniformemente nelle $x$ quindi:
+
+$$\leq\left| \int_{x_0}^x L||\varphi(u)-\psi(u)||_2du\right|\leq L||\varphi-\psi||_\infty\cdot(x-x_0)\leq d'L\cdot||\varphi-\psi||_\infty$$
+
+Questo vale $\forall x\in[x_0-d',x_0+d']$ allora abbiamo verificato che: 
+
+$$||T\varphi-T\psi||_\infty\leq d'L\cdot||\varphi-\psi||_\infty$$
+
+ma $d'L\leq\frac{1}{2}$ quindi $T$ è una contrazione.\\
+
+3) Quindi $T$ è una contrazione e $\mathcal{X}$ è completo, dal teorema di Banach - Cacciopoli sappiamo che esiste ed è unico il punto fisso per $T$ pvvero una mappa $\varphi$ tale che $T\varphi=\varphi$. Abbiamo già visto che l'esistenza e unicità della soluzione del problema di Volterra equivale all'esistenza e unicità del problema di Cauchy. $\Box$
+
+\end{document}
+
+
