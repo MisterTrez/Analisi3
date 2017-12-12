@@ -121,11 +121,13 @@ Dall'ipotesi di limitatezza si ha che $||f_{n}||_{\infty,X}<\infty$ da cui deduc
 
 \textbf{Dimostrazione:} Se $x_0 \in X$ è un punto isolato la funzione è sicuramente continua quindi scelgo $x_0$ d'accumulazione, fisso $\epsilon >0$ e dalla definizione di convergenza uniforme segue che $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $|f_{n}(x_{0})-f(x_{0})|<\epsilon$. Scrivo che:
 
-\begin{center}
-$|f(x)-f(x_0)|=|f(x)-f_{n}(x)+f_{n}(x)-f_{n}(x_{0})+f_{n}(x_{0})-f(x_0)|\leq
-|f(x)-f_{n}(x)|+|f_{n}(x)-f_{n}(x_{0})|+|f_{n}(x_{0})-f(x_0)|$
-\end{center}
- il primo e il terzo addendo sono ciascuno $<\epsilon$ per l'ipotesi di convergenza uniforme perciò $|f(x)-f(x_0)|\leq 2\epsilon+|f_{n}(x)-f_{n}(x_{0})|$.
+
+$$|f(x)-f(x_0)|=|f(x)-f_{n}(x)+f_{n}(x)-f_{n}(x_{0})+f_{n}(x_{0})-f(x_0)|$$ $$\leq
+|f(x)-f_{n}(x)|+|f_{n}(x)-f_{n}(x_{0})|+|f_{n}(x_{0})-f(x_0)|$$
+
+ Il primo e il terzo addendo sono ciascuno $<\epsilon$ per l'ipotesi di convergenza uniforme perciò: 
+ $$|f(x)-f(x_0)|\leq 2\epsilon+|f_{n}(x)-f_{n}(x_{0})|$$
+ 
 Dall'ipotesi che le $\{f_{n}\}$ sono continue so che $\exists{\delta}=\delta(\epsilon)$: se $|x-x_0|\leq{\delta}$ $\Rightarrow$ $|f_{n}(x_{0})-f(x_{0})|<\epsilon$ quindi $|f(x)-f(x_0)|\leq 3\epsilon$. $\Box$ \\
 
 \textbf{Definizione 1.1.12:} Definiamo $B(X,\mathbb{R}):=\{f:X\rightarrow\mathbb{R},\sup |f(x)|<\infty\}$ come l'insieme delle funzioni limitate da $X$ in $\mathbb{R}$ \\
@@ -143,7 +145,10 @@ Dall'ipotesi che le $\{f_{n}\}$ sono continue so che $\exists{\delta}=\delta(\ep
 
 \textbf{Dimostrazione:} Vogliamo dimostrare che ogni sequenza di Cauchy è convergente. Sia $\{f_{n}\}$ una successione di Cauchy, per definizione $\forall{\epsilon}>0$ si ha che: $\exists{N}=N(\epsilon)$: se $n,m\geq{N}$ $\Rightarrow$ $||f_{n}-f_{m}||_{\infty,X}<\epsilon$\\
 
-Fisso $x_0$ nello spazio, $\epsilon >0$ e $ N $ come sopra quindi per $m,n \geq N$ $|f_{n}(x_0)-f_{m}(x_0)|\leq \sup|f_{n}(x)-f_{n}(x)|=||f_{n}-f_{m}||_{\infty,X}<\epsilon$. Quindi la successione $\{f_{n}(x_0)\}$ è di Cauchy in $\mathbb{R}$ che è completo $\Rightarrow\{f_{n}(x_0)\}$  converge $\forall{x_{0}}\in{X}$ scelto arbitrariamente  $\Rightarrow \lim_{n \to \infty}f_{n}(x_0)$ esiste $\forall{x_{0}}\in{X}$. Sia $f(x):=\lim\limits_{n \to \infty}{f_{n}}(x)$ allora $\{f_{n}\}\rightarrow f$ puntualmente\\
+Fisso $x_0$ nello spazio, $\epsilon >0$ e $ N $ come sopra quindi per $m,n \geq N$:  
+$$|f_{n}(x_0)-f_{m}(x_0)|\leq \sup|f_{n}(x)-f_{n}(x)|=||f_{n}-f_{m}||_{\infty,X}<\epsilon$$ 
+
+Quindi la successione $\{f_{n}(x_0)\}$ è di Cauchy in $\mathbb{R}$ che è completo $\Rightarrow\{f_{n}(x_0)\}$  converge $\forall{x_{0}}\in{X}$ scelto arbitrariamente  $\Rightarrow \lim_{n \to \infty}f_{n}(x_0)$ esiste $\forall{x_{0}}\in{X}$. Sia $f(x):=\lim\limits_{n \to \infty}{f_{n}}(x)$ allora $\{f_{n}\}\rightarrow f$ puntualmente\\
 
 Dalla proprietà di Cauchy segue che $\forall{\epsilon}>0$ $\exists{N}=N(\epsilon)$: se $n,m\geq{N}$ $\Rightarrow$ $|f_{n}(x)-f_{m}(x)|<\epsilon$  $\forall{x}$ per cui se fisso $x_0$ ho $|f_{n}(x_0)-f_{m}(x_0)|<\epsilon$, prendo il limite per $m$ che tende a $+\infty$ e ho $|f_{n}(x_0)-f(x_0)|<\epsilon$ e siccome $x_0$ è arbitrario e $N$ non dipende da esso la convergenza è uniforme $\forall{\epsilon{>0}}$ $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $||f_{n}-f||_{\infty,X}<\epsilon$. $\Box$\\
 
@@ -151,7 +156,7 @@ Dalla proprietà di Cauchy segue che $\forall{\epsilon}>0$ $\exists{N}=N(\epsilo
 
 \textbf{Proposizione 1.1.17:} $CB(\Omega,\mathbb{R})$ dotato della norma $||f||_{\infty,X}$ è uno spazio di Banach\\
 
-\textbf{Dimostrazione:} Per la proposizione precedente, poichè siamo in un sottoinsieme di uno spazio completo, è sufficiente provare la chiusura dell'insieme. Sia $\{f_{n}\}\subseteq CB(\Omega,\mathbb{R})$ che converge puntualmente a $f\in B(\Omega,\mathbb{R})$, siccome la convergenza è uniforme $f$ sta anche in $C(\Omega,\mathbb{R})$ $\Rightarrow f \in CB(\Omega,\mathbb{R})$.$\Box$
+\textbf{Dimostrazione:} Per la proposizione precedente, poichè siamo in un sottoinsieme di uno spazio completo, è sufficiente provare la chiusura dell'insieme. Sia $\{f_{n}\}\subseteq CB(\Omega,\mathbb{R})$ che converge puntualmente a $f\in B(\Omega,\mathbb{R})$, siccome la convergenza è uniforme $f$ sta anche in $C(\Omega,\mathbb{R})$ $\Rightarrow f \in CB(\Omega,\mathbb{R})$.$\Box$\\
 
 \textbf{Teorema 1.1.18:} Siano $\{f_{n}\},f:[a,b]\subset\mathbb{R}\rightarrow\mathbb{R}$ con $\{f_{n}\}\rightarrow f$ uniformemente e  $\{f_{n}\}\in\mathcal{R}([a,b])$ allora:
 \begin{itemize}
@@ -161,18 +166,19 @@ Dalla proprietà di Cauchy segue che $\forall{\epsilon}>0$ $\exists{N}=N(\epsilo
 
 \textbf{Dimostrazione:} Per l'ipotesi di convergenza uniforme fisso $\epsilon >0$ per cui $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $||f_{n}-f||_{\infty,[a,b]}<\epsilon$. Siccome $\{f_{n}\}\in\mathcal{R}([a,b])$ $\exists P$ partizione per la quale:
 
-\begin{center}
- $\sum_{j=1}^n (\widetilde{M}_{j,N}-\widetilde{m}_{j,N})\cdot\ (x_{j}-x_{j-1})\leq\epsilon$
-\end{center}
+
+ $$\sum_{j=1}^n (\widetilde{M}_{j,N}-\widetilde{m}_{j,N})\cdot\ (x_{j}-x_{j-1})\leq\epsilon$$
 
  dove $\widetilde{M}_{j,N}:=\sup_{[x_{j-1},x_{j}]}f_{n}(x)$ e $\widetilde{m}_{j,N}:=\inf_{[x_{j-1},x_{j}]}f_{n}(x)$. \\
  
- Poniamo $f(x)=f_{n}(x)+f(x)-f_{n}(x)$ e $f(x)\leq f_{n}(x)+|f(x)-f_{n}(x)|\leq f_{n}(x)+||f_{n}-f||_{\infty,[a,b]}\leq f_{n}(x)+\epsilon$ quindi se $x\in [x_{j-1},x_{j}] $ ho $f(x) \leq \sup f_{n}(x)+\epsilon=\widetilde{M}_{j,N}+\epsilon$ perciò $M_{j,N}:=\sup f(x)\leq\widetilde{M}_{j,N}+\epsilon$. Passiamo ora a $f(x)\geq f_{n}(x)-|f(x)-f_{n}(x)|\geq f_{n}(x)-||f_{n}-f|| \geq f_{n}(x)-\epsilon$ quindi se $x\in [x_{j-1},x_{j}] $ ho $f(x) \geq \inf f_{n}(x)-\epsilon=\widetilde{m}_{j,N}+\epsilon$ perciò $m_{j,N}:=\inf f(x)\geq\widetilde{m}_{j,N}+\epsilon$. \\
+ Poniamo $f(x)=f_{n}(x)+f(x)-f_{n}(x)$ da cui: $$f(x)\leq f_{n}(x)+|f(x)-f_{n}(x)|\leq f_{n}(x)+||f_{n}-f||_{\infty,[a,b]}\leq f_{n}(x)+\epsilon$$ quindi se $x\in [x_{j-1},x_{j}] $ ho $f(x) \leq \sup f_{n}(x)+\epsilon=\widetilde{M}_{j,N}+\epsilon$ perciò $M_{j,N}:=\sup f(x)\leq\widetilde{M}_{j,N}+\epsilon$.\\
 
-Ora sappiamo che 
- $\sum_{j=1}^n (\widetilde{M}_{j,N}-\widetilde{m}_{j,N}) \cdot (x_{j}-x_{j-1})\leq \sum_{j=1}^n (M_{j,N}-m_{j,N}+2\epsilon)\cdot (x_{j}-x_{j-1})=\sum_{j=1}^n (M_{j,N}-m_{j,N})\cdot (x_{j}-x_{j-1})$ $+2\epsilon\sum_{j=1}^n(x_{j}-x_{j-1})\leq \epsilon +2\epsilon(b-a)$.
+Passiamo ora a $f(x)\geq f_{n}(x)-|f(x)-f_{n}(x)|\geq f_{n}(x)-||f_{n}-f|| \geq f_{n}(x)-\epsilon$ quindi se $x\in [x_{j-1},x_{j}] $ ho $f(x) \geq \inf f_{n}(x)-\epsilon=\widetilde{m}_{j,N}+\epsilon$ perciò $m_{j,N}:=\inf f(x)\geq\widetilde{m}_{j,N}+\epsilon$. \\
 
-$|\int_{a}^{b}f_{n}(x)dx-\int_{a}^{b}f_(x)dx|=|\int_{a}^{b}f_{n}(x)-f(x)dx|\leq\int_{a}^{b}||f_{n}-f||_{\infty,[a,b]}dx=||f_{n}-f||_{\infty,[a,b]}(b-a)$ .$\Box$\\
+Ora sappiamo che:
+ $$\sum_{j=1}^n (\widetilde{M}_{j,N}-\widetilde{m}_{j,N}) \cdot (x_{j}-x_{j-1})\leq \sum_{j=1}^n (M_{j,N}-m_{j,N}+2\epsilon)\cdot (x_{j}-x_{j-1})$$  $$=\sum_{j=1}^n (M_{j,N}-m_{j,N})\cdot (x_{j}-x_{j-1})+2\epsilon\sum_{j=1}^n(x_{j}-x_{j-1})\leq \epsilon +2\epsilon(b-a)$$.
+
+$|\int_{a}^{b}f_{n}(x)dx-\int_{a}^{b}f_(x)dx|=|\int_{a}^{b}(f_{n}(x)-f(x))dx|\leq\int_{a}^{b}||f_{n}-f||_{\infty,[a,b]}dx=||f_{n}-f||_{\infty,[a,b]}(b-a)$ $\Box$\\
 
 \textbf{Osservazione 1.1.19:} Integrale e limite in generale non possono essere scambiati
 
@@ -799,7 +805,119 @@ $$||T\varphi-T\psi||_\infty\leq d'L\cdot||\varphi-\psi||_\infty$$
 
 ma $d'L\leq\frac{1}{2}$ quindi $T$ è una contrazione.\\
 
-3) Quindi $T$ è una contrazione e $\mathcal{X}$ è completo, dal teorema di Banach - Cacciopoli sappiamo che esiste ed è unico il punto fisso per $T$ pvvero una mappa $\varphi$ tale che $T\varphi=\varphi$. Abbiamo già visto che l'esistenza e unicità della soluzione del problema di Volterra equivale all'esistenza e unicità del problema di Cauchy. $\Box$
+3) Quindi $T$ è una contrazione e $\mathcal{X}$ è completo, dal teorema di Banach - Cacciopoli sappiamo che esiste ed è unico il punto fisso per $T$ pvvero una mappa $\varphi$ tale che $T\varphi=\varphi$. Abbiamo già visto che l'esistenza e unicità della soluzione del problema di Volterra equivale all'esistenza e unicità del problema di Cauchy. $\Box$\\
+
+\textbf{Esercizio 3.15:} Sia dato il problema di Cauchy:
+
+$$\begin{cases}
+y'=y \\
+y(0)=1
+\end{cases}$$
+
+il teorema precedente garantisce l'esistenza e unicità della soluzione e lo fa tramite il teorema di Banach - Cacciopoli applicato a $(T\varphi)(x):=1+\int_0^x\varphi(u)du$. Sia $\varphi_0(x)\equiv 0$ e dato $\varphi_n$ costruisco $\varphi_{n+1}(x)=(T\varphi_n)(x)=1+\int_0^x\varphi_n(u)du$.\begin{enumerate}
+\item Calcolare $\varphi_1,\varphi_2,\varphi_3,\ldots$ 
+\item Determinare $\varphi_n$ esplicitamente $\forall n$ (per induzione)
+\item Verificare che $\varphi_n(x)\to \exp^x$ $\forall x\in\mathbb{R}$ e verificare che effettivamente $\exp^x$ soddisfa il problema di Cauchy.\\
+\end{enumerate}
+
+Quindi dato un problema di Cauchy nella forma del teorema se $f$ è continua il problema di Cauchy ha almeno una soluzione locale (Peano), se poi $f$ è di classe $\mathcal{C}^1$ la soluzione è unica ovvero l'esistenza e unicità locale sono legate alla regolarità di $f$.\\
+
+Diversa è invece la questione dell'esistenza e/o unicità globale.\\
+
+\textbf{Esempio 3.16:} Si consideri:
+
+$$\begin{cases}
+y'=y^2 \\
+y(0)=\alpha
+\end{cases}$$
+
+esso ammette come soluzione $y(x)=\frac{\alpha}{1-\alpha x}$ negli intervalli $(-\infty,frac{1}{\alpha}$ se $\alpha>0$, $(\frac{1}{\alpha},+\infty)$ se $\alpha<0$ e $\mathbb{R}$ se $\alpha=0$. Ciò nonostante $y'=f(x,y)$ con $f(x,y)\in\mathcal{C}^\infty(\mathbb{R}\times\mathbb{R})$. L'esistenza e unicità in grande è infatti sensibile alla crescita di $f$ in $y$.\\
+
+\textbf{Teorema esistenza e unicità globale (striscia) 3.17:} Sia $f:S:=[a,b]\times\mathbb{R}^n\to\mathbb{R}^n$, $f\in\mathcal{C}(S)$. Supponiamo che f sia lipschitziana nelle $y$ uniformemente nelle $x$, ovvero $\exists L>0$ tale che: $\forall x\in [a,b]$, $\forall y_1,y_2\in\mathbb{R}^n$  $||f(x,y_1)-f(x,y_2)||_2\leq L||y_1-y_2||$ allora ogni problema di Cauchy della forma:
+
+$$\begin{cases}
+y'=f(x,y)\\
+y(x_0)=y_0
+\end{cases}$$
+
+con $(x_0,y_0)\in S$ ha un'unica soluzione su $[a,b]$.\\
+
+\textbf{Osservazione 3.18:} La condizione su $f$ dice (tra le altre cose) che $f$ cresce al più linearmente nelle $y$ visto che:
+
+$$||f(x,y)||_2\leq ||f(x,0)||_2 +||f(x,y)-f(x,0)||_2\leq A+L||y||_2$$
+
+dove $A:=\max ||f(x,0)||_2$ (con $x\in[a,b]$) che esiste per la continuità di $f$.\\
+
+\textbf{Dimostrazione:} Dimostro la tesi prima in $[x_0,b]$ poi in $[a,x_0]$ dopo di che uso il teorema di esistenza e unicità locale per unire le due soluzioni in un'unica soluzione in $[a,b]$\\
+
+Dimostro su $[x_0,b]$. Sia $\mathcal{X}:=\mathcal{C}([x_0,b],\mathbb{R}^n)$ e sia:
+
+$$(T\varphi)(x)=y_0+\int_{x_0}^x f(u,\varphi(u))du$$
+
+è chiaro che $T:\mathcal{X}\to\mathcal{X}$ (più semplice dell'altra volta perchè le funzioni in $\mathcal{X}$ non sono soggette a vincoli se non la continuità). Osservo che $\mathcal{X}$ è completo rispetto a $||$ $||_\infty$.\\
+
+Introduco però una norma diversa fisso $\lambda>0$ e pongo:
+
+$$||\varphi||_\lambda:=\sup\limits_{x_0\in[x_0,b]}||e^{-\lambda x}\varphi (x)||_2$$
+
+Osservo che $e^{-\lambda b}\leq e^{-\lambda x}\leq e^{-\lambda x_0}$ e che quindi:
+
+$$e^{-\lambda b}||\varphi||_\infty\leq||\varphi||_\lambda\leq e^{-\lambda x_0}||\varphi||_\infty$$
+
+Questo dimostra che $||$ $||_\infty$ e $||$ $||_\lambda$ sono norme equivalenti per cui $\mathcal{X}$ è completo anche rispetto a $||$ $||_\lambda$. Ora:
+
+$$||T\varphi(x)-T\psi(x)||_2\leq\int_{x_0}^x ||f(u,\varphi(u))-f(u,\psi(u)||_2 du$$
+
+ma $f$ è lipschitziana quindi:
+
+$$L\int_{x_0}^x ||\varphi(u)-\psi(u)||_2 du=L\int_{x_0}^x e^{\lambda u}\underbrace{e^{-\lambda u} ||\varphi(u)-\psi(u)||_2}_{\leq||\varphi-\psi||_\lambda} du$$ $$\leq L||\varphi-\psi||_\lambda\int_{x_0}^x e^{\lambda u}du=\frac{L}{\lambda}(e^{\lambda x}-e^{\lambda x_0})||\varphi-\psi||_\lambda$$
+
+Ma allora $$e^{-\lambda x}||T\varphi(x)-T\psi(x)||_2\leq\frac{L}{\lambda}(1-e^{-\lambda(x-x_0)}||\varphi-\psi||_\lambda\leq\frac{L}{\lambda}||\varphi-\psi||_\lambda$$ ovvero:
+
+$$||T\varphi-T\psi||_\lambda\leq\frac{L}{\lambda}||\varphi-\psi||_\lambda$$
+
+Scegliendo $\lambda>L$ si trova una norma rispetto alla quale $T$ è una contrazione.\\
+
+Su $[a,x_0]$ uso invece $$||\varphi||_\lambda:=\sup\limits_{x_0\in[a,x_0]}||e^{\lambda x}\varphi (x)||_2$$ (sempre $\lambda>0$). $\Box$\\
+
+\section{Stabilità rispetto al modello e ai dati iniziali}
+
+\textbf{Teorema 3.19:} Siano $f,g:[a,b]\times B\to\mathbb{R}^n$ dove $B$ è un aperto di $\mathbb{R}^n$. Supponiamo che:
+\begin{itemize}
+\item $\exists L$ con $||f(x,y)-f(x,z)||\leq L||y-z||$ $\forall x\in[a,b]$ $y,z\in B$
+\item $\exists R:[a,b]\to\mathbb{R}$ continua con $||f(x,y)-g(x,y)||\leq R(x)$ $\forall x\in[a,b]$ $y\in B$
+\end{itemize}
+Siano $\alpha,\beta\in B$ e siano $\varphi$ e $\psi$ di classe $\mathcal{C}^1([\alpha,\beta])$ che soddisfano: 
+
+$$\varphi:\begin{cases} \varphi'(x)=f(x,\varphi(x))\\ \varphi(a)=\alpha\end{cases} \psi:\begin{cases} \psi'(x)=g(x,\psi(x))\\ \psi(a)=\beta\end{cases}$$
+
+Allora $||\varphi(x)-\psi(x)||\leq e^{L(x-a)}||\alpha-\beta||+e^{L(x-a)}\int_a^x e^{-L(s-a)}R(s)ds$.\\
+
+\textbf{Dimostrazione:} Considero $||\varphi(x)-\psi(x)||$, questa è una mappa $[a,b]\to\mathbb{R}$ continua che in tutti i punti in cui $\varphi(x)\ne\psi(x)$ soddisfa:
+
+$$\frac{d}{dx}||\varphi(x)-\psi(x)||=\frac{d}{dx}\left[ \sum_{i=1}^n(\varphi_i(x)-\psi_i(x))^2\right]^{\frac{1}{2}}=\frac{<\varphi(x)-\psi(x),\varphi'(x)-\psi'(x)>}{||\varphi(x)-\psi(x)||}$$
+
+Così dalla disuguaglianza di Cauchy - Schwartz segue che:
+
+$$\leq\frac{||\varphi(x)-\psi(x)||\cdot||\varphi'(x)-\psi'(x)||}{||\varphi(x)-\psi(x)||}=||\varphi'(x)-\psi'(x)||$$
+
+Dalle ipotesi iniziali posso scrivere che questa quantità è uguale a:
+
+$$=||f(x,\varphi(x))-g(x,\psi(x))||\leq ||f(x,\varphi(x))-f(x,\psi(x))||+||f(x,\psi(x))-g(x,\psi(x))||\mbox{ovvero}$$ $$\frac{d}{dx}||\varphi(x)-\psi(x)||\leq L||\varphi(x)-\psi(x)||+R(x)$$
+
+Moltiplico la disuguaglianza per $e^{-Lx}$ ed ottengo:
+
+$$\frac{d}{dx}(e^{-Lx}||\varphi(x)-\psi(x)||)\leq e^{-Lx}R(x)$$ che integrata su $[a,x]$ dà:
+
+$$ e^{-Lx}||\varphi(x)-\psi(x)||-e^{-La}||\alpha-\beta||\leq\int_a^xe^{-Ls}R(s)ds$$ 
+
+quindi:
+
+$$||\varphi(x)-\psi(x)||\leq e^{L(x-a)}||\alpha-\beta||+e^{Lx}\int_a^x e^{-Ls}R(s)ds$$
+
+che è la tesi ma è stata ottenuta supponendo $\varphi(x)\ne\psi(x)$ nell'intervallo di integrazione (o almeno nella sua parte aperta). La tesi in generale è ottenuta incollando questi risultati (cosa che è possibile perche $||\varphi(x)-\psi(x)||$ è continua su $[a,b]$). $\Box$\\
+
+Questo risultato è noto col nome di Lemma di Gronwall. Dà una stima di quanto velocemente cambia la soluzione al variare della condizione iniziale ($\alpha$ o $\beta$) e della forma dell'equazione ($f$ o $g$). La stima in sè non è però molto buona per via del termine $e^{L(x-a)}$ (esponenziale). Questo risultato è il più semplice all'interno di una vasta famiglia di risultati di dipendenza continua dei parametri.\\
 
 \end{document}
 
