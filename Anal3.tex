@@ -25,6 +25,7 @@
 \title{Analisi 3}
 
 \begin{document}
+
 \maketitle
 
 \tableofcontents
@@ -919,6 +920,465 @@ che è la tesi ma è stata ottenuta supponendo $\varphi(x)\ne\psi(x)$ nell'inter
 
 Questo risultato è noto col nome di Lemma di Gronwall. Dà una stima di quanto velocemente cambia la soluzione al variare della condizione iniziale ($\alpha$ o $\beta$) e della forma dell'equazione ($f$ o $g$). La stima in sè non è però molto buona per via del termine $e^{L(x-a)}$ (esponenziale). Questo risultato è il più semplice all'interno di una vasta famiglia di risultati di dipendenza continua dei parametri.\\
 
+\section{Equazioni lineari}
+
+Sono equazioni della forma:
+
+$$y^{(n)}+a_1(x)y^{(n-1)}+\ldots+a_{n-1}(x)y'+a_n(x)y=f(x)$$
+
+dove $a_1,\ldots,a_n$ e $f:[a,b]\to\mathbb{R}$ sono continue. Il teorema di base è una nostra vecchia conoscenza:\\
+
+\textbf{Teorema 3.20:} Per ogni scelta di $y_0,\ldots,y_{n-1}\in\mathbb{R}$ e di $x_0\in[a,b]$ il problema di Cauchy:
+
+$$\begin{cases}
+y^{(n)}+a_1(x)y^{(n-1)}+\ldots+a_{n-1}(x)y'+a_n(x)y=f(x)\\
+y^{(j)}(x_0)=y_j\quad j=0,\ldots,n-1
+\end{cases}$$
+
+ha una e una sola soluzione su $[a,b]$.\\
+
+\textbf{Dimostrazione:} Formuliamo il problema di Cauchy come problema del primo ordine:
+
+$$\begin{cases}
+\underline{z}'=F(x,\underline{z})\\
+y^{(j)}(x_0)=y_j\quad j=0,\ldots,n-1
+\end{cases}\mbox{ dove } z:= \begin{bmatrix} y\\y'\\ \vdots \\ y^{(n-1)} \end{bmatrix}\mbox{ e } F(x,\underline{z})= \begin{bmatrix} z_2 \\ z_3 \\ \vdots \\ f(x)-\sum_{j=1}^n a_{n-j}(x)z_j \end{bmatrix}$$
+
+ed osserviamo che $F:[a,b]\times\mathbb{R}^n\to\mathbb{R}^n$, è continua, e che:
+
+$$||F(x,z)-F(x,w)||^2=(z_1-w_1)^2+\ldots+(z_n-w_n)^2+\left( \sum_{j=1}^n a_{1+n-j}(x)(z_j-w_j)\right)^2$$ $$ \leq ||z-w||^2+\left( \sum_{j=1}^n a_{1+n-j}^2(x)\right)||z-w||^2=\left( 1+\sum_{j=1}^n a_{1+n-j}^2(x)\right)||z-w||^2$$
+
+e visto che le $a_j$ sono continue su $[a,b]$ la funzione $[1+\sum_{j=1}^n a_j^2(x)]^\frac{1}{2}$ ha un massimo su $[a,b]$ che chiamo $L$ e così:
+
+$$||F(x,z)-F(x,w)||\leq L||z-w||$$
+
+uniformemente in $[a,b]$. Quindi $F$ ha tutte le proprietà del teorema di esistenza e unicità globale. $\Box$\\
+
+Date $a_1,\ldots,a_n$ e $f$ come sopra (quindi continue) pongo:
+
+$$\mathcal{L}:\mathcal{C}^n([a,b])\to\mathcal{C}([a,b])$$
+$$\varphi\mapsto(\mathcal{L}\varphi)(x):=\varphi^{(n)}+\sum_{j=1}^n a_j(x)\varphi^{(n-j)}(x)$$
+
+Si osservi che effettivamente $\mathcal{L}\varphi\in\mathcal{C}([a,b])$.\\
+
+$\mathcal{L}$ è un operatore differenziale ed usando $\mathcal{L}$ l'equazione è scritta come:
+
+$$\mathcal{L}y=f$$
+
+Risolvere l'equazione quindi equivale a trovare la contro immagine di f tramite $\mathcal{L}$. L'osservazione chiave è che $\mathcal{L}$ è lineare infatti $\mathcal{L}(\lambda\varphi+\psi)=\lambda\mathcal{L}\varpi+\mathcal{L}\psi$. Ne segue che:\\
+
+\textbf{Teorema 3.21:} L'insieme delle soluzioni $\mathcal{L}y=f$ è uno spazio affine ovvero può essere individuato così:\begin{itemize}
+\item Sia $V:=\ker\mathcal{L}=\{y:\mathcal{L}y=0\}$ allora $V$ è spazio vettoriale
+\item Sia $\varphi_0$ una funzione tale che $\mathcal{L}\varphi_0=f$ allora:
+\end{itemize}
+$$\{\varphi:\mathcal{L}\varphi=f\}=V+\varphi_0$$
+
+\textbf{Dimostrazione: }$\supseteq)$ Se $\tilde{\varphi}\in V$ allora $\mathcal{L}(\tilde{\varphi}+\varphi_0)=\mathcal{L}\tilde{\varphi}+\mathcal{L}\varphi_0=0+f=f$. 
+
+$\subseteq)$ Se $\psi$ è tale che $\mathcal{L}\psi=f$ allora $\psi=(\psi-\varphi_0)+\varphi_0$ e $\mathcal{L}(\psi-\varphi_0)=\mathcal{L}(\psi)-\mathcal{L}\varphi_0=f-f=0\Rightarrow\psi-\varphi_0\in V$. $\Box$\\
+
+
+\subsection{Costruzione di una base}
+
+La seguente proposizione costituisce il cuore di questa teoria:\\
+
+\textbf{Teorema 3.22:} Sia $\mathcal{L}$ come sopra e $V:=\ker\mathcal{L}=\{\varphi\in\mathcal{C}^n([a,b]): \mathcal{L}\varphi=0\}$) allora $\dim V=n$.\\
+
+\textbf{Dimostrazione: }Considero gli $n$ problemi di Cauchy seguenti ($x_0\in[a,b]$ fissato):
+
+$$\begin{cases}
+\mathcal{L}y=0\\
+y(x_0)=1\\
+y'(x_0)=0\\
+y''(x_0)=0\\
+\vdots \\
+y^{(n-1)}(x_0)=0
+\end{cases}
+\begin{cases}
+\mathcal{L}y=0\\
+y(x_0)=0\\
+y'(x_0)=1\\
+y''(x_0)=0\\
+\vdots \\
+y^{(n-1)}(x_0)=0
+\end{cases}
+\ldots\quad
+\begin{cases}
+\mathcal{L}y=0\\
+y(x_0)=0\\
+y'(x_0)=0\\
+y''(x_0)=0\\
+\vdots \\
+y^{(n-1)}(x_0)=1
+\end{cases}$$
+che hanno tutti una e una sola soluzione (dal teorema precedente) e le chiamo rispettivamente $\varphi_1,\varphi_2,\ldots,\varphi_n$.\\
+
+($\dim V\geq n$) Dimostro che le $\varphi_j$ sono linearmente indipendenti su $\mathbb{R}$. Infatti supponiamo che $\alpha_1,\alpha_2,\ldots,\alpha_n\in\mathbb{R}$ siano tali che $\sum_{J=1}^n\alpha_j\varphi_j=:\psi$ sia la funzione identicamente nulla. Allora $\psi^{(k)}(x_0)=0\quad\forall k$ ma dalle condizioni iniziali segue che:
+$$\psi^{(k)}(x)=\sum_{j=1}^n\alpha_j\varphi_j^{(k)}(x)\Rightarrow 0=\psi^{(k)}(x_0)=\sum_{J=1}^n\alpha_j\varphi_j^{(k)}(x_0)=\sum_{j=1}^n\alpha_j\delta_{j,k+1}=\alpha_{k+1}$$
+quindi ogni $\alpha_k=0$.\\
+
+($\dim V\leq n$) Sia $h\in V$ allora $h\in\mathcal{C}^n([a,b])$ e in particolare i numeri $h^{(j)}(x_0)$ con $j=0,\ldots,n-1$ sono ben definiti. Sia $\psi^{(k)}=\sum_{j=1}^n h^{(j-1)}(x_0)\varphi_j$. Osservo che $\psi\in\mathcal{C}^n([a,b])$ e $\mathcal{L}\psi=0$ (perchè $\mathcal{L}\varphi_j=0\quad\forall j$ e $\mathcal{L}$ è lineare). Inoltre con lo stesso conto di prima mostriamo che $\psi^{(k)}(x_0)=\sum_{j=1}^n h^{(j-1)}(x_0)\varphi_j^{(k)}(x_0)=\sum_{J=1}^n h^{(j-1)}(x_0)\delta_{j,k+1}=h^{(k)}(x_0)$. Quindi sia $h$ che $\psi$ sono soluzioni del problema di Cauchy:
+$$\begin{cases}
+\mathcal{L}y=0\\
+y^{(j)}(x_0)=h^{(j)}(x_0)\quad\forall j=0,\ldots,n-1
+\end{cases}$$
+Ma sappiamo che il problema di Cauchy ha un'unica soluzione quindi $h=\psi$ ovvero $h(x)=\sum_{j=1}^n h^{(j-1)}(x_0)\varphi_j^(x)$ quindi $h$ è combinazione lineare delle $\varphi_j$. $\Box$\\
+
+\textbf{Osservazione 3.23:} La dimostrazione del teorema mostra che le $\varphi_j$ costituiscono una base per $V$. Possiamo quindi produrre una base costruendo le soluzioni degli $n$ problemi di Cauchy (anche se non è un metodo pratico per farlo).\\
+
+\subsection{Matrice Wronskiana}
+
+\textbf{Definizione 3.24: }Siano $\varphi_1,\ldots,\varphi_n$ $n$ soluzioni di $\mathcal{L}y=0$ (non necessariamente quelle del teorema) chiamo matrice Wronskiana la matrice $n\times n$:
+
+$$W:=\begin{bmatrix}
+\varphi_1 & \varphi_2 & \ldots & \varphi_n \\
+\varphi'_1 & \varphi'_2 & \ldots & \varphi'_n \\
+\vdots & \vdots & \ddots & \vdots\\
+\varphi_1^{(n-1)} & \varphi_2^{(n-1)} & \ldots & \varphi^{(n-1)}_n \\
+\end{bmatrix}$$
+e Wronskiano $\det(W(x))$.\\
+
+\textbf{Proposizione 3.25: }Sia $\mathcal{L}$ come sempre allora $(\det W)'(x)=-a_1(x)(\det W)(x)$ $\forall x\in [a,b]$ e quindi $(\det W)(x)=(\det W)(x_0)\cdot e^{-\int_{x_0}^x a_1(u)du}$. In particolare $(\det W)(x)=0$ per qualche $x$ se e solo se $(det W)(x)=0\quad\forall x$.\\
+
+\textbf{Dimostrazione: }É un calcolo (un po' noioso per la verità): ricordiamo che il $\det W$ è somma (con segno) dei prodotti degli elementi allora $(\det W)'$ è la somma (con segno) delle derivate dei prodotti ma ogni derivata del prodotto è somma di $n$ termini in cui la derivata è eseguita sui termini successivi. Da cui segue che $(\det W)'(x)=$
+$$\det\begin{bmatrix}
+\varphi_1' & \ldots & \varphi_n'  \\
+\varphi_1' & \ldots & \varphi_n'\\
+\vdots & \ddots & \vdots \\
+\varphi_1^{(n-1)} & \ldots & \varphi_n^{(n-1)}
+\end{bmatrix} + \det\begin{bmatrix}
+\varphi_1 & \ldots & \varphi_n  \\
+\varphi_1'' & \ldots & \varphi_n''\\
+\varphi_1'' & \ldots & \varphi_n''\\
+\vdots & \ddots & \vdots \\
+\varphi_1^{(n-1)} & \ldots & \varphi_n^{(n-1)}
+\end{bmatrix}+\ldots+\det\begin{bmatrix}
+\varphi_1 & \ldots & \varphi_n  \\
+\varphi_1' & \ldots & \varphi_n'\\
+\vdots & \ddots & \vdots \\
+\varphi_1^{(n-2)} & \ldots & \varphi_n^{(n-2)}\\
+\varphi_1^{(n)} & \ldots & \varphi_n^{(n)}\end{bmatrix}$$I primi $n-1$ termini della sommatoria sono in realtà nulli poichè hanno due righe uguali. Abbiamo quindi:
+$$(\det W)'(x)=\det\begin{bmatrix}
+\varphi_1 & \ldots & \varphi_n  \\
+\vdots & \ddots & \vdots \\
+\varphi_1^{(n-2)} & \ldots & \varphi_n^{(n-2)}\\
+\varphi_1^{(n)} & \ldots & \varphi_n^{(n)}\end{bmatrix}$$ Ma $\mathcal{L}\varphi_j=0$ ovvero $\varphi^{(n)}_j=-\sum^n_{k=1}a_k(x)\varphi_j^{(n-k)}\quad\forall j$ quindi sostituendo:
+$$\det\begin{bmatrix}
+\varphi_1 & \ldots & \varphi_n  \\
+\vdots & \ddots & \vdots \\
+\varphi_1^{(n-2)} & \ldots & \varphi_n^{(n-2)}\\
+-\sum^n_{k=1}a_k(x)\varphi_1^{(n-k)} & \ldots & -\sum^n_{k=1}a_k(x)\varphi_n^{(n-k)}\end{bmatrix}=-\sum^n_{k=1}a_k(x)\det\begin{bmatrix}
+\varphi_1 & \ldots & \varphi_n  \\
+\vdots & \ddots & \vdots \\
+\varphi_1^{(n-2)} & \ldots & \varphi_n^{(n-2)}\\
+\varphi_1^{(n-k)} & \ldots & \varphi_n^{(n-k)}\end{bmatrix}$$ ma i termini con $k\geq2$ hanno due righe uguali quindi resta solo $k=1$ che dà:
+$$=-a_1\det\begin{bmatrix}
+\varphi_1 &   \ldots & \varphi_n \\
+\vdots & \ddots & \vdots\\
+\varphi_1^{(n-1)} & \ldots & \varphi^{(n-1)}_n\end{bmatrix}=-a_1(\det W)(x)$$ che è l'equazione data. Le altre formule sono delle immediate conseguenze. $\Box$ \\
+
+\subsection{Costruzione di una soluzione}
+
+Cerchiamo ora di costruire una soluzione di $\mathcal{L }y=f$ ($f\in\mathcal{C}([a,b])$) nota una base di $\mathcal{L }y=0$.\\
+
+Siano $\varphi_1,\ldots,\varphi_n$ una base del nucleo, cerco una soluzione di $\mathcal{L }y=f$ che sia della forma:
+$$\psi(x)=\sum_{j=1}^n A_j(x)\varphi_j(x)$$
+con $A_1,\ldots,A_n$ funzioni incognite da determinare. Osservo che $\psi(x)=\left\langle A(x),\varphi(x)\right\rangle$ dove $\underline{A}=(A_1,\ldots,A_n)$ e $\underline{\varphi}=(\varphi_1,\ldots,\varphi_n)$. Allora $\psi'(x)=\left\langle A'(x),\varphi(x)\right\rangle+\left\langle A(x),\varphi'(x)\right\rangle$ ma se impongo la condizione $\left\langle A'(x),\varphi(x)\right\rangle=0$ si ha:
+$$\psi'(x)=\left\langle A(x),\varphi'(x)\right\rangle$$
+Ripeto il procedimento: $\psi''(x)=\left\langle A'(x),\varphi'(x)\right\rangle+\left\langle A(x),\varphi''(x)\right\rangle$, impongo $\left\langle A'(x),\varphi'(x)\right\rangle=0$ e rimane $\psi''(x)=\left\langle A(x),\varphi''(x)\right\rangle$. Itero fino a ottenere:
+$$\left.\begin{array}{ll} \psi'= \left\langle A(x),\varphi'(x)\right\rangle,\qquad  \left\langle A'(x),\varphi(x)\right\rangle=0 \\
+\psi''= \left\langle A(x),\varphi''(x)\right\rangle,\qquad  \left\langle A'(x),\varphi'(x)\right\rangle=0\\
+\vdots\\
+\psi^{(n-1)}= \left\langle A(x),\varphi^{(n-1)}(x)\right\rangle,\qquad  \left\langle A'(x),\varphi^{(n-1)}(x)\right\rangle=0\end{array}\right\}(*)$$
+ed infine $\psi^{(n)}= \left\langle A'(x),\varphi^{(n-1)}(x)\right\rangle+\left\langle A(x),\varphi^{(n)}(x)\right\rangle$. Ma allora:
+$$\mathbf{L}\underline{\varphi}=\psi^{(n)}+\sum_{j=0}^{n-1}a_{n-j}\psi^{(j)}=\left\langle A'(x),\varphi^{(n-1)}(x)\right\rangle+\left\langle A(x),\varphi^{(n)}(x)\right\rangle+\sum_{j=0}^{n-1}a_{n-j}\left\langle A(x),\varphi^{(j)}(x)\right\rangle=$$
+$$\left\langle A'(x),\varphi^{(n-1)}(x)\right\rangle+\left\langle A(x),\mathcal{L}\varphi\right\rangle$$
+ma $\varphi_1,\ldots,\varphi_n$ sono una base quindi $\mathcal{L}\varphi=(\mathcal{L}\varphi_1,\ldots,\mathcal{L}\varphi_n)=0$ quindi:
+$$\mathcal{L}\psi=\left\langle A'(x),\varphi^{(n-1)}(x)\right\rangle\qquad (**)$$
+
+Da $(*)$ e $(**)$ segue che affinché $\psi$ soddisfi l'equazione $\mathcal{L}\psi=f$ basta che le $A_1,\ldots,A_n$ soddisfino:
+
+$$\begin{cases}
+\left\langle A'(x),\varphi(x)\right\rangle=0\\
+\left\langle A'(x),\varphi'(x)\right\rangle=0\\
+\vdots\\
+\left\langle A'(x),\varphi(x)^{(n-2)}\right\rangle=0\\
+\left\langle A'(x),\varphi(x)^{(n-1)}\right\rangle=f
+\end{cases}$$
+ovvero che:
+$$W\begin{bmatrix}
+A_1'\\
+\vdots\\
+A_{n-1}'\\
+A_n'
+\end{bmatrix} = \begin{bmatrix}
+0\\ \vdots \\ 0 \\ f
+\end{bmatrix}$$
+dove $W$ è la matrice Wronskiana.\\
+
+Sappiamo che $\det W\ne 0$ $\forall x$ quindi il sistema nelle $A_1',\ldots,A_n'$ può sempre essere risolto e una volta fatto si trovano le $A_j$ integrando le $A'_j$ trovate. In una formula:
+
+$$\begin{bmatrix}
+A_1'\\
+\vdots\\
+A_{n-1}'\\
+A_n'
+\end{bmatrix}=W^{-1}\begin{bmatrix}
+0\\ \vdots \\ 0 \\ f
+\end{bmatrix} \mbox{ quindi }\begin{bmatrix}
+A_1(x)\\
+\vdots\\
+A_{n-1}(x)\\
+A_n(x)
+\end{bmatrix}=\int_{x_0}^xW^{-1}(u)\begin{bmatrix}
+0\\ \vdots \\ 0 \\ f(u)
+\end{bmatrix} du$$
+e così:
+$$\psi(x)=\sum_{j=1}^n A_j(x)\varphi_j(x)=[\varphi_1(x),\ldots,\varphi_n(x)]\cdot\begin{bmatrix}
+A_1(x)\\
+\vdots\\
+A_n(x)
+\end{bmatrix}=[\varphi_1(x),\ldots,\varphi_n(x)]\int_{x_0}^xW^{-1}(u)\begin{bmatrix}
+0\\ \vdots \\ 0 \\ f(u)
+\end{bmatrix} du$$
+Tenendo conto della formula per l'inversa di una matrice questa può essere scritta anche così:
+$$\psi(x)=[\varphi_1(x),\ldots,\varphi_n(x)]\int_{x_0}^xW^{-1}(u)\begin{bmatrix}
+0\\ \vdots \\ 0 \\ f(u)
+\end{bmatrix} du=\int_{x_0}^x\frac{\det\begin{bmatrix}
+\varphi_1(u) & \ldots & \varphi_n(u)  \\
+\vdots & \ddots & \vdots \\
+\varphi_1^{(n-2)}(u) & \ldots & \varphi_n^{(n-2)}(u)\\
+\varphi_1(x) & \ldots & \varphi_n(x)\end{bmatrix}}{\det\begin{bmatrix}
+\varphi_1(u) & \ldots & \varphi_n(u)  \\
+\vdots & \ddots & \vdots \\
+\varphi_1^{(n-2)}(u) & \ldots & \varphi_n^{(n-2)}(u)\\
+\varphi_1^{(n-1)}(u) & \ldots & \varphi_n^{(n-1)}(u)\end{bmatrix}}f(u)du$$
+
+Si noti che nell'ultima riga del numeratore la variabile è $x$ e il denominatore è sempre diverso da 0 perchè è il Wronskiano.\\
+
+La formula precedente presuppone la conoscenza di una base per $\ker\mathcal{L}$ e la dimostrazione del teorema che afferma che $\dim\ker\mathcal{L}=n$ contiene una "ricetta" per costruire una base: risolvere $n$ problemi di Cauchy con condizioni indipendenti. Purtroppo questo è difficile da fare concretamente. Per le equazioni lineari a coefficienti costanti questo può essere fatto. Ecco come, sia:
+$$\mathcal{L}y=y^{(n)}+a_1y^{(n-1)}+\ldots+a_{n-1}y'+a_ny^{(0)}$$
+con $a_j\in\mathbb{R}$ (costanti). Sia $P\in\mathbb{R}[z]$ il polinomio di grado $n$ costruito così a partire da $\mathcal{L}$:
+
+$$P(z):=z^n+a_1z^{n-1}+\ldots+a_{n-1}z+a_n$$
+detto polinomio caratteristico. Osserviamo che se $y(x)=e^{\lambda x}$, con $\lambda$ costante, allora $y'(x)=\lambda e^{\lambda x}$, $y''(x)=\lambda^2 e^{\lambda x}$ ed in generale $y^{(j)}(x)=\lambda^j e^{\lambda x}$. Ne segue che:
+
+$$\mathcal{L}(e^{\lambda x})=P(\lambda)e^{\lambda x}$$
+
+Questa relazione evidenzia che se $\lambda$ è una radice di $P$, quindi se $P(\lambda)=0$, allora:
+
+$$\mathcal{L}(e^{\lambda x})=P(\lambda)e^{\lambda x}=0$$
+
+e quindi $e^{\lambda x}\in\ker\mathcal{L}$. Possiamo perciò costruire funzioni del nucleo ponendo $e^{\lambda x}$ e facendo variare $\lambda$ tra le radici di $P$.\\
+
+\textbf{Esercizio 3.26:} Sia data l'equazione: $y''-3y'+2y=0$, $\mathcal{L}(y)=y''-3y'+2y$.
+
+Il polinomio caratteristico è: $P(z)=z^2-3z+2$ ha radici 1 e 2 allora $e^x$ e $e^{2x}$ sono nel nucleo. È chiaro che queste funzioni sono linearmente indipendenti quindi $\ker\mathcal{L}=span_\mathbb{R}( e^x,e^{2x})$.\\
+
+Vi sono però due problemi:\\
+
+\textbf{Esempio 3.27: } (radici multiple) Si consideri: $y''-2y'+y=0$ allora il polinomio caratteristico $P(z)=z^2-2z+1=(z-1)^2$ ha una sola radice doppia 1; la procedura costruisce una sola funzione $e^x$ ma il nucleo ha dimensione 2 quindi manca una funzione.\\
+
+\textbf{Esempio 3.28: } (radici non reali) Si consideri: $y''+2y'+5y=0$ e il polinomio caratteristico ha radici $-1+2i$ e $-1-2i$ non reali. Le funzioni $e^{-1+2i}$ e $e^{-1-2i}$ non sono a valori reali e quindi non sono nel $\ker\mathcal{L}$ reale.\\
+
+Entrambi i problemi posso però essere risolti. Ricordiamo che se $\lambda\in\mathbb{C}$ è una radice di $P$ allora la molteplicità $\mu$ di $\lambda$ è il massimo intero positivo tale che $(z-\lambda)^\mu$ divide $P(z)$. Quindi se $\lambda_1,\ldots,\lambda_k$ sono le radici distinte in $\mathbb{C}$ di $P$ e se $\mu_1,\ldots,\mu_n$ le loro molteplicità, dal teorema fondamentale dell' algebra segue che: 
+$$P(z)=(z-\lambda_1)^{\mu_1}\cdot\ldots\cdot(z-\lambda_k)^{\mu_k}$$
+Inoltre se $\lambda\in\mathbb{C}$ è una radice di $P(z)$ allora anche $\overline{\lambda}$ è radice di $P(z)$ (perchè $P\in\mathbb{R}[z]$, per cui $P(\overline{\lambda})=\overline{P(\lambda)}=\overline{0}=0$) e le molteplicità di $\lambda$ e $\overline{\lambda}$ dono uguali. Si ha così:\\
+
+\textbf{Teorema 3.29: }Dato $\mathcal{L}$ a coefficienti costanti e $P$ il suo polinomio caratteristico, $\forall\lambda$ radice di $P$ si prenda:\begin{itemize}
+\item Se $\lambda\in\mathbb{R}$: $e^{\lambda x}$, $xe^{\lambda x}$, $x^2e^{\lambda x}$,$\ldots$, $x^{\mu-1}e^{\lambda x}$ ($\mu$ funzioni)
+\item Se $\lambda\in\mathbb{C}\textbackslash\mathbb{R}$ alla coppia $(\lambda,\overline{\lambda})$ associo (scrivo $\lambda=u+iv$): $e^{ux}\cos(vx)$, $xe^{ux}\cos(vx)$,$\ldots$, $x^{\mu-1}e^{ux}\cos(vx)$ e $e^{ux}\sin(vx)$, $xe^{ux}\sin(vx)$,$\ldots$, $x^{\mu-1}e^{ux}\sin(vx)$ ($\mu+\mu$ funzioni)
+\end{itemize} In questo modo si costruiscono $n$ funzioni che sono nel $\ker\mathcal{L}$ e sono linearmente indipendenti (sono una base perchè $\dim\ker\mathcal{L}=n$). \\
+
+\textbf{Dimostrazione:} Sia $\lambda$ radice di molteplicità $\mu$ allora $p(z)=q(z)(z-\lambda)^\mu$ con $q(z)\in\mathbb{R}[z]$. Osservo che $\mathcal{L}=p(\frac{d}{dx})$, ovvero $\mathcal{L}$ è l'operatore differenziale associato al polinomio $p$ (con $z^j\mapsto\underbrace{\frac{d}{dx}\circ\cdot\circ{\frac{d}{dx}}}_{j-volte}=\frac{d^j}{dx^j}$)\\
+
+L'operatore $\frac{d}{dx}$ e l'operatore $\lambda\cdot$ (quello che moltiplica per lo scalare $\lambda$) commutano ovvero $\frac{d}{dx}(\lambda(f(x))=\lambda(\frac{d}{dx}(f(x)))$ e questo è vero perchè $\lambda$ è costante. Ne segue che:
+$$\mathcal{L}=p\left(\frac{d}{dx}\right)=q\left(\frac{d}{dx}\right)\left(\frac{d}{dx}-\lambda\right)^\mu\qquad(*)$$
+Osserviamo che $\left(\frac{d}{dx}-\lambda\right)(e^{\lambda x})=\lambda e^{\lambda x}-\lambda e^{\lambda x}=0$ e che $\left(\frac{d}{dx}-\lambda\right)(x^l e^{\lambda x})=lx^{l-1}e^{\lambda x}+\lambda x^le^{\lambda x}-\lambda x^l e^{\lambda x}=lx^{l-1}e^{\lambda x}$ quindi interando si ha che:
+$$\left(\frac{d}{dx}-\lambda\right)^\mu(x^l e^{\lambda x})=l(l-1)(l-2)\ldots(l-\mu+1)x^{l-\mu}e^{\lambda x}$$
+e questo è $=0$ quando $l<\mu$ (perchè $l(l-1)\ldots(l-\mu+1)=0$ in tal caso). Questo dimostra che:
+
+$$\mathcal{L}(x^le^{\lambda x})=p\left(\frac{d}{dx}\right)(x^le^{\lambda x})=q\left(\frac{d}{dx}\right)\left(\frac{d}{dx}-\lambda\right)^\mu(x^le^{\lambda x})=0$$
+se $l<\mu$. Ovvero $e^{\lambda x},xe^{\lambda x},\ldots,x^{\mu-1}e^{\lambda x}\in\ker\mathcal{L}$. Si osservi che il calcolo vale anche se $\lambda\in\mathbb{C}$.\\
+
+Ora mostriamo che sono linearmente indipendenti (si ammetta $\lambda\in\mathbb{C}$), basta farlo per la famiglia:
+$$e^{\lambda x},xe^{\lambda x},\ldots,x^{\mu-1}e^{\lambda x}\quad(**)$$
+perchè la famiglia $e^{ux}\cos(vx),e^{ux}\sin(vx)\ldots$ è combinazione lineare di quella esponenziale.\\
+
+Siano $\lambda_1,\ldots,\lambda_k$ le radici in $\mathbb{C}$ distinte e siano $\mu_1,\ldots,\mu_k$ le loro molteplicità. La generica combinazione lineare delle $(**)$ corrisponde ad una somma:
+$$\sum_{j=1}^kp_j(x)e^{\lambda_j x}$$
+dove ogni $p_j$ è un polinomio a coefficienti complessi di grado $\leq\mu_j$. Dimostro che se tale combinazione è nulla sono nulli tutti i $p_j$ (e questo dà la tesi). Supponiamo che esistono dei $p_j\ne 0$ con:
+$$\sum_{j=1}^kp_j(x)e^{\lambda_j x}=0\quad\forall x\quad(*3*)$$
+Posso eliminare dalla somma quei $p_j$ che sono $=0$ quindi assumo che in $(*3*)$ ogni $p_j\ne0$. Per derivazione da $(*3*)$ segue:
+$$\sum_{j=1}^k(p_j'(x)+p_j(x)\lambda_j)e^{\lambda_j x}=0$$
+Itero il processo, ottengo che:
+$$\sum_{j=1}^k(p_j''(x)+2\lambda_jp_j'(x)+\lambda_j^2p_j(x))e^{\lambda_j x}=0$$
+Ovvero:
+$$\begin{bmatrix}
+p_1 & p_2 & \ldots & p_k\\
+p_1'+\lambda_1p_1 & p_2'+\lambda_2p_2 & \ldots & p_k'+\lambda_kp_k\\
+p_1''+2\lambda_1p_1'+\lambda_1^2p_1 & p_2''+2\lambda_2p_2'+\lambda_2^2p_2 & \ldots & p_k''+2\lambda_kp_k'+\lambda_k^2p_k\\
+\vdots & \vdots & \ddots & \vdots\end{bmatrix}
+\begin{bmatrix}
+e^{\lambda_1 x}\\
+e^{\lambda_2 x}\\
+\vdots\\
+e^{\lambda_k x}\\
+\end{bmatrix}=0$$
+Visto che il vettore $[e^{\lambda_1 x},\ldots,e^{\lambda_k x}]\ne 0$ deve essere che $\det M=0$ dove $M$ è la matrice scritta sopra.\\
+
+Osserviamo che il grado di $p_1'$ è sempre minore di quello di $p_j$ quindi se $p_1(x)=a_1x^{\partial p}+$ termini di grado minore, allora:
+$$\sum_{j=0}^l\binom{l}{j}\lambda_1^jp_1^{(l-j)}=\lambda_1^la_1x^{\partial p}+\mbox{ termini di grado minore}$$
+e quindi:
+$$0=\det M=\det\begin{bmatrix}
+1 & 1 & \ldots & 1 \\
+\lambda_1 & \lambda_2 &\ldots & \lambda_k\\
+\vdots & \vdots & \ddots & \vdots \\
+\lambda_1^k & \lambda_2^k &\ldots & \lambda_k^k\\
+\end{bmatrix}$$
+ma questo è impossibile perchè $a_1,\ldots,a_k$ sono $\ne 0$ e $\det M=\prod\limits_{1\leq i\leq j\leq k}(\lambda_i-\lambda_j)$ è $\ne 0$ (determinante di Van der Monde).\\
+
+Siamo dunque arrivati a un assurdo che nasce dall'ipotesi che i $p_j$ siano $\ne 0$. $\Box$
+
+\section{Alcuni esempi interessanti}
+
+Sia $y''+4y=0$, le radici del polinomio caratteristico sono $\pm 2i$ allora lo spazio delle soluzioni è $span_\mathbb{R}(\cos(2x),\sin(2x))$. Se impongo:
+$$\begin{cases}
+y''+4y=0\\
+y(0)=a\\
+y'(0)=b \end{cases}$$
+la soluzione è $a\cos(2x)+\frac{b}{2}\sin(2x)$.\\
+
+Sia $E_x$ la mappa che manda $\binom{y(0)}{y'(0)}\mapsto\binom{y(x)}{y'(x)}$ (evoluzione al punto $x$). Allora:
+
+$$E_x\binom{a}{b}=\binom{a\cos(2x)+\frac{b}{2}\sin(2x)}{-2a\sin(2x)+b\cos(2x)}=\begin{bmatrix} \cos(2x) & \frac{1}{2}\sin(2x) \\ -2\sin(2x) &  \cos(2x) \end{bmatrix}\begin{bmatrix}
+a \\ b
+\end{bmatrix}$$
+quindi $E_x$ è una mappa lineare e la possiamo scrivere come:
+$$\begin{bmatrix}
+\sqrt{2} & 0\\
+0 & \frac{1}{\sqrt{2}}
+\end{bmatrix}
+\begin{bmatrix}
+\cos(2x) & \sin(2x) \\
+-\sin(2x) & \cos(2x)
+\end{bmatrix}
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} & 0\\
+0 & \sqrt{2}
+\end{bmatrix}$$
+Si noti che la matrice centrale rappresenta una rotazione.\\
+
+\textbf{Osservazione 3.30}: Come trasforma una regione del piano $E_x$? $E_x$ trasforma le figure preservandone l'area. Questo deriva dal fatto che $\det E_x=1$ e questo a sua volta accade perchè la matrice $E_x$ è la Wronskiana del sistema (con base $\cos(2x),\frac{1}{2}\sin(2x)$) e sappiamo che $(det W)'=-a_1\det W$ dove $a_1$ è il coefficienti dell'equazione $y''+a_1y'+a_2y=0$ e in tal caso $a_1=0$ quindi $\det W$ è costante.\\
+
+\textbf{Osservazione 3.31:} $\forall x,w$, si ha $E_{x+w}=E_x\cdot E_w$ infatti:
+$$E_{x+w}=
+\begin{bmatrix}
+\sqrt{2} & 0\\
+0 & \frac{1}{\sqrt{2}}
+\end{bmatrix}
+R_{x+w}\begin{bmatrix}
+\frac{1}{\sqrt{2}} & 0\\
+0 & \sqrt{2}
+\end{bmatrix}=
+\begin{bmatrix}
+\sqrt{2} & 0\\
+0 & \frac{1}{\sqrt{2}}
+\end{bmatrix}
+R_x R_w\begin{bmatrix}
+\frac{1}{\sqrt{2}} & 0\\
+0 & \sqrt{2}
+\end{bmatrix}=$$
+$$\begin{bmatrix}
+\sqrt{2} & 0\\
+0 & \frac{1}{\sqrt{2}}
+\end{bmatrix}
+R_x 
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} & 0\\
+0 & \sqrt{2}
+\end{bmatrix}
+\begin{bmatrix}
+\sqrt{2} & 0\\
+0 & \frac{1}{\sqrt{2}}
+\end{bmatrix}
+R_w
+\begin{bmatrix}
+\frac{1}{\sqrt{2}} & 0\\
+0 & \sqrt{2}
+\end{bmatrix}=E_x\cdot E_w$$
+
+Quindi l'insieme degli $\{E_x:x\in\mathbb{R}\}$ è un gruppo abeliano di trasformazioni del piano (di fatto un sottogruppo di $SL(\mathbb{R}^2)$). Anche questo fenomeno ha una spiegazione generale ma illustrarla ci porterebbe troppo lontano...
+
+\section{Soluzione particolare per le lineari a coefficienti costanti}
+
+$$y^{(n)}+a_1y^{(n-1)}+\ldotsèa_ny=f(x),\quad f(x)\in\mathcal{C}([a,b])$$
+
+Visto che conosciamo una base esplicita per il nucleo, possiamo trovare una soluzione particolare usando la formula generale. Questo è in effetti tutto quello che si può dire per una $f(x)$ generica. Tuttavia per certe $f(x)$ si può trovare una soluzione seguendo una strada puramente algebrica.\\
+
+\textbf{Teorema 3.32:} Sia $f(x)$ della forma: $f(x)=q(x)e^{\lambda x}$ con $q\in\mathbb{R}[x]$ e $\lambda\in\mathbb{R}$. Sia $\mu$ la molteplicità ddi $\lambda$ come radice del polinomio caratteristico dell'equazione (con $\mu=0$ se $\lambda$ non è radice). Allora $\exists r(x)\in\mathbb{R}[x]$ con grado $r$= grado $q$ tale che:
+
+$$\mathcal{L}(x^\mu r(x) e^{\lambda x})=q(x)e^{\lambda x}$$
+
+Ovvero l'equazione $\mathcal{L}y=q(x)e^{\lambda x}$ ha $x^\mu r(x) e^{\lambda x}$ come soluzione particolare. Questo consente di trovare $r$ per via algebrica.\\
+
+\textbf{Dimostrazione: }Per ogni scelta di interi $n$ e $d$ e $\forall \lambda\in\mathbb{R}$ considero l'insieme di funzioni $V_d^{(n,\lambda)}:=\{\varphi(x):\varphi(x)=r(x)x^ne^{\lambda x}\mbox{ con }r\in\mathbb{R}[x]\mbox{ e grado di }r\leq d\}$\\
+
+Osservo che $V_d^{(n,\lambda)}$ è uno spazio $\mathbb{R}-$vettoriale di dimensione $d+1$ perchè $n$ e $\lambda$ sono fissati quindi gli stessi per tutti gli elementi. La dimostrazione consiste nel:\begin{enumerate}
+
+\item Verificare che:
+$$\mathcal{L}:V_d^{(n,\lambda)}\to V_d^{(0,\lambda)}$$
+ovvero $\mathcal{L}$ manda elementi della forma $r(x)x^\mu e^{\lambda x}$ dove $\mu$ è la molteplicità di $\lambda$ e grado di $r\leq d$, in elementi della forma  $q(x)e^{\lambda x}$ con grado $q\leq d$)\\
+
+\item Verificare che $\mathcal{L}$ è iniettiva
+
+\end{enumerate}
+
+Fatto ciò, visto che $\dim V_d^{(n,\lambda)}=d+1=\dim V_d^{(0,\lambda)}$  ne segue che $\mathcal{L}$ è anche suriettiva, ovvero la tesi.
+
+\textbf{Osservazione 3.33:} Il teorema è applicabile a ogni $\lambda\in\mathbb{R}$ quindi anche quando $\lambda=0$ ovvero quando $f(x)=q(x)$ (è un polinomio).\\
+
+\textbf{Osservazione 3.34:} Il teorema è applicabile anche se la radice è complessa. L'unico problema è che se $\lambda$ è complesso $e^{\lambda x}$ è a valori complessi e non reali.\\
+
+\textbf{Esempio 3.35:} Sia $y''-4y=(x+2)e^x$. Il polinomio caratteristico è $z^2-4$ e ha radici $\pm 2$ con molteplicità 1.\\
+
+$f(x)=(x+2)e^x$, è della forma prevista con $\lambda=1$ di molteplicità 0 e $q(x)=x+2$. Allora esiste una soluzione della forma $x^\mu r(x)e^{\lambda x}$ $\Rightarrow x^0(ax+b)e^x=(ax+b)e^x$ con $a$ e $b$ opportuni. Per trovarli derivo, se $y=(ax+b)e^x$ allora:
+
+$$y'=(ax+a+b)e^x\qquad y''=(ax+2a+b)e^x$$
+così:
+
+$$(x+2)e^x=y''-4y=(ax+2a+b-4ax-4b)e^x=(-3ax+2a-3b)e^x$$
+
+Ma allora $x+2=-3ax+2a-3b$ da cui si ricava $a=-\frac{1}{3}$ e $b=-\frac{8}{9}$ da cui la soluzione generale è $\alpha e^{2x}+\beta e^{-2x}-(\frac{1}{3}x+\frac{8}{9})e^x$\\
+
+\textbf{Esempio 3.36:} Sia $y''-4y=(x+2)e^{2x}$. Come prima il polinomio caratteristico è $z^2-4$ e ha radici $\pm 2$ con molteplicità 1.\\
+
+$f(x)=(x+2)e^{2x}$, è della forma prevista con $\lambda=2$ di molteplicità 1 e $q(x)=x+2$. Allora esiste una soluzione della forma $x^\mu r(x)e^{\lambda x}$ $\Rightarrow x^1(ax+b)e^{2x}=(ax^2+xb)e^{2x}$ con $a$ e $b$ opportuni. Per trovarli derivo come prima, se $y=(ax+b)e^{2x}$ allora:
+
+$$y'=(2ax^2+(2a+2b)x+b)e{2x}\qquad y''=(4ax^2+(8a+4b)x+2a+4b)e^{2x}$$
+così:
+
+$$(x+2)e^x=y''-4y=(8ax+2a+4b)e^{2x}$$
+
+Ma allora $x+2=-8ax+2a+4b$ da cui si ricava $a=\frac{1}{8}$ e $b=\frac{7}{16}$ da cui la soluzione generale è $\alpha e^{2x}+\beta e^{-2x}+(\frac{1}{8}x+\frac{7}{16})e^{2x}$.\\
+
+Usando le formule trigonometriche di base $\cos(x)=\frac{e^{ix}+e^{-iv}}{2}$ e $\sin(x)=\frac{e^{ix}-e^{-iv}}{2}$ (e le inverse $e^{ix}=\cos(x)+i\sin(x)$, $e^{-ix}=\cos(x)-i\sin(x)$) si dimostra la seguente variante, se $f(x)$ ha la forma:
+
+$$f(x)=q(x)e^{ux}\cos(vx)$$
+Sia $\mu$ la molteplicità di $u+iv$ come radice del polinomio caratteristico. Allora esistono due polinomi $r_1$ e $r_2$ $\in\mathbb{R}[x]$ con grado entrambi $\leq$ grado $q$ tali che:
+
+$$\mathcal{L}(x^\mu(r_1(x)\cos(vx)+r_2\sin(vx))e^{ux})=q(x)e^{ux}\cos(vx)$$
+quindi $x^\mu(r_1(x)\cos(vx)+r_2\sin(vx))e^{ux}$ è una soluzione.\\
+
+\textbf{Osservazione 3.37:} In generale $r_1$ e $r_2$ dono entrambi $\ne 0$, ovvero la soluzione contiene sia $\cos(vx)$, sia $\sin(vx)$ anche se $f(x)$ ha solo il $\cos(vx)$\\
+
+\textbf{Osservazione 3.38:} Visto che il grado di $r_1$ e $r_2$ è minore o uguale di quello di $q$ $r_1$ e $r_2$ possono essere trovati per via algebrica. \\
+
+\textbf{Osservazione 3.39:} La stessa conclusione vale se $f(x)=q(x)e^{ux}\sin(vx)$\\
+
+
 \end{document}
 
+
+   
 
