@@ -7,13 +7,12 @@
 \usepackage{epsfig}
 \usepackage{fancyhdr} 
 \usepackage{amsmath,amssymb}
+\usepackage{undertilde}
+\usepackage{tikz}
 \usepackage{amscd} 
 \author{A cura di Manuel Trezzi}
 \usepackage[T1]{fontenc} 
 \usepackage[utf8]{inputenc} 
-\usepackage[usenames,dvipsnames]{xcolor}
-\usepackage{graphicx,color,listings}
-\usepackage{hologo}
 \frenchspacing 
 \usepackage{geometry}
 \usepackage{rotating}
@@ -36,13 +35,13 @@
 
 \subsection{Convergenza puntuale}
 
-\textbf{Definizione 1.1.1:} Sia $X$ un insieme qualunque e sia $\{f_{n}\}$ una successione di funzioni $f_{n}:X\rightarrow\mathbb{R}$, diciamo che $\{f_{n}\}$ converge puntualmente (o semplicemente) in $X$ alla funzione $f:X\rightarrow\mathbb{R}$ se $\forall{x_{0}}\in{X}$ si ha che:\begin{center} \nointerlineskip \[\lim_{n \to \infty}{f_{n}(x_{0})}=f(x_{0})\]\end{center}Analogamente possiamo dire che:
-\begin{center}
- $\forall{x_{0}}\in{X}$ $\forall{\epsilon{>0}}$ $\exists{N}=N(x_{0},\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $|f_{n}(x_{0})-f(x_{0})|<\epsilon$ \\
- \end{center} 
- 
+\textbf{Definizione 1.1.1:} Sia $X$ un insieme qualunque e sia $\{f_{n}\}$ una successione di funzioni $f_{n}:X\rightarrow\mathbb{R}$, diciamo che $\{f_{n}\}$ converge puntualmente (o semplicemente) in $X$ alla funzione $f:X\rightarrow\mathbb{R}$ se e solo se $\forall{x_{0}}\in{X}$ si ha che: 
+$$\lim_{n \to \infty}{f_{n}(x_{0})}=f(x_{0})$$
+Analogamente possiamo dire che:
 
-\textbf{Osservazione 1.1.2:} \begin{itemize}
+ $$\forall{x_{0}}\in{X}\mbox{ e }\forall{\epsilon{>0}}\mbox{ }\exists{N}=N(x_{0},\epsilon)\mbox{: se }n\geq{N} \Rightarrow|f_{n}(x_{0})-f(x_{0})|<\epsilon$$ 
+ 
+ \textbf{Osservazione 1.1.2:} \begin{itemize}
 \item L'eventuale struttura di X non ha ruolo
 \item Essendo $x_0$ fissato $\{f_{n}(x_0)\}$ e $f(x_0)$ sono numeri, la relazione $\lim\limits_{n\to\infty}f_n(x_0)=f(x_0)$ è quindi quella di successioni in $\mathbb{R}$
 \item $\mathbb{R}$ è uno spazio metrico quindi rispetta la proprietà di Hausdorff, questo vuol dire che il limite se esiste è unico. La funzione $f$ è univocamente determinata  $$f(x_{0}):=\lim_{n \to \infty}{f_{n}}(x_{0})$$
@@ -51,21 +50,62 @@
 
 La convergenza puntuale non preserva proprietà importanti quali:  limitatezza, continuità, derivabilità e integrabilità \\
 
-\textbf{Esempio 1.1.3:}$f_{n}(x)\to f(x)$ con $f_n$ limitata $ \forall n$ non implica che $f$ sia limitata.\\
+\textbf{Esempio 1.1.3:} $f_{n}(x)\to f(x)$ con $f_n$ limitata $ \forall n$ non implica che $f$ sia limitata.\\
 
 $f_{n}(x)=\min(|x|,n)$, ogni $f_{n}$ è limitata ma la successione converge puntualmente a $f(x)=|x|$ che non è limitata\\
 
-\textbf{Esempio 1.1.4:}$f_{n}(x)\to f(x)$ con $f_n$ continua $ \forall n$ non implica che $f$ sia continua.\\
+\begin{center}
+\begin{tikzpicture}
+      \draw[->] (-3.2,0) -- (3.2,0) node[right] {$x$};
+      \draw[->] (0,-0.20) -- (0,3.2) node[above] {$y$};
+      \draw[very thin,color=gray] (-3,0) grid (3,3);
+      \draw[scale=1,domain= -3.2:-2,smooth,variable=\x,blue,dashed] plot ({\x},{-\x});
+      \draw[scale=1,domain=2:3.2,smooth,variable=\x,blue,dashed] plot ({\x},{\x})node[above] {$f(x)$};
+      \draw[scale=1,domain=1:3.2,smooth,variable=\x,red] plot ({\x},{1}) node[above] {$f_1(x)$};
+      \draw[scale=1,domain=-3.2:-1,smooth,variable=\x,red] plot ({\x},{1});
+      \draw[scale=1,domain=2:3.2,smooth,variable=\x,red] plot ({\x},{2})node[above] {$f_2(x)$};
+      \draw[scale=1,domain=-3.2:-2,smooth,variable=\x,red] plot ({\x},{2});
+      \draw[scale=1,domain=-2:0,smooth,variable=\x,red] plot ({\x},{-\x});
+      \draw[scale=1,domain=0:2,smooth,variable=\x,red] plot ({\x},{\x});
+      \coordinate [label=below right:\textcolor{black}
+{$\scriptstyle n$}] (c) at (1,0);
+ \coordinate [label=below right:\textcolor{black}
+{$\scriptstyle 2n$}] (c) at (2,0);
+\coordinate [label=below left:\textcolor{black}
+{$\scriptstyle -n$}] (c) at (-1,0);
+ \coordinate [label=below left:\textcolor{black}
+{$\scriptstyle -2n$}] (c) at (-2,0);
+
+      
+      \end{tikzpicture}
+      \end{center}
+      
+      
+    
+
+\textbf{Esempio 1.1.4:} $f_{n}(x)\to f(x)$ con $f_n$ continua $ \forall n$ non implica che $f$ sia continua.\\
 
  $f_{n}(x):[0,1]\rightarrow\mathbb{R}$ $f_{n}(x)=x^n$, le $f_{n}$ sono continue ma la successione converge puntualmente a $$f(x)=
 \begin{cases}
  1 &  x=1 \\ 
 0 & x\in [0,1)
 \end{cases}$$
+\begin{center}
+\begin{tikzpicture}[scale=4]
+      \draw[->] (-0.2,0) -- (1.2,0) node[right] {$x$};
+      \draw[->] (0,-0.2) -- (0,1.2) node[above] {$y$};
+      \draw[scale=1,domain=0:1,smooth,variable=\x,red] plot ({\x},{\x}) node[above] {$f_1(x)$};
+      \draw[scale=1,domain=0:1,smooth,variable=\x,blue] plot ({\x},{\x^3});
+      \draw[scale=1,domain=0:1,smooth,variable=\x,green] plot ({\x},{\x^2}) node[right] {$f_2(x)$};
+      \draw[very thin,color=gray,dashed] (-0.2,-0.20) grid (1.2,1.2);
+      \coordinate [label=below right:\textcolor{black}
+{$\scriptstyle 1$}] (c) at (1,0);
+     \end{tikzpicture}
+     \end{center}
 
 $f$ non è continua \\
 
-\textbf{Esempio 1.1.5:}$f_{n}(x)\to f(x)$ con $f_n$ integrabile $ \forall n$ non implica che $f$ sia integrabile.\\ 
+\textbf{Esempio 1.1.5:} $f_{n}(x)\to f(x)$ con $f_n$ integrabile $ \forall n$ non implica che $f$ sia integrabile.\\ 
 
 $f_{n}(x):[0,1]\rightarrow\mathbb{R}$ con $$f_{n}(x)=
 \begin{cases}
@@ -78,11 +118,24 @@ $$f(x)=
  1 &  x=\frac{a}{2^b}, a,b\in \mathbb{N}  \\ 
 0 & altrimenti
 \end{cases}$$
-siccome i due insiemi di discontinuità sono densi l'uno nell'altro la funzione non è integrabile
+siccome i due insiemi di discontinuità sono densi l'uno nell'altro la funzione non è integrabile.\\
 
-\textbf{Esempio 1.1.6:}$f_{n}(x)\to f(x)$ con $f_n$ derivabile $ \forall n$ non implica che $f$ sia derivabile.\\
+\textbf{Esempio 1.1.6:} $f_{n}(x)\to f(x)$ con $f_n$ derivabile $ \forall n$ non implica che $f$ sia derivabile.\\
 
-$f_{n}(x):\Omega\subseteq\mathbb{R}\rightarrow\mathbb{R}$ con $\Omega$ aperto $f_{n}(x)=\sqrt{(x^2+\frac{1}{n})}$, tutte le $f_n$ sono derivabili ma la successione converge puntualmente a $f(x)=|x|$ che non è derivabile \\
+$f_{n}(x):\Omega\subseteq\mathbb{R}\rightarrow\mathbb{R}$ con $\Omega$ aperto $f_{n}(x)=\sqrt{(x^2+\frac{1}{n})}$, tutte le $f_n$ sono derivabili ma la successione converge puntualmente a $f(x)=|x|$ che non è derivabile.
+
+\begin{center}
+\begin{tikzpicture}
+      \draw[->] (-3.2,0) -- (3.2,0) node[right] {$x$};
+      \draw[->] (0,-0.20) -- (0,3.2) node[above] {$y$};
+      \draw[very thin,color=gray] (-3,0) grid (3,3);
+      \draw[scale=1,domain= -3.2:0,smooth,variable=\x,blue,dashed] plot ({\x},{-\x});
+      \draw[scale=1,domain=0:3.2,smooth,variable=\x,blue,dashed] plot ({\x},{\x})node[above] {$f(x)$};
+       \draw[scale=1,domain=-3.2:+3.2,smooth,variable=\x,red] plot (\x,{(\x*\x+1)^0.5});
+       \draw[scale=1,domain=-3.2:+3.2,smooth,variable=\x,red] plot (\x,{(\x*\x+0.5)^0.5});
+       \draw[scale=1,domain=-3.2:+3.2,smooth,variable=\x,red] plot (\x,{(\x*\x+1/3)^0.5});
+      \end{tikzpicture}
+      \end{center}
 
 \subsection{Convergenza uniforme}
 
@@ -92,17 +145,38 @@ $f_{n}(x):\Omega\subseteq\mathbb{R}\rightarrow\mathbb{R}$ con $\Omega$ aperto $f
 $\forall{\epsilon{>0}}$ $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $|f_{n}(x_{0})-f(x_{0})|<\epsilon$  $\forall{x_{0}}\in{X}$ \\
 \end{center} 
 
-A differenza della definizione di convergenza puntuale la convergenza uniforme richiede che lo stesso $\epsilon$ valga per ogni $x_0$ \\
+A differenza della definizione di convergenza puntuale la convergenza uniforme richiede che lo stesso $\epsilon$ valga per ogni $x_0$. \\
 
-\textbf{Definizione 1.1.8:} Data $g:X\rightarrow\mathbb{R}$ definiamo $||g||_{\infty,X}:=sup|g(x)|$ $x\in{X}$, il perchè lo indichiamo con il simbolo di norma lo vedremo in seguito\\ 
+\textbf{Definizione 1.1.8:} Data $g:X\rightarrow\mathbb{R}$ definiamo $||g||_{\infty,X}:=\sup|g(x)|$ $x\in{X}$, il perchè lo indichiamo con il simbolo di norma lo vedremo in seguito\\ 
 
-Possiamo riscrivere la definizione 1.2 attraverso questo nuovo concetto
+Possiamo riscrivere la definizione di convergenza uniforme attraverso questo nuovo concetto
 
 \begin{center}
 $\forall{\epsilon{>0}}$ $\exists{N}=N(\epsilon)$: se $n\geq{N}$ $\Rightarrow$ $||f_{n}-f||_{\infty,X}<\epsilon$\\
 \end{center}
 
-Ovvero che: $n\leq N \Rightarrow \sup|f_n(x)-f(x)|<\epsilon$\\
+Ovvero che:
+$$n\leq N \Rightarrow \sup|f_n(x)-f(x)|<\epsilon$$
+
+Ovvero che:
+$$\lim_{n\to\infty}\sup|f_n(x)-f(x)|=0$$
+
+Ovvero che:
+$$\lim_{n\to\infty}||f_{n}-f||_{\infty,X}=0$$
+
+\begin{center}
+\begin{tikzpicture}[scale=4]
+      \draw[->] (-0.2,0) -- (1.2,0) node[right] {$x$};
+      \draw[->] (0,-0.2) -- (0,1.2) node[above] {$y$};
+      \draw[scale=1,domain=0.2:+0.8,smooth,variable=\x,red] plot (\x,{10*(\x -0.3)*(\x -0.5)*(\x -0.7)+0.6})node[right] {$f(x)$};
+      \draw[scale=1,domain=0.2:+0.8,smooth,variable=\x,red,dashed] plot (\x,{10*(\x -0.3)*(\x -0.5)*(\x -0.7)+0.8})node[right] {$f(x)+\epsilon$};
+      \draw[scale=1,domain=0.2:+0.8,smooth,variable=\x,red,dashed] plot (\x,{10*(\x -0.3)*(\x -0.5)*(\x -0.7)+0.4})node[right] {$f(x)-\epsilon$};
+     
+     
+      \end{tikzpicture}
+      \end{center}
+      
+Possiamo dire che se la successione converge uniformemente allora $\forall\epsilon$ esiste un $N$ per cui tutte le $f_n$ con $n\geq N$ stanno nel tubicino $f(x)-\epsilon$ e $f(x)+\epsilon$.\\
 
 \textbf{Proposizione 1.1.9:} Data $\{f_{n}\}:X\rightarrow\mathbb{R}$ e $f:X\rightarrow\mathbb{R}$, se $\{f_{n}\}$ converge uniformemente a $f$ in $X$ allora converge puntualmente alla stessa $f$ $\forall x\in X$. La convergenza uniforme è una condizione più forte della convergenza semplice.\\
 
@@ -213,10 +287,10 @@ Prendiamo $f_{n}(x)-f(x)=f_{n}(x_0)-l+\int_{x_0}^{x}(f'_{n}(u)-g(u))du$. Per la 
 $f_{n}(x)-f(x)\leq |f_{n}(x_0)-l|+|\int_{x_0}^{x}|(f'_{n}(u)-g(u))|du|$
 \end{center}
 
-Sia $K=[\alpha,\beta]$ compatto in $(a,b)$ allora tornando alla disuguaglianza si ha:
-\begin{center}
-$f_{n}(x)-f(x)\leq |f_{n}(x_0)-l|+|\int_{x_0}^{x}||f'_{n}-g(u)||_{\infty,K}du|=|f_{n}(x_0)-l|+||f'_{n}-g(u)||_{\infty,(a,b)}|x-x_0|\leq|f_{n}(x_0)-l|+||f'_{n}-g(u)||_{\infty,(a,b)}|\beta - \alpha|$\\
-\end{center}
+Sia $K=[\alpha,\beta]$ compatto in $(a,b)$ allora tornando alla disuguaglianza si ha:\\
+
+$$f_{n}(x)-f(x)\leq |f_{n}(x_0)-l|+|\int_{x_0}^{x}||f'_{n}-g(u)||_{\infty,K}du|$$ $$=|f_{n}(x_0)-l|+||f'_{n}-g(u)||_{\infty,(a,b)}|x-x_0|\leq|f_{n}(x_0)-l|+||f'_{n}-g(u)||_{\infty,(a,b)}|\beta - \alpha|$$\\
+
 
 Abbiamo quindi stimato $||f_{n}-f||_{\infty,K}\leq|f_{n}(x_0)-l|+||f'_{n}-g(u)||_{\infty,(a,b)}|\beta - \alpha|$ ma entrambi gli addendi per ipotesi tendono a zero quindi $||f_{n}-f||_{\infty,K}\rightarrow 0$ ovvero la convergenza è uniforme su $K$ compatto; inoltre siccome $K$ è arbitrario si ha convergenza puntuale su tutto $(a,b)$.$\Box$\\
 
@@ -232,11 +306,11 @@ Siano $\{f_{k}\}:X\rightarrow\mathbb{R}$ costruisco $\sum_{k=0}^\infty f_{k}$ co
 
 \textbf{Osservazione 1.2.0:} Con questa notazione si possono vedere le successioni come caso particolare delle successioni in realtà si può scrivere ogni serie come una successione e viceversa. Si potrebbero studiare prima le serie e poi le successioni viste come caso particolare di serie.\\
 
-\textbf{Osservazione 1.2.1:} C'è un abuso di notazione: il simbolo $\sum_{k=0}^\infty f_{k}$ all'inizio indica la successione delle somme parziali, una volta stabilità la sua convergenza passa ad indicare il limite della successione
+\textbf{Osservazione 1.2.1:} C'è un diffuso abuso di notazione: il simbolo $\sum_{k=0}^\infty f_{k}$ all'inizio indica la successione delle somme parziali, una volta stabilità la sua convergenza passa ad indicare il limite della successione
 
 
 Dalla definizione di $\sum$ come limite della sequenza delle somme parziali segue che ogni risultato per la convergenza delle successioni si trasmette alla serie.
-Quindi $\sum\_{k=0}^\infty f_{k}$ converge uniformemente in $X$ se  la successione $S_n=\sum_{k=0}^{n}f_k$ converge uniformemente $\Rightarrow$ $\{S_n\}$ è di Cauchy ovvero $\forall{\epsilon}>0 \exists N=N(\epsilon): m,n\geq N \Rightarrow ||\sum_{k=n}^{m} f_{k}||_{\infty,X)}=||S_m-S_n||_{\infty,X}<\epsilon$\\
+Quindi $\sum_{k=0}^\infty f_{k}$ converge uniformemente in $X$ se  la successione $S_n=\sum_{k=0}^{n}f_k$ converge uniformemente $\Rightarrow$ $\{S_n\}$ è di Cauchy ovvero $\forall{\epsilon}>0 \exists N=N(\epsilon): m,n\geq N \Rightarrow ||\sum_{k=n}^{m} f_{k}||_{\infty,X)}=||S_m-S_n||_{\infty,X}<\epsilon$\\
 
 Supponiamo che $\sum_{k=0}^{\infty} f_{k}$ sia di Cauchy in norma $\sup$, sia X $\Rightarrow$ la sequenza $S_n$ è di Cauchy con norma $\sup$ su X $\Rightarrow S_n$ è limitata (perchè di Cauchy) $S_n\in B(X,\mathbb{R})$ e siccome $B$ è completo $\exists$ limite uniforme delle $S_n$ ovvero che: $$f:=\sum\limits_{k=0}^{\infty}f_k=\lim\limits_{k\to\infty}f_k$$
 
@@ -269,9 +343,11 @@ Sia $f_k=\frac{\sin{kx}}{k^2+e^kx}$ allora $$|f_k(x)|\leq\frac{1}{k^2+e^{kx}}\le
 
 \textbf{Proposizione 1.2.13:}  $\{f_{k}\}:\Omega\subseteq\mathbb{R}\to\mathbb{R}$ ($\Omega$ aperto) con le $f_k$ continue in $x_0$ e supponiamo che $\sum_{k=0}^\infty f_{k}$ converga uniformemente allora $F(x)=\sum_{k=0}^\infty f_{k}$ è continua in $x_0$\\
 
-\textbf{Proposizione 1.2.14:}  $\{f_{k}\}:[a,b]\subseteq\mathbb{R}\to\mathbb{R}$ $f_k\in\mathcal{R}([a,b])$, supponiamo che $\sum_{k=0}^\infty f_{k}$ converga uniformemente in [a,b] allora $F(x)=\sum_{k=0}^\infty f_{k}\in\mathcal{R}([a,b])$ e inoltre: $\int_a^b\sum_{k=0}^\infty f_{k}dx=\int_a^bF(x)dx=\int_a^b\lim\limits_{n\to\infty}S(x)dx=\lim\limits_{n\to\infty}\int_a^b S(x)dx=\lim\limits_{n\to\infty}\sum_{k=0}^\infty\int_a^b f_k(x)dx=\sum_{k=0}^\infty\int_a^b f_k(x)dx$ \\
+\textbf{Proposizione 1.2.14:}  $\{f_{k}\}:[a,b]\subseteq\mathbb{R}\to\mathbb{R}$ $f_k\in\mathcal{R}([a,b])$, supponiamo che $\sum_{k=0}^\infty f_{k}$ converga uniformemente in [a,b] allora $F(x)=\sum_{k=0}^\infty f_{k}\in\mathcal{R}([a,b])$ e inoltre: $$\int_a^b\sum_{k=0}^\infty f_{k}dx=\int_a^bF(x)dx=\int_a^b\lim\limits_{n\to\infty}S(x)dx=$$ $$\lim\limits_{n\to\infty}\int_a^b S(x)dx=\lim\limits_{n\to\infty}\sum_{k=0}^\infty\int_a^b f_k(x)dx=\sum_{k=0}^\infty\int_a^b f_k(x)dx$$ 
 
-\textbf{Proposizione 1.2.15:} $\{f_{k}\}:(a,b)\subseteq\mathbb{R}\to\mathbb{R}$ con ogni $f_k$  è derivabile in $(a,b)$ ed esiste $x_0\in (a,b)$ tale che $\sum_{k=0}^\infty f_{k}(x_0)$ converge, supponiamo che $\sum_{k=0}^\infty f'_{k}$ converge uniformemente in $(a,b)$ allora la $F(x)=\sum_{k=0}^\infty f_{k}$ converge semplicemente in $(a,b)$, la convergenza è uniforme su ogni compatto contenuto in $(a,b)$ e la $F(x)$ è derivabile con $F'(x)=\sum_{k=0}^\infty f'_{k}$ ovvero $(\frac{d}{dx}\sum f_k)(x)=\sum(\frac{d}{dx})(x)$
+\textbf{Proposizione 1.2.15:} $\{f_{k}\}:(a,b)\subseteq\mathbb{R}\to\mathbb{R}$ con ogni $f_k$  è derivabile in $(a,b)$ ed esiste $x_0\in (a,b)$ tale che $\sum_{k=0}^\infty f_{k}(x_0)$ converge, supponiamo che $\sum_{k=0}^\infty f'_{k}$ converge uniformemente in $(a,b)$ allora la $F(x)=\sum_{k=0}^\infty f_{k}$ converge semplicemente in $(a,b)$, la convergenza è uniforme su ogni compatto contenuto in $(a,b)$ e la $F(x)$ è derivabile con $F'(x)=\sum_{k=0}^\infty f'_{k}$ ovvero: 
+
+$$\left(\frac{d}{dx}\sum f_k\right)(x)=\sum\left(\frac{d}{dx}\right)(x)$$
 
 \subsection{Serie di potenze}
 
@@ -285,7 +361,7 @@ Data una serie di potenze cerchiamo di studiare il dominio di convergenza $D:=\{
 
 \textbf{Lemma 1.2.19:} Se la serie converge in $w$ allora converge puntualmente in $(-|w|,|w|)$ e la convergenza è totale nei compatti K contenuti in $(-|w|,|w|)$.\\
 
-\textbf{Dimostrazione:} Se $w=0$ è banale, supponiamo $x\ne 0$ allora $sum_{k=0}^{\infty}a_k w^k$ è una serie numerica convergente percio $\{a_k w^k\}$ tende a 0 $\Rightarrow$ limitata ovvero $\exists c:|a_k w^k|<c$ perciò $$|a_k x^k|=|a_k x^k\cdot\left (\frac{x}{w} \right )^k|\leq c \cdot \left(\frac{|x|}{|w|} \right)^k$$ Siccome siamo in un compatto $K$ allora $\exists\alpha$ con $0<\alpha <|w|:K\subseteq[-\alpha , \alpha]$ allora $|a_k x^k|\leq c \cdot \left(\frac{\alpha}{|w|} \right)^k$ $\Rightarrow ||a_k x^k||\leq c \cdot \left(\frac{\alpha}{|w|} \right)^k$ e tende a 0 quindi $\sum ||a_k x^k|| \leq \sum c \cdot \left(\frac{\alpha}{|w|} \right)^k<\infty$ ovvero la convergenza è totale.$\Box$ \\
+\textbf{Dimostrazione:} Se $w=0$ è banale, supponiamo $x\ne 0$ allora $\sum_{k=0}^{\infty}a_k w^k$ è una serie numerica convergente percio $\{a_k w^k\}$ tende a 0 $\Rightarrow$ limitata ovvero $\exists c:|a_k w^k|<c$ perciò $$|a_k x^k|=|a_k x^k\cdot\left (\frac{x}{w} \right )^k|\leq c \cdot \left(\frac{|x|}{|w|} \right)^k$$ Siccome siamo in un compatto $K$ allora $\exists\alpha$ con $0<\alpha <|w|:K\subseteq[-\alpha , \alpha]$ allora $|a_k x^k|\leq c \cdot \left(\frac{\alpha}{|w|} \right)^k$ $\Rightarrow ||a_k x^k||\leq c \cdot \left(\frac{\alpha}{|w|} \right)^k$ e tende a 0 quindi $\sum ||a_k x^k|| \leq \sum c \cdot \left(\frac{\alpha}{|w|} \right)^k<\infty$ ovvero la convergenza è totale.$\Box$ \\
 
 \textbf{Definizione 1.2.20:} Chiamiamo raggio di convergenza $\rho := \sup D$. Si ha che $(-\rho,\rho)\subseteq D \subseteq [-\rho,\rho]$, se $\rho=\infty$ intendiamo che $D=\mathbb{R}$.\\
 
@@ -293,7 +369,7 @@ Data una serie di potenze cerchiamo di studiare il dominio di convergenza $D:=\{
 
 \textbf{Criterio di d'Alembert 1.2.22:} Se $a_k \ne 0 \forall k$ allora se esiste $l:=\lim\limits_{k\to\infty} \left|\frac{a_{k+1}}{a_k}\right|$ in $\overline{\mathbb{R}}$ si ha che $\rho=\frac{1}{l}$\\
 
-\textbf{Dimostrazioni:} Sono conseguenze immediate del citerio della radice e del confronte per le serie numeriche\\
+\textbf{Dimostrazioni:} Sono conseguenze immediate del criterio della radice e del confronto per le serie numeriche\\
 
 \textbf{Osservazione 1.2.23:} Il criterio di Chauchy - Hadamard è sempre applicabile in quanto il $\limsup$ esiste sempre. Al contrario il criterio di d'Alembert potrebbe "fallire" e quindi è preferibile applicare il criterio precedente\\
 
@@ -305,6 +381,34 @@ Data una serie di potenze cerchiamo di studiare il dominio di convergenza $D:=\{
 \end{itemize}
 
 \textbf{Teorema di Abel 1.2.25:} Se la serie $\sum_{k=0}^{\infty}a_k x^k$ converge in $w$ allora converge uniformemente in $[0,w]$ o $[w,0]$ (a seconda che $w$ sia positivo o negativo).\\
+
+\textbf{Dimostrazione: }Possiamo supporre $w=1$ (basta cambiare $a_k$ con $a_kw^k$) e $\sum_{k=0}^\infty a_k=0$ (basta prendere $a_0\to a_0-\sum_{k=0}^\infty a_k$).\\
+
+Sia $A_k:=\sum_{l\leq k} a_l$ (con $A_{-1}=0$) allora:
+
+$$\sum_{k=0}^na_kx^k=\sum_{k=0}^n(A_k-A_{k-1}) x^k=\sum_{k=0}^nA_kx^k-\sum_{k=0}^nA_{k-1}x^k=\sum_{k=0}^nA_kx^k-\sum_{k=0}^{n-1}A_{k}x^k$$
+
+(questo perchè abbiamo posto $A_{-1}=0$)
+
+$$=A_nx^n-\sum_{k=0}^{n-1}A_{k}(x^{k+1}-x^k)$$
+
+e quindi se $m>n$:
+
+$$\sum_{k=n+1}^ma_kx^k=\sum_{k=0}^ma_kx^k-\sum_{k=0}^n=A_mx^m-A_nx^n-\sum_{k=n}^{m-1}A_k(x^{k+1}-x^k)$$
+
+Ma per ipotesi $\sum_{k=0}^\infty a_k=0$, ovvero $A_k\to 0$ per $k\to\infty$ quindi se fisso $\epsilon >0$ $\exists N$ tale che $\forall k\geq N$ si ha che $|A_k|\leq\epsilon$. Assumo $m\geq n\geq N$ così:
+
+$$\left|\sum_{k=n}^ma_kx^k\right|\leq \epsilon|x|^m+\epsilon|x|^n+\epsilon\sum_{k=n}^{m-1}|x^{k+1}-x^k|\quad (*)$$
+
+Se $x\in[0,1]$ allora $|x|\leq 1$ e $|x^{k+1}-x^k|=x^{k+1}-x^k$ da cui:
+
+$$\sum_{k=n}^{m-1}|x^{k+1}-x^k|=\sum_{k=n}^{m-1}(x^{k+1}-x^k)=x^n-x^{m-1}\leq x^n \leq 1$$
+
+e si ha $|\sum_{k=n}^m a_k x^k|\leq 3\epsilon\quad\forall x\in[0,1]$, ovvero:
+
+$$\left|\left|\sum_{k=n}^m a_k x^k\right|\right|_{\infty,[0,1]}\leq 3\epsilon$$
+
+quindi il criterio per la convergenza uniforme è soddisfatto. $\Box$\\
 
 \textbf{Corollario 1.2.26:} La convergenza della serie è uniforme in D.\\
 
@@ -373,7 +477,25 @@ L'obiettivo è quello di descrivere il luogo degli zeri di opportune funzioni $f
 \item In generale i luoghi di zeri non sono grafici di funzioni ad esempio $x^2+y^2-1=0$.
 \end{enumerate}
 
-L'obiettivo dei prossimi teoremi è dimostrare che se $f$ è abbastanza "buona" allora $Z_f$ è localmente il grafico di una funzione.\\
+L'obiettivo dei prossimi teoremi è dimostrare che se $f$ è abbastanza "buona" allora $Z_f$ è localmente il grafico di una funzione. Per esempio:\\
+
+\begin{center}
+\begin{tikzpicture}
+      \draw[->] (-1.2,0) -- (1.2,0) node[right] {$x$};
+      \draw[->] (0,-1.20) -- (0,1.2) node[above] {$y$};
+\draw (0,0) circle (1);
+\filldraw[black] ({(2^0.5)/2},{(2^0.5)/2}) circle (2pt) node[anchor=west] {Localmente il grafico di $y=\sqrt{1-x^2}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+      \draw[->] (-1.2,0) node[left] {$x$} -- (1.2,0);
+      \draw[->] (0,-1.20) -- (0,1.2) node[above] {$y$};
+\draw (0,0) circle (1);
+\filldraw[black] (1,0) circle (2pt) node[anchor=west] {$\mbox{  }$Localmente il grafico di $x=\sqrt{1-y^2}$};
+\end{tikzpicture}
+\end{center}
 
 \textbf{Proposizione 2.2:} Data $f:[a,b]\times[c,d]\to\mathbb{R}$ supponiamo:\begin{enumerate}
 \item $\forall x \in [a,b]$, $f(x,\bullet):[c,d]\to\mathbb{R}$ è continua e $f(x,c)\cdot f(x,d)<0$
@@ -395,10 +517,47 @@ Una volta stabilita l'esistenza della funzione $\phi$ ci chiediamo come è possi
 
 Allora $\exists$ un intorno aperto $(a,b)\times(c,d)$ con $(x_0,y_0)\in(a,b)\times (c,d)$ e $[a,b]\times[c,d]\subseteq\Omega$ ed esiste una funzione $\phi:(a,b)\times(c,d)$ tale che il luogo degli zeri di $f$ in $(a,b)\times(c,d)$ coincide con il grafico di $\phi$. Inoltre $\phi\in\mathcal{C}((a,b))$ e: $$\frac{d\phi}{dx}(x)= - \frac{\partial xf}{\partial yf} (x,\phi(x)),\quad \forall x \in (a,b)$$
 
-\textbf{Dimostrazione:} Assumiamo $f(x_0,y_0)>0$ (altrimenti si cambia $f$ con $-f$), siccome $\partial y f$ è continua  $\exists [a',b']\times[c,d]\subseteq\Omega$ contenente il punto $(x_0,y_0)$ in cui $\partial y f>0$. Considero $f(x_0,\bullet):[c,d]\to\mathbb{R}$ essa vale 0 in $y_0$ ed è strettamente crescente quindi $f(x_0,c)<0$ e $f(x_0,d)>0$. Ma $f$ è continua perciò $\exists\mathcal{U}((x_0,c))$ dove $f<0$ e $\exists\mathcal{U}((x_0,d))$ dove $f>0$. Allora $\exists [a,b]$ con $a'\leq a \leq x_0 \leq b \leq b'$ in cui $f(x,c)<0$ e $f(x,d)>0$ $f(x,c)<0$. Ristretta ad $[a,b]\times[c,d]$ la funzione $f$ soddisfa le ipotesi della proposizione 2.2 perciò $\exists\phi:(a,b)\to(c,d)$ tale che il luogo degli zeri di $f$ coincide con il grafico di $\phi$.\\
+\textbf{Dimostrazione:} Assumiamo $\partial_y f(x_0,y_0)>0$ (altrimenti si cambia $f$ con $-f$), siccome $\partial y f$ è continua  $\exists [a',b']\times[c,d]\subseteq\Omega$ contenente il punto $(x_0,y_0)$ in cui $\partial y f>0$.\\
+\begin{center}
+\begin{tikzpicture}
+\draw[->] (-0.2,0) node[left] {$x$} -- (4.2,0);
+      \draw[->] (0,-0.20) -- (0,4.2) node[above] {$y$};
+\draw [black, dashed] plot [smooth cycle] coordinates {(1,3.5) (2,2.5) (3,4) (4,2) (3.5,1) (2,-1) (0.5,1)} node[anchor=east] {$\mbox{ }\mbox{ }\mbox{ }\Omega$};
+\draw[-] (1.5,2) -- (2.5,2) ;
+\draw[-] (1.5,0.3) -- (2.5,0.3);
+\draw[-,dashed] (1.5,0)node[anchor=north] {$a'$} -- (1.5,2) ;
+\draw[-,dashed] (2.5,0)node[anchor=north] {$b'$} -- (2.5,2) ;
+\draw[-,dashed] (0,2) node[anchor=east] {$d$} -- (1.5,2);
+\draw[-,dashed] (0,0.3)node[anchor=east] {$c$} -- (1.5,0.3);
+\filldraw[black] (1.8,1.5) circle (1pt) node[anchor=west] {$(x_0,y_0)$};
+    \end{tikzpicture}
+    \end{center}
 
-Dimostriamo ora la regolarità della funzione $\phi$. Sia $x\in(a,b)$ fissato e $h$ tale che $x+h\in(a,b)$. $f$ si annulla in $(x,\phi(x))$ e $(x+h,\phi(x+h))$ (per come è stata costruita $\phi$, inoltre è $mathcal{C}^1(\Omega)$ allora: $$0=f(x+h,\phi(x+h))-f(x,\phi(x))=< \nabla f(\alpha,\beta),(h,\phi(x+h)-\phi(x)>$$ Dove $(\alpha,\beta)$ sta nel segmento congiungente $(x,\phi(x))$ e $(x+h,\phi(x+h))$ perciò: $$(\phi(x+h)-\phi(x))\cdot\partial y f(\alpha,\beta)+h\partial x f(\alpha,\beta)=0$$ ovvero $\phi(x+h)-\phi(x)=-\frac{\partial x f}{\partial y f}(\alpha,\beta)\cdot h (*)$ (ciò è possibile perchè $\partial y f(\alpha,\beta)\ne 0$) ma $(\alpha,\beta)\in[a',b']\times[c,d]$ e $\frac{\partial x f}{\partial y f}$ è continua (quoziente di funzioni continue) quindi ha massimo $M:=||\frac{\partial x f}{\partial y f}||_{\infty,[a',b']\times[c,d]}$, da $(*)$ segue che: $$\phi(x+h)-\phi(x)\leq M\cdot |h|$$
-quindi $\phi$ è lipschitziana in $x$ $\Rightarrow$ continua. Questo mostra che se $h\to 0$ allora $(\alpha,\beta)\to(x,\phi(x))$ perciò $\lim\limits_{h\to 0}\frac{\partial x f}{\partial y f}(\alpha,\beta)$ esiste e vale $\frac{\partial x f}{\partial y f}(x,\phi(x))$ e così: $$\frac{\phi(x+h)-\phi(x)}{h}=-\frac{\partial x f}{\partial y f}(\alpha,\beta)\to -\frac{\partial x f}{\partial y f}(x,\phi(x))$$ Allora $\phi$ è derivabile in $x$ con $\phi '=-\frac{\partial x f}{\partial y f}(x,\phi(x))$ e $\phi '$ è continua perchè composizione di continue. $\Box$\\
+
+Considero $f(x_0,\bullet):[c,d]\to\mathbb{R}$ essa vale 0 in $y_0$ ed è strettamente crescente quindi $f(x_0,c)<0$ e $f(x_0,d)>0$. Ma $f$ è continua perciò $\exists\mathcal{U}((x_0,c))$ dove $f<0$ e $\exists\mathcal{U}((x_0,d))$ dove $f>0$. Allora $\exists [a,b]$ con $a'\leq a \leq x_0 \leq b \leq b'$ in cui $f(x,c)<0$ e $f(x,d)>0$ $f(x,c)<0$ $\forall x\in[a,b]$. Ristretta ad $[a,b]\times[c,d]$ la funzione $f$ soddisfa le ipotesi della proposizione 2.2 perciò $\exists\phi:(a,b)\to(c,d)$ tale che il luogo degli zeri di $f$ coincide con il grafico di $\phi$.\\
+
+\begin{center}
+\begin{tikzpicture} [scale=2]
+\draw[-,dashed] (0,0)node[anchor=east] {$c$}--(0,2) node[anchor=east] {$d$};
+\draw [-,dashed] (1,0)--(1,2);
+\draw (0,0) node[anchor=north] {$a$}--(1,0)node[anchor=north] {$b$};
+\draw (0,2) --(1,2);
+\filldraw[black] (0.5,2) circle (0pt) node[anchor=south] {$+$};
+\filldraw[black] (0.5,0) circle (0pt) node[anchor=north] {$-$};
+\draw [black, ] plot [smooth ] coordinates {(0.1,0.2) (0.3,0.5) (0.5,0.9) (0.8,1.8)};
+\end{tikzpicture}
+    \end{center}
+
+Dimostriamo ora la regolarità della funzione $\phi$. Sia $x\in(a,b)$ fissato e $h$ tale che $x+h\in(a,b)$. $f$ si annulla in $(x,\phi(x))$ e $(x+h,\phi(x+h))$ (per come è stata costruita $\phi$, inoltre è $\mathcal{C}^1(\Omega)$ allora: 
+
+$$0=f(x+h,\phi(x+h))-f(x,\phi(x))=\langle \nabla f(\alpha,\beta),(h,\phi(x+h)-\phi(x)\rangle$$ Dove $(\alpha,\beta)$ sta nel segmento congiungente $(x,\phi(x))$ e $(x+h,\phi(x+h))$ perciò: 
+
+$$(\phi(x+h)-\phi(x))\cdot\partial y f(\alpha,\beta)+h\partial x f(\alpha,\beta)=0$$ 
+ovvero $\phi(x+h)-\phi(x)=-\frac{\partial x f}{\partial y f}(\alpha,\beta)\cdot h (*)$ (ciò è possibile perchè $\partial y f(\alpha,\beta)\ne 0$) ma $(\alpha,\beta)\in[a',b']\times[c,d]$ e $\frac{\partial x f}{\partial y f}$ è continua (quoziente di funzioni continue) quindi ha massimo $M:=||\frac{\partial x f}{\partial y f}||_{\infty,[a',b']\times[c,d]}$, da $(*)$ segue che: $$\phi(x+h)-\phi(x)\leq M\cdot |h|$$
+quindi $\phi$ è lipschitziana in $x$ $\Rightarrow$ continua. Questo mostra che se $h\to 0$ allora $(\alpha,\beta)\to(x,\phi(x))$ perciò $\lim\limits_{h\to 0}\frac{\partial x f}{\partial y f}(\alpha,\beta)$ esiste e vale $\frac{\partial x f}{\partial y f}(x,\phi(x))$ e così: 
+
+$$\frac{\phi(x+h)-\phi(x)}{h}=-\frac{\partial x f}{\partial y f}(\alpha,\beta)\to -\frac{\partial x f}{\partial y f}(x,\phi(x))$$
+ Allora $\phi$ è derivabile in $x$ con $\phi '=-\frac{\partial x f}{\partial y f}(x,\phi(x))$ e $\phi '$ è continua perchè composizione di continue. $\Box$\\
 
 \textbf{Corollario 2.4:} Se poi $f\in\mathcal{C}^k(\Omega)$ allora $\phi$ è di classe $\mathcal{C}^k$ dove esiste ($k\geq 1$).\\
 
@@ -408,8 +567,26 @@ quindi $\phi$ è lipschitziana in $x$ $\Rightarrow$ continua. Questo mostra che 
 
 \textbf{Esempi 2.6:}\begin{itemize}
 \item $f(x,y)=x^2-y^2$ $f(0,0)=0$ ma $\nabla f(0,0)=(0,0)$ e il luogo degli zeri di f sono le rette $y=x$ e $y=-x$ che in un intorno di $(0,,0)$ non è il grafico di una funzione.
+\begin{center}
+\begin{tikzpicture}[scale= 0.5]
+      \draw[->] (-3.2,0) -- (3.2,0) node[right] {$x$};
+      \draw[->] (0,-3.20) -- (0,3.2) node[above] {$y$};
+      
+      \draw[scale=1,domain= -3.2:3.2,smooth,variable=\x,blue] plot ({\x},{-\x});
+      \draw[scale=1,domain=-3.2:3.2,smooth,variable=\x,blue] plot ({\x},{\x});
+      \end{tikzpicture}
+\end{center}
 \item $f(x,y)=x^2+y^2$ $f(0,0)=0$ ma $\nabla f(0,0)=(0,0)$ e il luogo degli zeri è il solo punto $(0,0)$ che non è un grafico.
 \item $f(x,y)=y^2-x^2(x+1)$ $f(0,0)=0$ (parabola campaniformis cum ovali) ma $\nabla f(0,0)=(0,0)$ e il luogo degli zeri non è il grafico di nessuna funzione in $(0,0)$
+
+\begin{center}
+\begin{tikzpicture}[scale= 1]
+      \draw[->] (-1.2,0) -- (1.2,0) node[right] {$x$};
+      \draw[->] (0,-1.20) -- (0,1.2) node[above] {$y$};
+      \draw[scale=1,domain= -1.0:1.0,smooth,variable=\x,blue] plot ({\x},{-((\x*\x*\x+\x*\x)^0.5)});
+      \draw[scale=1,domain=-1.0:1.0,smooth,variable=\x,blue] plot ({\x},{(\x*\x*\x+\x*\x)^0.5});
+      \end{tikzpicture}
+\end{center}
 \end{itemize}
 
 \section{Contrazioni e Teorema del punto fisso}
@@ -427,7 +604,7 @@ Verifico ora l'unicità, siano $x$ e $y$ due punti fissi allora $d(x,y)\leq\frac
 
 \textbf{Corollario 2.10:} Il teorema puó essere generalizzato: sia $(X,d)$ uno spazio metrico completo e $T:X\to X$. Supponiamo che $\exists K$ tale che $T^{(k)}=T\circ\ldots\circ T$ ($k$ volte) sia una contrazione allora $T$ ha un unico punto fisso.\\
 
-\textbf{Dimostrazione:} Sia $x_\infty$ punto fisso per $T^{(k)}$ (che esiste per via del teorema) allora $T^{(k)}(Tx_\infty)=T^{(k+1)}x_\infty=T(T^{(k)} x_\infty)=Tx_\infty$ perció $Tx_\infty$ è fisso per $T^{(k)}$ ma $T^{(k)}$ ha $x_\infty$ come punto unico fisso $\Rightarrow Tx_\infty=x_\infty$ ovvero $x_\infty$ è punto fisso per $T$.\\
+\textbf{Dimostrazione:} Sia $x_\infty$ punto fisso per $T^{(k)}$ (che esiste per via del teorema) allora $T^{(k)}(Tx_\infty)=T^{(k+1)}x_\infty=T(T^{(k)} x_\infty)=Tx_\infty$ perció $Tx_\infty$ è fisso per $T^{(k)}$ ma $T^{(k)}$ ha $x_\infty$ come punto unico fisso $\Rightarrow Tx_\infty=x_\infty$ ovvero $x_\infty$ è punto fisso per $T$. $Box$\\
 
 Devo dimostrare che è unico ma ogni punto fissato da $T$ è fissato da $T{(k)}$ quindi $T$ ha un solo punto fisso (altrimenti $T{(k)}$ non ne avrebbe uno solo).\\
 
@@ -436,6 +613,18 @@ Devo dimostrare che è unico ma ogni punto fissato da $T$ è fissato da $T{(k)}$
 $T:\mathbb{R}\to\mathbb{R}$ con $T(x)=\cos (x)$ non é una contrazione ma $T^2(x)\cos(\cos(x))$ lo é. \\
 
 \textbf{Esempio 2.12:} (Metodo di Newton) Il metodo di Newton serve per calcolare gli zeri di una funzione $f$. Idea: sia $x_0$ un punto scelto a caso e si trova la tangente al grafico nel punto $f(x_0)$. L'intersezione della tangente con l'asse delle ascisse darà un nuovo punto $x_1$, si prende poi la tangente nel punto $f(x_1)$ e si itera il procedimento. La relazione di ricorrenza è: $$x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}$$ 
+
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+      \draw[->] (-0.2,0) -- (3.2,0) node[right] {$x$};
+      \draw[->] (0,-0.60) -- (0,3.2) node[above] {$y$};
+      \draw[-,dashed] (2,0) -- (2,0.875) ;
+      \draw[scale=1,domain= -0.0:3.0,smooth,variable=\x,blue] plot ({\x},{0.5*\x^2-0.5*\x-0.5*0.25});
+      \draw[scale=1,domain= (1.25):3.0,smooth,variable=\x,red,dashed] plot ({\x},{1.5*\x-2.15});
+      \filldraw[black] (2,0) circle (1pt) node[anchor=north] {$x_n$};
+      \filldraw[black] (1.433333,0) circle (1pt) node[anchor=north] {$x_{n+1}$};
+      \end{tikzpicture}
+\end{center}
 
 \textbf{Esercizio 2.13:} Voglio trovare una soluzione di $f(x)=0$ con $f(x)=x^3+2x-1$ utilizzando il metodo di Newton. $T(x)=x-\frac{f(x)}{f'(x)}=x-\frac{x^3+2x-1}{3x^2+2}=\frac{2x^3+1}{3x^2+2}$, se considero $\mathbb{R}$ intero é difficile dimostrare che $T$ é una contrazione perció osservo che $T:[0,+\infty)\to[0,+\infty)$ e che in questo sottointervallo $T'(x)=\frac{6x^4+12x^2-6x}{(3x^2+2)^2}\leq\frac{6x^4+12x^2}{(3x^2+2)^2}=\frac{3}{4}-\frac{3x^4-12x^2-6x}{(3x^2+2)^2}\leq\frac{3}{4}$ e $T'(x)\geq\frac{-6x}{(3x^2+2)^2}\geq\frac{-3}{4}$ quindi $|T'(x)|\leq\frac{3}{4}$. \\
 
@@ -467,13 +656,16 @@ Prima di enunciare e dimostrare il teorema è bene ricorda un lemma utile ai fin
 
 (Per non appesantire la notazione verranno omesse le barrette per indicare i vettori).\\
 
-\textbf{Dimostrazione: }La dimostrazione è un'applicazione del teorema di punto fisso. Prendo la funzione $g(x):=((Jf)(x_0))^{-1}\cdot(f(x_0+x)-f(x))$ (è ben definita in $\Omega-x_0$,traslato di $\Omega$, perchè $((Jf)(x_0))^{-1}$ esiste per ipotesi). Osservo che $g(0)=0$ e $(Jg)(0)=((Jg)(x_0))^{-1}\cdot(Jg)(x_0)=I$. D'altra parte $f(x)=(Jf)(x_0)\cdot g(x-x_0)+f(x_0)$ e questa relazione evidenzia che f è invertibile in $\mathcal{U}(x_0)$ se e solo se $g$ è invertibile in $\mathcal{U}(x_0)-x_0$. Nel procedere con la dimostrazione potremmo quindi assumere come ipotesi aggiuntive $x_0=0$, $f(x_0)=0$ e $(Jf)(x_0)=I$.\\
+\textbf{Dimostrazione: }La dimostrazione è un'applicazione del teorema di punto fisso. Prendo la funzione:
 
-Sia $H(x):=x-f(x)\in\mathcal{C}^1(\Omega)$ con $H(0)=0$ e $(JH)(0)=I-I=0$. Visto che le funzioni in $JH$ sono continue esiste $\epsilon >0$ sufficientemente piccolo affinchè $|||JH|||_{2,\infty,\overline{B}_\epsilon}\leq\frac{1}{2}$ (scelto arbitrariamente) dove $\overline{B}_\epsilon=\{x:||x||\leq\epsilon\}$ (bolla chiusa). Inoltre visto che $\det Jf$ è continua e che $\det Jf(0)=det I=1$ possiamo scegliere $\epsilon$ in modo che alla relazione precedente si abbia anche $\det Jf(x)\ne 0$. \\
+$$g(x):=((Jf)(x_0))^{-1}\cdot(f(x_0+x)-f(x))$$
+ (è ben definita in $\Omega-x_0$, traslato di $\Omega$, perchè $((Jf)(x_0))^{-1}$ esiste per ipotesi). Osservo che $g(0)=0$ e $(Jg)(0)=((Jf)(x_0))^{-1}\cdot(Jf)(x_0)=I$. D'altra parte $f(x)=(Jf)(x_0)\cdot g(x-x_0)+f(x_0)$ e questa relazione evidenzia che f è invertibile in $\mathcal{U}(x_0)$ se e solo se $g$ è invertibile in $\mathcal{U}(x_0)-x_0$. Nel procedere con la dimostrazione potremmo quindi assumere come ipotesi aggiuntive $x_0=0$, $f(x_0)=0$ e $(Jf)(x_0)=I$.\\
+
+Sia $H(x):=x-f(x)\in\mathcal{C}^1(\Omega)$ con $H(0)=0$ e $(JH)(0)=I-I=0$. Visto che le funzioni in $JH$ sono continue esiste $\epsilon >0$ sufficientemente piccolo affinchè $|||JH|||_{2,\infty,\overline{B}_\epsilon}\leq\frac{1}{2}$ (scelto arbitrariamente) dove $\overline{B}_\epsilon=\{x:||x||\leq\epsilon\}$ (bolla chiusa). Inoltre visto che $\det Jf$ è continua e che $\det Jf(0)=\det I=1$ possiamo scegliere $\epsilon$ in modo che alla relazione precedente si abbia anche $\det Jf(x)\ne 0$. \\
 
 Dato che $|||JH|||_{2,\infty,\overline{B}_\epsilon}\leq\frac{1}{2}$ dal lemma si ha che: $$||H(x)-H(w)||\leq\frac{1}{2}\cdot||x-w||\quad \forall x,w\in\overline{B}_\epsilon \quad (*)$$ e così: $$||f(x)-f(w)||=||x-w-(H(x)-H(w))||\geq$$ $$||x-w||-||H(x)-H(w)||\geq||x-w||-\frac{1}{2}||x-w||=\frac{1}{2}||x-w||\quad (**)$$ da qui segue che $f$ è iniettiva in  $\overline{B}_\epsilon$ perchè se fosse $f(x)=f(w)$ da $(**)$ seguirebbe $||x-w||\leq 2\cdot 0\Rightarrow x=y$.\\
 
-Sia $y\in \overline{B}_\frac{\epsilon}{2}$, ovvero $||y||\leq\frac{\epsilon}{2}$, definisco $H_y(x):=y+H(x)$ e osservo che $$||H_y(x)||=||y+H(x)||\leq||y||+||H(x)||=||y||+||H(x)-H(0)||$$ siccome $||y||\leq\frac{\epsilon}{2}$, $H(0)=0$ e $x\in\overline{B}_\epsilon$ ho: $$||H_y(x)||\leq\frac{\epsilon}{2}=\frac{1}{2}||x-0||\leq \frac{\epsilon}{2}+\frac{\epsilon}{2}(**)=\epsilon$$ Da qui ricaviamo che $H_y:\overline{B}_\epsilon\to\overline{B}_\epsilon$. Inolte $H_y(x)-H_y(w)=H(x)-y-H(w)+y=H(x)-H(w)$ allora $||H_y(x)-H_y(w)||=||H(x)-H(w)||\leq\frac{1}{2}||x-w||$ quindi $H_y(x)$ é una contrazione ma $\mathbb{R}^n$ con la metrica euclidea é uno spazio di Banach allora $H_y$ ha un unico punto fisso. Ovvero $\exists!x$ tale che: $$H_y(x)=x\Leftrightarrow y+H(x)=x \Leftrightarrow y+x-f(x)=x\Leftrightarrow y+f(x)$$ quindi ogni $y\in\overline{B}_\frac{\epsilon}{2}$ é immagine di uno e uno solo punto $x\in\overline{B}_\epsilon$ perció $f$ é suriettiva tra $\overline{B}_\frac{\epsilon}{2}$ e $\overline{B}_\epsilon$. Ció non basta perché il teorema parla di insiemi aperti e non chiusi.\\
+Sia $y\in \overline{B}_\frac{\epsilon}{2}$, ovvero $||y||\leq\frac{\epsilon}{2}$, definisco $H_y(x):=y+H(x)$ e osservo che $$||H_y(x)||=||y+H(x)||\leq||y||+||H(x)||=||y||+||H(x)-H(0)||$$ siccome $||y||\leq\frac{\epsilon}{2}$, $H(0)=0$ e $x\in\overline{B}_\epsilon$ ho: $$||H_y(x)||\leq\frac{\epsilon}{2}=\frac{1}{2}||x-0||\leq \frac{\epsilon}{2}+\frac{\epsilon}{2}(**)=\epsilon$$ Da qui ricaviamo che $H_y:\overline{B}_\epsilon\to\overline{B}_\epsilon$. Inolte $H_y(x)-H_y(w)=H(x)-y-H(w)+y=H(x)-H(w)$ allora $||H_y(x)-H_y(w)||=||H(x)-H(w)||\leq\frac{1}{2}||x-w||$ quindi $H_y(x)$ é una contrazione ma $\mathbb{R}^n$ con la metrica euclidea é uno spazio di Banach allora $H_y$ ha un unico punto fisso. Ovvero $\exists!x$ tale che: $$H_y(x)=x\Leftrightarrow y+H(x)=x \Leftrightarrow y+x-f(x)=x\Leftrightarrow y=f(x)$$ quindi ogni $y\in\overline{B}_\frac{\epsilon}{2}$ é immagine di uno e uno solo punto $x\in\overline{B}_\epsilon$ perció $f$ é suriettiva tra $\overline{B}_\frac{\epsilon}{2}$ e $\overline{B}_\epsilon$. Ció non basta perché il teorema parla di insiemi aperti e non chiusi.\\
 
 Siano $x$ e $y$ come sopra $||x||=||y+x-f(x)||=||y+H(x)||\leq||y||+||H(x)||\leq||y||+\frac{1}{2}||x||(**)$ $\Rightarrow\||x||\leq2||y||$. In particolare se $y\in B_\frac{\epsilon}{2}$ (aperto), ovvero $||y||<\frac{\epsilon}{2}$, $||x||<\epsilon$ perció l'aperto va nell'aperto quindi $f$ é suriettiva tra $B_\epsilon$ e $B_\frac{\epsilon}{2}$.\\
 
@@ -499,11 +691,11 @@ Ricordo che se $M:=\begin{vmatrix} I & 0 \\ A & B \end{vmatrix}$ è una matrice 
 
 \textbf{Teorema di Dini (multidimensionale) 2.20:} Sia $f:\Omega\subseteq\mathbb{R}^m\times\mathbb{R}^n\to\mathbb{R}^n$, con $\Omega$ aperto e $f\in\mathcal{C}^1(\Omega)$:
 \begin{enumerate}
-\item Sia $(x_0,y_0)\in\Omega$ tale che $f(x_0,y_0)=0$ ($x_0\in\mathbb{R}^m$ e $y_0\in\mathbb{R}^n$
+\item Sia $(x_0,y_0)\in\Omega$ tale che $f(x_0,y_0)=0$ ($x_0\in\mathbb{R}^m$ e $y_0\in\mathbb{R}^n$)
 \item $(J_yf)(x_0,y_0)$ è invertibile (la matrice quadrata di ordine $n\times n$ rispetto alle $y$)
 \end{enumerate}
 
-Allora esistono due intorni aperti $\mathcal{U}(x_0)$ e $\mathbb{V}(y_0)$ con $\overline{\mathcal{U}(x_0)\times\mathbb{V}(y_0)}\subseteq\Omega$ tali che l'insieme degli zeri di $f$ in $\mathcal{U}(x_0)\times\mathbb{V}(y_0)$ coincide con il grafico di una funzione $\phi:\mathcal{U}(x_0)\to\mathbb{V}(y_0)$, $\phi\in\mathcal{C}^1(\mathcal{U}(x_0))$ e $J\phi(x)=-(J_yf)^{-1}\cdot(J_xf)|_{x,\phi(x)}\quad\forall c\in\mathcal{U}(x_0)$.\\
+Allora esistono due intorni aperti $\mathcal{U}(x_0)$ e $\mathcal{V}(y_0)$ con $\overline{\mathcal{U}(x_0)\times\mathbb{V}(y_0)}\subseteq\Omega$ tali che l'insieme degli zeri di $f$ in $\mathcal{U}(x_0)\times\mathbb{V}(y_0)$ coincide con il grafico di una funzione $\phi:\mathcal{U}(x_0)\to\mathcal{V}(y_0)$, $\phi\in\mathcal{C}^1(\mathcal{U}(x_0))$ e $J\phi(x)=-(J_yf)^{-1}\cdot(J_xf)|_{x,\phi(x)}\quad\forall c\in\mathcal{U}(x_0)$.\\
 
 \textbf{Dimostrazione:} Sia $F:\Omega\subseteq\mathbb{R}^m\times\mathbb{R}^n\to\mathbb{R}^m\times\mathbb{R}^n$ definita come $F(x,y):=\binom{x}{f(x,y)}$ ed $F\in\mathcal{C}^1(\Omega)$ con $(JF)(x,y)=\begin{vmatrix} I & 0 \\ J_xf & J_yf \end{vmatrix}$. In particolare $(Jf)(x_0,y_0)=\begin{vmatrix} I & 0 \\ J_xf(x_0,y_0) & J_yf(x_0,y_0 \end{vmatrix}$ è invertibile per ipotesi ed $F(x_0,y_0)=\binom{x_0}{0}$ quindi per il teorema di invertibilità locale $F$ è localmente invertibile in $(x_0,y_0)$ ovvero esistono due intorni aperti (in realtà sono delle bolle aperte) $\mathcal{W}(x_0,y_0)$ e $\mathcal{S}(x_0,0)$ tra i quali $F$ agisce come un diffeomorfismo. Siano\begin{itemize}
 \item $\mathcal{U}:=$ proiezione sulle $x$ di $\mathcal{S}$ (aperto perchè la proiezione è una mappa aperta)
@@ -1370,13 +1562,313 @@ Sia $\mu$ la molteplicità di $u+iv$ come radice del polinomio caratteristico. A
 $$\mathcal{L}(x^\mu(r_1(x)\cos(vx)+r_2\sin(vx))e^{ux})=q(x)e^{ux}\cos(vx)$$
 quindi $x^\mu(r_1(x)\cos(vx)+r_2\sin(vx))e^{ux}$ è una soluzione.\\
 
-\textbf{Osservazione 3.37:} In generale $r_1$ e $r_2$ dono entrambi $\ne 0$, ovvero la soluzione contiene sia $\cos(vx)$, sia $\sin(vx)$ anche se $f(x)$ ha solo il $\cos(vx)$\\
+\textbf{Osservazione 3.37:} In generale $r_1$ e $r_2$ sono entrambi $\ne 0$, ovvero la soluzione contiene sia $\cos(vx)$, sia $\sin(vx)$ anche se $f(x)$ ha solo il $\cos(vx)$\\
 
 \textbf{Osservazione 3.38:} Visto che il grado di $r_1$ e $r_2$ è minore o uguale di quello di $q$ $r_1$ e $r_2$ possono essere trovati per via algebrica. \\
 
-\textbf{Osservazione 3.39:} La stessa conclusione vale se $f(x)=q(x)e^{ux}\sin(vx)$\\
+\textbf{Osservazione 3.39:} La stessa conclusione vale se $f(x)=q(x)e^{ux}\sin(vx)$
 
+\chapter{Curve, Campi vettoriali, Forme differenziali}
 
+\section{Curve}
+
+\textbf{Definzione 4.1: }Sia $\Omega$ aperto in $\mathbb{R}^n$. Chiamiamo curva in $\Omega$ qualunque mappa $\underline{\varphi}:[a,b]\subseteq \mathbb{R}\to\Omega$, che sia continua, l'immagine $\gamma$ di $\underline{\varphi}$ è detto sostegno della curva e $\varphi$ è detta parametrizzazione di $\gamma$.\\
+
+\textbf{Osservazione 4.2: }Il dato geometrico è codificato in $\gamma$, quindi capiterà spesso di chiamare "curva" quello che è (solo) il sostegno di una data curva.\\
+
+\textbf{Definizione 4.3:} La curva è detta:\begin{itemize}
+\item Chiusa quando $\varphi(a)=\varphi(b)$
+\item Semplice quando $\varphi$ è iniettiva in $[a,b)$ e $(a,b]$
+\item Regolare quando $\varphi$ è $\mathcal{C}^1$ e $\varphi'(t)\ne 0$ $\forall t\in[a,b]$
+\item Regolare a tratti quando $\exists a=t_0<t_1<\ldots<t_n=b$ tale che $\varphi$ è regolare in ogni tratto $(t_j,t_{j+1})$.
+\end{itemize}
+
+\textbf{Osservazione 4.4: }La definizione di regolarità è probabilmente "strana". Il fatto è che si vuole che l'oggetto non solo sia regolare dal punto di vista "analitico" (ovvero $\varphi\in\mathcal{C}^1$) ma che lo sia anche dal punto di vista "geometrico" (ovvero $\varphi'(t)\ne 0$ $\forall t$). La condizione $\varphi'(t)\ne 0$ consente infatti di definire un versore tangente $\tau(t):=\frac{\varphi'(t)}{||\varphi'(t)||
+}$ in ogni punto. Si osservi che $||\tau(t)||=1$ $\forall t$.
+
+\subsection{Classe di equivalenza e orientazione}
+
+Sia $\underline{\varphi}:[a,b]\to\mathbb{R}^n$ una curva, sia poi $f:[a',b']\to[a,b]$ una mappa biunivoca e bidifferenziale (quindi $f$ e $f^{-1}$ entrambi $\mathcal{C}^1$, ovvero $f$ è un diffeomorfismo). Allora:
+
+$$\underline{\tilde{\varphi}}:=\underline{\varphi}\circ f:[a',b']\to\mathbb{R}^n$$
+
+è una nuova curva con lo stesso sostegno di $\varphi$. Inoltre $\tilde{\varphi}$ sarà chiusa/ regolare/ regolare a tratti/ semplice se e solo se $\varphi$ ha le medesime proprietà.\\
+
+Sotto molti punti di vista quindi $\varphi$ e $\tilde{\varphi}$ sono la stessa cosa; ciò suggerisce di introdurre una relazione di equivalenza $\sim$= $\varphi$ e $\tilde{\varphi}$ sono equivalenti quando $\exists f$ diffeomorfismo tale che $\underline{\tilde{\varphi}}:\underline{\varphi}\circ f$ $(\varphi\sim\tilde{\varphi})$. Si tratta di una effettiva relazione di equivalenza: le informazioni geometriche sono legate non tanto alla curva (cioè a $\varphi$) quanto alla classe di equivalenza $[\varphi]_{/_\sim}$.\\
+
+Per dimostrare che qualche concetto è quindi "geometrico" nonsotante sia definito usando una specifica $\varphi$ si dovrà verificare che esso dipende solo dalla classe di equivalenza $[\varphi]_{/_\sim}$. Ad esempio:\\
+
+\textbf{Definizione 4.5: }Data $\varphi:[a,b]\to\mathbb{R}^n$ regolare, chiamo lunghezza (del sostegno $\gamma$) della curva $\varphi$ l'integrale:
+
+$$l(\gamma):=\int_a^b||\varphi'(t)||dt$$
+
+In effetti l'integrale esiste ed il suo valore non cambia quando si utilizza una diversa $\tilde{\varphi}$ che è equivalente a $\varphi$.\\
+
+\textbf{Dimostrazione: } Se $\tilde{\varphi}=\varphi\circ f$ con $f:[a',b']\to[a,b]$ diffeomorfismo allora $f'\ne 0$. La derivata di $f$ è quindi sempre o negativa o positiva, supponiamo $f'>0$ ($\Rightarrow a=f(a')$ e $b=f(b')$) e si ha:
+
+$$\int_a^b||\varphi'(t)||dt=\int_{a'}^{b'} ||\varphi'(f(u))||f'(u)du=\int_{a'}^{b'} ||\varphi'(f(u))f'(u)||du=\int_{a'}^{b'}||\tilde{\varphi}'(u)||du$$
+
+Se invece si suppone $f'<0$ ($\Rightarrow a=f(b')$ e $b=f(a')$) si ha:
+
+$$\int_a^b||\varphi'(t)||dt=\int_{b'}^{a'} ||\varphi'(f(u))||f'(u)du=\int_{a'}^{b'} ||\varphi'(f(u))f'(u)||du=\int_{a'}^{b'}||\tilde{\varphi}'(u)||du\quad \Box$$\\
+
+Che l'integrale costituisca una misura della lunghezza della curva è una definizione motivata dal fatto che l'integrale assume come valore l'usuale lunghezza nel caso di curve che sono delle spezzate.\\
+
+Ci sono anche altri motivi per chiamare lunghezza quell'integrale. Ad esempio è ragionevole pensare alla lunghezza di una curva come al $\sup$ delle lunghezze delle spezzate interpolanti e  $l(\gamma):=\sup\{ \mbox{lunghezza delle spezzate con vertici in }\gamma \}$. Si dimostra che se $\gamma$ è regolare allora questo $\sup$ esiste e coincide con quell'integrale. Non dimostreremo questo risultato.\\
+
+Inoltre sia $\varphi$ una curva semplice allora $\varphi'(t)\ne 0$, sia $\underline{P}:=\varphi(t_0)$, l'insieme dei vettori $\langle \lambda \varphi'(t_0)\rangle_{\lambda\in\mathbb{R}}$ è un sottospazio d $E_p$ di dimensione 1. Se si cambia parametrizzazione $\tilde{\varphi}=\varphi\circ f$ il vettore cambia in $\tilde{\varphi}(u_0)=\varphi'(f(u_0))f'(u_0)$ (posto $t_0:=f(u_0)$) ma lo span di $\tilde{\varphi}'(u_0)$ è lo stesso du $\varphi'(t_0)$: lo spazio vettoriale $\langle \lambda \varphi'(t_0)\rangle_{\lambda\in\mathbb{R}}$ è quindi definito usando $\varphi$ ma è invariante sotto relazione di equivalenza $\sim$: è quindi un oggetto geometrico infatti è lo spazio tangente a $\gamma$ in $\underline{P}$.\\
+
+Il versore $\underline\tau$ invece non è invariante: se $\tilde{\varphi}=\varphi\circ f$ con $t_0=f(u_0)$, si ha:
+
+$$\tilde{\tau}(u_0)=\frac{\tilde{\varphi}'(u_0)}{||\tilde{\varphi}'(u_0)||}=\frac{\varphi'(t_0)f'(t_0)}{||\varphi'(t_0)f'(t_0)||}=\frac{\varphi'(t_0}{||\varphi'(t_0)||}\cdot\frac{f'(t_0)}{|f'(t_0)|}=\tau{(t_0)}\cdot sgn(f'(t_0))$$
+
+Il nuovo versore $\tilde{\tau}$ coincide con il vecchio versore se e solo $f'>0$ (ovvero $f$ è  crescente), altrimenti è il suo opposto.\\
+
+Questo suggerisce di introdurre una nuova (e più fine) relazione di equivalenza: $\tilde{\varphi}$ $\utilde\cdot$ $\varphi$ quando $\exists f$ biunivoca, bidifferenziabile e crescente tale che $\tilde{\varphi}=\varphi\circ f$. Anche $\utilde{\cdot}$ è una relazione di equivalenza e ogni classe di equivalenza è chiamata "curva orientata".\\
+
+Per le curve orientate ha senso parlare di un "prima" e un "dopo" almeno se sono semplici e non chiuse.\\
+
+Data una curva $\varphi:[a,b]\to\mathbb{R}^n$ con sostegno $\gamma$ si indica con $-\gamma$ la curva $\overline{\varphi}:[a,b]\to\mathbb{R}^n$ con $\overline{\varphi}(t):=\varphi(a+b-t)$. Allora $\varphi$ e $\overline{\varphi}$ non sono $\utilde{\cdot}$ equivalenti anche se sono $\sim$ equivalenti; ogni $\tilde{\varphi}$ che sia $\sim\varphi$ è di fatto $\utilde{\cdot}$ a $\varphi$ o a $\overline{\varphi}$. Questo corrisponde a dire che:\begin{itemize}
+\item  Se $\tilde{\varphi}$ $\utilde{\cdot}$ $\varphi\Rightarrow\tilde{\varphi}\sim\varphi$
+\item La classe di equivalenza $[\varphi]_{/_\sim}$ si spezza in due classi di $\utilde{\cdot}$ equivalenza.
+\end{itemize}
+Da ciò segue che $\tau$ non è ben definito in $[\varphi]_{/_\sim}$ ma lo è in $[\varphi]_{/_{\utilde\cdot}}$
+
+\subsection{Concatenazione}
+
+Se $\gamma_1$ è sostegno da $\underline{P}$ a $\underline{Q}$ e $\gamma_2$ da $\underline{Q}$ a $\underline{S}$ allora è possibile concatenare $\gamma_1$ con $\gamma_2$ in ciò che denotiamo con $\gamma_1+\gamma_2$. Anche $\gamma_1+\gamma_2$ è il sostegno di una curva: se $\varphi_1:[a_1,b_1]$ ha sostegno $\gamma_1$ e $\varphi_2:[a_2,b_2]$ ha sostegno $\gamma_2$ allora $\varphi:[0,1]\to\mathbb{R}^n$ con:
+
+$$\begin{cases}
+\varphi_1(a_1+(b_1-a_1)2t)\quad t\in[0,\frac{1}{2}]\\
+\varphi_2 (a_2+(b_2-a_2)(2t-1))\quad t\in[\frac{1}{2},1]
+\end{cases}$$
+parametrizza $\gamma_1+\gamma_2$. Si osservi che $\varphi$ è ben definita perchè $\varphi_1(b_1)=Q=\varphi_2(a_2)$ e che $\varphi$ è regolare a tratti se $\varphi_1$ e $\varphi_2$ lo sono ma in generale in $Q$ le derivate possono non coincidere.\\
+
+\textbf{Definizione 4.6: }Dato $\Omega\subseteq\mathbb{R}^n$ aperto, $\Omega$ è detto connesso per archi (semplici/ regolari/...) quando per ogni coppia di punti in $\Omega$ esiste una curva (di quel tipo) che li connette.\\
+
+\textbf{Teorema 4.7: }Sia $\Omega\subseteq\mathbb{R}^n$ un aperto connesso allora è connesso per archi (che si possono prendere semplici, regolari ed orientati).\\
+
+\textbf{Dimostrazione: }Fisso $\underline p$ in $\Omega$. Sia $A:=\{\underline q\in\Omega$, per i quali esiste una curva che connette $\underline p$ con $\underline q\}$:\begin{itemize}
+\item $A$ non è vuoto. Infatti esiste una bolla di centro $\underline p$ e tutta in $\Omega$ (perché $\Omega$ è aperto) e ogni punto della bolla è connesso a $\underline p$ dal raggio quindi la bolla è contenuta in $A$.
+\item $A$ è aperto. Infatti se $\underline q\in A$ allora esiste una bolla centrata in $\underline q$ tutta in $\Omega$. Ogni elemento $\underline r$ della bolla è connesso dal raggio a $\underline q$ e $\underline q$ lo è a $\underline p$ (perché $\underline q\in A$), quindi $\underline r$ è connesso a $\underline p$ (dalla concatenazione) perciò $\underline r\in A$
+\item $A$ è chiuso in $\Omega$ ovvero $A^c \cap \Omega$ è aperto. Infatti sia $\underline q \in A^c$ se non esiste una bolla di centro $\underline q$ tutta in $A^c$ allora la bolla di centro $\underline q$ e tutta in $\Omega$ (che esiste perchè $\Omega$ è aperto) avrebbe almeno un punto $\underline r$ in $A$ ovvero connesso a $\underline p$. Ma allora $\underline r$ è connesso a $\underline q$ dal raggio e quindi $\underline p$ sarebbe connesso a $\underline q$ contro l'ipotesi. L'assurdo dimostra che $A^c$ è aperto.
+\end{itemize}
+Ma allora $A\ne\emptyset$ e sia $A$ che $A^c\cap\Omega$ sono aperti. Visto che $\Omega$ è connesso, $A^c\cap\Omega=\emptyset$ ovvero la tesi. $\Box$\\
+
+\textbf{Osservazione 4.8:} Vale anche il viceversa. Non dimostreremo questo risultato.\\
+
+\textbf{Osservazione 4.9:} I convessi sono connessi per archi (si scelga il segmento che unisce due punti).\\
+
+\textbf{Definizione 4.10:} $\Omega$ è detto stellato quando $\exists \underline P\in\Omega$ tale che il segmento $\overline{PQ}\in\Omega$ $\forall\underline{Q}\in\Omega$. $\underline P$ è detto centro. Allora $\{Convessi\}\subset\{Stellati\}\subset\{Connessi$ $per$ $archi\}$\\
+
+\textbf{Esempio 4.11: }Esistono $\Omega$ che sono aperti, stellati ed hanno un unico centro. Ad esempio $\mathbb{R}^2$/$\left[\{(x,0)\in\mathbb{R}^2, |x|>1\}\cup\{(0,y)\in\mathbb{R}^2, |y|>1\}\right]$ ha come unico centro il punto $(0,0)$.\\
+
+Curiosità: Se $\Omega$ è stellato l'insieme dei suoi centri è convesso.
+
+\section{Campi vettoriali e Forme differenziali}
+
+Sia $\Omega\subseteq\mathbb{R}^n$ un aperto. Ad ogni $\underline{p}\in\Omega$ è associato lo spazio $E_p$ (delle frecce uscenti da $\underline p$) e lo spazio $E_p^*$: il duale vettoriale di $E_p$ (ovvero l'insieme dei funzionali lineari si $E_p$).\\
+
+\textbf{Definizione 4.12:} Chiamo campo vettoriale su $\Omega$ ogni mappa che associa ad ogni $x\in\Omega$ un elemento di $E_x$, chiamo forma differenziale su $\Omega$ ogni mappa che associa ad $x\in\Omega$ un elemento di $E_x^*$\\
+
+\textbf{Esempio 4.13:} C'è un modo "canonico" per produrre un campo vettoriale e una forma differenziale: sia $f:\Omega\to\mathbb{R}$ di classe $\mathcal{C}^1$.\begin{itemize}
+\item La mappa del $\nabla f$ manda $x\mapsto (\nabla f)(x)\in E_x$ è campo vettoriale.
+\item La mappa $df$ che manda $x\mapsto (df)(x)\in E_x^*$ (la derivata di $f$ in $x$) che manda $v\mapsto(D_vf)(x)$ (derviata di $f$ in $x$ lungo la direzione $v$) è una forma differenziale.
+\end{itemize}
+Questi sono tipi di campi e di forme estremamente importanti e hanno un nome proprio\\
+
+\textbf{Definizione 4.14: }Un campo vettoriale $\underline F$ è detto conservativo su $\Omega$ se esiste $f:\Omega\to\mathbb{R}$ di classe $\mathcal{C}^1$ con $\underline{F}=\nabla f$. Una forma differenziale $\omega$ è detta esatta su $\Omega$ se esiste $f:\Omega\to\mathbb{R}$ di classe $\mathcal{C}^1$ con $\omega=df$. In entrambi i casi $f$ è detto potenziale per $F$ (o per $\omega$)\\.
+
+\textbf{Osservazione 4.15: }Il potenziale se esiste non è mai unico: questo perchè qualunque sia il valore di una costante $c\in\mathbb{R}$ si ha $\nabla (f+c)=\nabla f$ (e $d(f+c)=df$).\\
+
+D'altra parte è evidente che se $f$ e $\tilde{f}$ sono due potenziali per il medesimo campo allora $\nabla (f-\tilde{f})=\underline{0}$ quindi i potenziali sono unici a meno di funzioni $\mathcal{C}^1(\Omega)$ a gradienti $\equiv 0$. Si osservi che:
+
+$$V_0(\Omega):=\{g\in\mathcal{C}^1(\Omega)\mbox{, }\nabla g=0\}$$
+è uno spazio vettoriale. Ogni funzione di tale spazio è costante sulle componenti connessi di $\Omega$, d'altra parte per ogni componente connessa $C_j$ si può scegliere arbitrariamente un nuovo $c_j\in\mathbb{R}$ e ponendo:
+
+$$g(x)=\{c_j\mbox{ quando }x\in C_j,\forall j\}$$
+si definisce un elemento di $V_0(\Omega)$. Questo dimostra che:
+$$\dim V_0(\Omega)=\# \mbox{Componenti connesse in }\Omega$$
+
+\textbf{Osservazione 4.16:} $E_p$ è uno spazio euclideo su cui cioè esiste un prodotto scalare $\langle$ , $\rangle$. Tramite questo prodotto è possibile identificare un elemento $E_p*$ con un vettore di $E_p$ (isomorfismo di Riesz). Ciò significa che dato un campo vettoriale si può sempre costruire una forma differenziale:
+
+$$\underline{F}\to\omega:=\langle\underline F,\cdot\rangle$$
+e viceversa, data una forma differenziale $\omega$ esiste un campo $\underline F$ tale che:
+
+$$\omega\to\exists \underline F\mbox{ con }\omega=\langle\underline F,\cdot\rangle$$
+Usare campi o forme è quindi; a questo livello, del tutto equivalente.
+
+\subsection{Notazione}
+
+Per $\Omega\subseteq\mathbb{R}^n$ indichiamo con: \begin{itemize}
+\item  $\partial x_i$ (o $\partial_i$) il campo vettoriale definito da $\partial x_i$:= versore $e_i$ di $E_x$ che è parallelo ad $e_i$ di $\mathbb{R}^n$
+\item $dx_i$ la forma differenziale duale ovvero tale che:
+
+$$(dx_i)(\partial_j)=\begin{cases} 1 &\mbox{se } j=i\\0 &\mbox{se } j\ne i\end{cases}$$
+\end{itemize}
+Il generico campo vettoriale sarà quindi scritto:
+
+$$\underline F=a_1(x)\partial_1+a_2(x)\partial_2+\ldots+a_n(x)\partial_n$$
+e la generica forma differenziale sarà:
+
+$$\omega=a_1(x)dx_1+a_2(x)dx_2+\ldots+a_n(x)dx_n$$
+ed $F$ (o $\omega$) sono di classe $\mathcal{C}^k$ quando $a_1,\ldots,a_n$ sono $\mathcal{C}^k(\Omega)$\\
+
+\textbf{Esempio 4.17: } Se $F(x)=(3x-y)\partial_x+(7x^2-9y)\partial_y$ in $\mathbb{R}^2$ e $\omega(x)=(4-2x)dx+(5-xy)dy$ allora $\omega(x)(F(x))=(4-2x)(3x-y)+(5-xy)(7x^2-9y)$\\
+
+Inoltre $F$ è conservativa (in $\Omega$) se e solo se $\exists f \in \mathcal{C}^1(\Omega)$ tale che: 
+
+$$\begin{cases}
+\frac{\partial f}{\partial x_1}(x)=a_1(x)\\
+\vdots\\
+\frac{\partial f}{\partial x_n}(x)=a_n(x)
+\end{cases}$$
+Analogamente $\omega$ è esatta se e solo se $\exists f \in \mathcal{C}^1(\Omega)$ tale che: 
+
+$$\begin{cases}
+\frac{\partial f}{\partial x_1}(x)=a_1(x)\\
+\vdots\\
+\frac{\partial f}{\partial x_n}(x)=a_n(x)
+\end{cases}$$
+
+\subsection{Integrazione di forme/campi lungo curve}
+
+Sia $\omega$ una forma differenziale continua su $\Omega$, sia $\varphi$ una curva in $\Omega$, orientata con sostegno $\gamma$. Si pone:
+
+$$\int_\gamma\omega:=\int_\gamma \sum_{j=1}^na_j(x)dx_j:=\int_a^b\sum_{j=1}^n a_j(\varphi(t))\cdot\varphi'(t)dt$$
+Se $F$ è un campo vettoriale analogamente si pone:
+
+$$\int_\gamma F\cdot ds:=\int_\gamma \langle F,ds\rangle=\int_a^b\sum_{j=1}^n a_j(\varphi(t))\cdot\varphi'(t)dt$$
+
+\textbf{Osservazione 4.18: }Le due definizioni sono coerenti, nel senso che se $\omega$ è la forma associata ad $F$ (o viceversa) allora $\int_\gamma \omega=\int_\gamma \underline{F}\cdot\underline{ds}$\\
+
+\textbf{Osservazione 4.19: }L'integrale appena definito è $\utilde\cdot$ invariante: se $\tilde{\varphi}$ è una diversa parametrizzazione di $\gamma$ (ma con la stessa orientazione), l'integrale calcolato con $\tilde{\varphi}$ o con $\varphi$ danno lo stesso valore. Tuttavia non è $\sim$ invariante:
+
+$$\int_{-\gamma}\omega=-\int_\gamma\omega$$
+ovvero cambiando l'orientazione l'integrale inverte il segno.\\
+
+\textbf{Osservazione 4.20: }L'integrale è "$\gamma$-additivo" ovvero:
+
+$$\int_{\gamma_1+\gamma_2}\omega=\int_{\gamma_1}\omega+\int_{\gamma_2}\omega$$
+purchè $\gamma_1+\gamma_2$ sia definito, orientato e $\mathcal{C}^1$ a tratti.
+
+La seguente proposizione spiega perchè la nozione di campo conservativo / forma esatta sia interessante e quale sia il legame con l'integrale definito.\\
+
+\textbf{Proposizione 4.21: }Sia $\Omega$ aperto connesso e $\omega$ una forma differenziale continua si $\Omega$. Allora le seguenti proprietà sono equivalenti:\begin{enumerate}
+\item $\omega$ è esatta
+\item Siano $\underline{p}$ e $\underline{q}$ punti qualunque in $\Omega$, allora l'integrale $\int_{\underline{p}\gamma\underline{q}}\omega$, dove $\gamma$ è una qualunque curva (sostegno) regolare a tratti e orientata da $\underline{p}$ a $\underline{q}$, non dipende dalla scelta di $\gamma$: $\int_{\underline{p}\gamma_1\underline{q}}\omega=\int_{\underline{p}\gamma_2\underline{q}}\omega$
+\item Per ogni curva $\gamma$ in $\Omega$ che sia regolare a tratti e chiusa si ha $\int_\gamma\omega=0$
+\end{enumerate}
+
+\textbf{Osservazione 4.22: }L'ipotesi di $\Omega$ connesso garantisce $\Omega$ connesso per archi: dati $\underline{p}$ e $\underline{q}$ punti qualunque esiste di sicuro la curva $\underline{p}\gamma_1\underline{q}$\\
+
+\textbf{Osservazione 4.23:} La proposizione mostra che l'esattezza di $\omega$ equivale alla possibilità di calcolare $\int_{\underline{p}\gamma\underline{q}}\omega$ a $\underline{p}$ e $\underline{q}$ fissati cambiando $\gamma$ come ci pare.\\
+
+\textbf{Osservazione 4.24:} L'equivalente affermazione per i campi vettoriali dice che $F$ è conservativo se e solo se il lavoro di $F$ da $\underline{p}$ e $\underline{q}$ lungo $\gamma$ non dipende da $\gamma$.\\
+
+\textbf{Dimostrazione:} $1\Rightarrow 2)$ Supponiamo $\omega$ esatta, quindi $\omega=df$ con $f\in\mathcal{C}^1(\Omega)$. Allora se $\varphi:[a,b]\to\Omega$ è la curva ($\mathcal{C}^1$ a tratti, orientata) da $\underline{p}$ a $\underline{q}$ si ha:
+
+$$\int_{\underline{p}\gamma\underline{q}}\omega=\int_a^b\sum_{i=1}^n a_i(\varphi(t))\varphi_i'(t)dt=\int_a^b\sum_{i=1}^n \frac{\partial f}{\partial x_i}(\varphi(t))\varphi_i'(t)dt=\int_a^b\frac{d}{dt}(f(\varphi(t)))=$$
+
+$$f(\varphi(b))-f(\varphi(a))=f(q)-f(p)$$
+che quindi non dipende da $\gamma$.\\
+
+$2\Rightarrow 3)$ Se $\gamma$ è chiusa: prendo $p$ e  $q$ su $\gamma$ e spezzo $\gamma$ come $\gamma_1+\gamma_2$ dove $gamma_1$ va da $p$ a $q$ e $\gamma_2$ da $q$ a $p$. Allora:
+
+$$\int_\gamma\omega=\int_{\gamma_1+\gamma_2}\omega=\int_{\gamma_1}\omega+\int_{\gamma_2}\omega=\int_{\gamma_1}-\int_{-\gamma_2}\omega=0$$
+perchè sia $\gamma-1$ sia $-\gamma_2$ vanno da $p$ a $q$ e stiamo assumendo $2$.\\
+
+$3\Rightarrow 2)$ Se $\gamma_1$ a $\gamma_2$ vanno da $p$ a $q$ allora $\gamma_1+(-\gamma_2)$ è chiusa, quindi:
+
+$$\int_{\gamma_1}\omega-\int_{\gamma_2}\omega=\int_{\gamma_1}\omega+\int_{-\gamma_2}\omega=\int_{\gamma_1+(-\gamma_2)}\omega=0$$\\
+
+$2\Rightarrow 1)$ Sia $p\in\Omega$ fissato (a caso ma fissato). Sia $f(x):=\int_{p\gamma x}\omega$ dove $\gamma$ è una qualunque curva (regolare a tratti, orientata) che collega $p$ ad $x$ in $\Omega$ ($\gamma$ esiste perchè $\Omega$ è connesso per archi).. Allora $f$ è ben definito in $\Omega$, perchè $2$ mostra che $f(x)$ dipende solo da $x$ e non dalla scelta di $\gamma$. Mostriamo che $f$ è un potenziale per $\omega$: questo implica che $\omega$ è esatta.\\
+
+Sia $h\ne o$ e supponiamo piccolo perchè $\underline{x}+h\underline{e_1}\in\Omega$ (possibile perchè $\Omega$ è aperto). Allora $f(\underline{x}+h\underline{e_1}\in\Omega)$ è per definizione l'integrale lungo qualunque cammino che colleghi $\underline P$ con $\underline{x}+h\underline{e_1}\in\Omega$, come cammino scelgo $\gamma+$ segmento $[\underline{x},\underline{x}+h\underline{e_1}\in\Omega]$ così:
+
+$$\frac{1}{h}(f(\underline{x}+h\underline{e_1})-f(\underline{x})=\frac{1}{h}\left(\int_{p\gamma x}\omega+\int_{[x,x+he_1]}\omega-\int_{p\gamma x}\omega\right)=\frac{1}{h}\int_{[x,x+he_1]}\omega$$
+Come parametrizzazione prendo:
+
+$$\varphi:[0,h]\to\mathbb{R}^n\qquad\varphi(t)=\underline{x}+t\underline{e_1}$$
+Allora $\varphi'(t)=e_1$ quindi:
+
+$$\frac{1}{h}\int_{[x,x+he_1]}\sum_{i=1}^n a_i(w)dw_i=\frac{1}{h}\int_0^h\sum_{i=1}^n a_i(x+te_1)\cdot(e_1)_idt=\frac{1}{h}\int_0^ha_1(x+te_1)dt$$
+ma $a_1$ è continua quindi usiamo il teorema del valor medio integrale:
+
+$$=a_1(x+\xi e_1)$$
+
+con $\xi\in[0,h]$ e se $h\to 0$ allora $\xi\to 0$ ed $a_1(x+\xi e_1)\to a_1(x)$ perchè $a_1$ è continua quindi:
+
+$$\lim_{h\to 0} \frac{1}{h}(f(x+te_1)-f(x))\mbox{ esiste e vale }a_1(x)$$
+Lo stesso vale per le altre direzioni quindi $df=\omega$ e visto che le $a_i$ sono continue ne segue che $f\in\mathcal{C}^1(\Omega)$. $\Box$\\
+
+Il teorema appena visto illustra l'interesse per la proprietà di conservatività del campo vettoriale (o esattezza della forma), ma è poco pratico come strumento per dimostrare queste proprietà. (Banalmente; come fare a verificare che $\int_\gamma\omega=0$ per ogni curva chiusa). La seguente proprietà mostra una conseguenza della esattezza e quindi è un utile criterio necessario.\\
+
+\textbf{Definizione 4.25: }Dato il campo vettoriale $F$ su $\Omega$, $\Omega$ aperto in $\mathbb{R}^n$, di classe $\mathcal{C}^1$. Sia $F(x)=(a_1(x),\ldots,a_n(x))$, $F$ è detto irrotazionale quando:
+
+$$\frac{\partial a_j(x)}{\partial x_i}=\frac{\partial a_i(x)}{\partial x_j}\quad\forall i,j=1,\ldots,n$$
+Analogamente, data una forma differenziale $\omega$ su $|Omega$ di classe $\mathcal{C}^1$, $\omega=a_1(x)dx_1+\ldots+a_ndx_n$, $\omega$ è detta chiusa quando:
+
+$$\frac{\partial a_j(x)}{\partial x_i}=\frac{\partial a_i(x)}{\partial x_j}\quad\forall i,j=1,\ldots,n$$
+
+\textbf{Teorema 4.26: }Sia $\Omega$ aperto e $F$ campo vettoriale su $\Omega$ di classe $\mathcal{C}^1$. Se $F$ è conservativo allora $F$ è irrotazionale. Analogamente sia $\omega$ una forma differenziale di classe $\mathcal{C}^1$ su $\Omega$; se $\omega$ è esatta allora è chiusa.\\
+
+\textbf{Dimostrazione:} La diamo per i campi, per le forme è uguale. $F=(a_1(x),\ldots,a_n(x))$ con $a_j\in\mathcal{C}^1(\Omega)$ per ipotesi. $F$ è esatta quindi esiste $f:\Omega\to\mathbb{R}$, $f\in\mathcal{C}^1(\Omega)$ tale $F=\nabla f$ quindi:
+
+$$a_j(x)=\frac{\partial f}{\partial x_j}(x)\quad\forall j$$
+Visto che $a_j\in\mathcal{C}^1$ allora $f\in\mathcal{C}^2(\Omega)$ e così:
+
+$$\frac{\partial a_j(x)}{\partial x_i}=\frac{\partial}{\partial x_i}\frac{\partial f}{\partial x_j}=\frac{\partial}{\partial x_j}\frac{\partial f}{\partial x_i}=\frac{\partial a_i(x)}{\partial x_j}\qquad\Box$$
+
+\textbf{Esempio 4.27: } (vortice) Sia $F(x,y)=\left(\frac{-y}{x^2+y^2},\frac{x}{x^2+y^2}\right)$ (forma equivalente: $\omega(x,y)=\frac{1}{x^2+y^2}(-ydx+xdy)$). $F$ è irrotazionale perchè:
+
+$$\frac{\partial}{\partial y}\left(\frac{-y}{x^2+y^2}\right)=\frac{y^2-x^2}{x^2+y^2}=\frac{\partial}{\partial_x}\left(\frac{x}{x^2+y^2}\right)$$
+$F$ non è però conservativo: se $\gamma$ è la circonferenza di raggio 1:
+
+$$\varphi(t)=(\cos t,\sin t) \quad t:0\to 2\pi$$ 
+
+$$\int_\gamma\omega=\int_\gamma \frac{-ydx+xdy}{x^2+y^2}=\int_0^{2\pi}-\sin t\mbox{ }d(\cos t)+\cos t\mbox{ }d(\sin t)=\int_0^{2\pi}1dt=2\pi\ne 0$$
+Se fosse conservativo l'integrale dovrebbe essere 0 visto che $\gamma$ è curva regolare è chiusa.\\
+
+La irrotazionalità per campi vettoriali o la chiusura per le forme differenziali non sono quindi sufficienti per l'essere conservativi o esatte.\\
+
+\textbf{Osservazione 4.28: }Dato $\Omega$ aperto siano:
+$$V_1(\Omega)=\{\omega\mbox{ forme }\mathcal{C}^1(\Omega),\mbox{ chiuse}\}$$
+$$V_1^e(\Omega)=\{\omega\mbox{ forme }\mathcal{C}^1(\Omega),\mbox{ esatte}\}$$
+
+$V_1(\Omega)$ è spazio vettoriale, perchè se $\omega$ e $\tilde\omega$ sono forme chiuse anche $\omega+\lambda\tilde\omega$ lo è visto che:
+
+$$\frac{\partial}{\partial x_j}(a_1+\lambda\tilde{a}_i)=\frac{\partial a_i}{\partial x_j}+\lambda\frac{\tilde{a}_itilde}{\partial x_j}$$
+
+Anche $V_i^e(\Omega)$ è uno spazio vettoriale perchè se $\omega=df$ e $\tilde{\omega}=d\tilde{f}$ allora $\omega+\lambda\tilde{\omega}=d(f+\lambda\tilde{f})$.
+
+Lo spazio quoziente:
+
+$$\frac{V_1(\Omega)}{{V_i^e(\Omega)}}$$
+quindi è una misura di quanto l'insieme delle forme chiuse "disti" da quello delle esatte poichè $V_1(\Omega)\equiv V_1^e(\Omega)$ se e solo se il quoziente è banale.\\
+
+ L'esempio del vortice mostra che per $\Omega=\mathbb{R}^2\textbackslash\{(0,0)\}$ si ha $V_1(\Omega)\neq V_1^e(\Omega)$ ovvero il quoziente non è banale (quindi ha dimensione $\geq1$). Ovviamente le stesse condizioni possono essere fatte per l'insieme dei campi irrotazionali e conservativi. Il seguente teorema 4.30 è fondamentale:\\
+ 
+\textbf{Lemma (derivazione sotto segno di integrale) 4.29:} Sia $f:\Omega\times [a,b]\to\mathbb{R}$, con $\Omega$ aperto di $\mathbb{R}$. Sia $x_0\in\Omega$ e supponiamo che $\exists\mathcal{U}(x_0)$ aperto tale che:\begin{itemize}
+\item $f\in\mathcal{C}(\mathcal{U}(x_0)\times[a,b])$
+\item $\frac{\partial f}{\partial x}$ esiste in $\mathcal{U}(x_0)\times[a,b]$ e $\in\mathcal{C}(\mathcal{U}(x_0)\times[a,b])$
+\end{itemize}
+Allora la funzione:
+
+$$F(x):=\int_a^b f(x,t)dt$$
+è derivabile in $x_0$ e $\frac{dF}{dx}(x_0)=\int_a^b\frac{\partial f}{\partial x}(x_0,t)dt$.\\
+
+\textbf{Teorema (Lemma di Poincarè) 4.30: } Sia $\Omega\subseteq\mathbb{R}^n$ aperto e stellato. Sia $\omega=\sum_{j=1}^n a_j(x)dx_j$ una forma differenziale $\mathcal{C}^1(\Omega)$, se $\omega$ è chiusa allora è anche esatta.\\
+
+\textbf{Osservazione 4.31: }Ovviamente esiste il teorema gemello per i campi vettoriali.\\
+
+\textbf{Osservazione 4.32: } Il teorema mostra che una informazione sulla topologia di $\Omega$ rende la chiusura una condizione sufficiente per l'esattezza.\\
+
+\textbf{Osservazione 4.33: } Ogni bolla aperta è convessa quindi stellata. Ne segue che le forme chiuse sono sempre localmente esatte (il problema è che l'esattezza locale non implica quella globale).\\
+
+\textbf{Osservazione 4.34: }Dal teorema segue che se $\Omega$ è stellato allora $V_1(\Omega)=V_1^e(\Omega)$ ovvero il loro quoziente è banale.
+
+\textbf{Dimostrazione: }$\Omega$ è stellato per ipotesi, sia quindi $\underline{P}$ uno dei suoi centri (quale non importa). Sia $X\in\Omega$, il segmento $\overline{PX}$ è quindi
 \end{document}
 
 
